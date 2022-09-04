@@ -1,0 +1,89 @@
+@use "@styling/colours";
+@use "@styling/padding";
+@use "@styling/fonts";
+@use "@styling/border";
+
+.conversation {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: padding.$lg;
+    transition: all 0.4s ease;
+    border-radius: border.$radius-md;
+    backdrop-filter: brightness(120%);
+
+    &:focus,
+    &:hover,
+    &.selected {
+        backdrop-filter: none;
+        background-color: colours.$green;
+
+        svg {
+            color: colours.$white;
+        }
+
+        .details {
+            div:first-child {
+                .timestamp {
+                    color: colours.$grey-xdark;
+                }
+            }
+
+            .message {
+                color: colours.$grey-dark;
+
+                .author {
+                    color: colours.$grey-xdark;
+                }
+            }
+        }
+    }
+
+    svg {
+        min-width: 30px;
+        margin-right: padding.$md;
+        font-size: 25px;
+        color: colours.$green;
+        transition: all 0.4s ease;
+    }
+
+    .details {
+        width: 100%;
+        min-width: 0;
+
+        div:first-child {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: padding.$md;
+            margin-bottom: padding.$sm;
+
+            .recipients {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-size: fonts.$size-sm;
+                color: colours.$white;
+            }
+
+            .timestamp {
+                white-space: nowrap;
+                color: colours.$grey-xlight;
+                font-size: fonts.$size-xs;
+            }
+        }
+
+        .message {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: left;
+            color: colours.$grey-light;
+            font-size: fonts.$size-xs;
+
+            .author {
+                color: colours.$grey-xlight;
+            }
+        }
+    }
+}

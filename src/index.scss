@@ -1,0 +1,64 @@
+@use "@styling/fonts";
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI";
+    padding: 30px;
+    box-sizing: border-box;
+    background: {
+        image: url("./assets/background-image.jpg");
+        position: center;
+        repeat: no-repeat;
+        size: cover;
+    }
+}
+
+h1,
+h2,
+h3 {
+    font-weight: normal;
+}
+
+h1 {
+    font-size: fonts.$size-xl;
+    line-height: fonts.$size-xl;
+}
+
+h2 {
+    font-size: fonts.$size-lg;
+    line-height: fonts.$size-lg;
+}
+
+h3 {
+    font-size: fonts.$size-md;
+    line-height: fonts.$size-md;
+}
+
+button {
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    transition: opacity 0.3s;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:disabled {
+        pointer-events: none;
+        opacity: 0.7;
+    }
+}
+
+input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}

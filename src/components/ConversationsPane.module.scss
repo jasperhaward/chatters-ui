@@ -1,0 +1,18 @@
+@use "@styling/padding";
+@use "@styling/colours";
+@use "@styling/fonts";
+
+.conversationsPane {
+    overflow-y: auto;
+
+    > * {
+        margin-top: padding.$md;
+    }
+
+    > span {
+        display: block;
+        text-align: center;
+        color: colours.$grey-light;
+        font-size: fonts.$size-xs;
+    }
+}

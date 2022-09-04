@@ -1,0 +1,33 @@
+@use "@styling/padding";
+@use "@styling/colours";
+@use "@styling/fonts";
+@use "@styling/brightness";
+@use "@styling/border";
+
+.searchBox {
+    display: flex;
+    padding: padding.$md;
+    border-radius: border.$radius-lg;
+    backdrop-filter: brightness.$light;
+
+    input {
+        margin: 0 padding.$sm;
+        color: colours.$white;
+        font-size: fonts.$size-sm;
+
+        &::placeholder {
+            color: colours.$grey-light;
+        }
+    }
+
+    button {
+        display: contents;
+        margin-right: 2px;
+        font-size: fonts.$size-md;
+        color: colours.$green;
+
+        &:hover {
+            opacity: 0.4;
+        }
+    }
+}

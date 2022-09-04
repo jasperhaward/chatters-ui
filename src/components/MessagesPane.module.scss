@@ -1,0 +1,9 @@
+@use "@styling/padding";
+@use "@styling/colours";
+@use "@styling/fonts";
+
+.messagesPane {
+    h2 {
+        color: colours.$white;
+    }
+}

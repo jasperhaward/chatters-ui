@@ -1,0 +1,40 @@
+@use "@styling/colours";
+@use "@styling/shadow";
+@use "@styling/border";
+@use "@styling/padding";
+
+.chat {
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    h1 {
+        color: colours.$white;
+    }
+
+    main {
+        display: flex;
+        height: 80%;
+
+        .conversations,
+        .messages {
+            display: flex;
+            flex-direction: column;
+            padding: padding.$lg;
+        }
+
+        .conversations {
+            width: 30%;
+            border-top-left-radius: border.$radius-lg;
+            border-bottom-left-radius: border.$radius-lg;
+            background-color: colours.$background-medium;
+        }
+
+        .messages {
+            flex-grow: 1;
+            border-top-right-radius: border.$radius-lg;
+            border-bottom-right-radius: border.$radius-lg;
+            background-color: colours.$background-light;
+        }
+    }
+}

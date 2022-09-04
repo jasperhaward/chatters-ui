@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "target": "ESNext",
+    "allowSyntheticDefaultImports": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "isolatedModules": true,
+    "noEmitOnError": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "baseUrl": ".",
+    "skipLibCheck": true,
+    "paths": {
+      "@api": ["./src/api/index"],
+      "@components": ["./src/components/index"],
+      "@context": ["./src/context/index"],
+      "@hooks": ["./src/hooks/index"],
+      "@types": ["./types/index"]
+    }
+  },
+  "include": ["src", "types"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
