@@ -3,12 +3,14 @@
 @use "@styling/fonts";
 @use "@styling/border";
 
+$transition: all 0.4s ease;
+
 .conversation {
     display: flex;
     align-items: center;
     width: 100%;
     padding: padding.$lg;
-    transition: all 0.4s ease;
+    transition: $transition;
     border-radius: border.$radius-md;
     backdrop-filter: brightness(120%);
 
@@ -44,7 +46,7 @@
         margin-right: padding.$md;
         font-size: 25px;
         color: colours.$green;
-        transition: all 0.4s ease;
+        transition: $transition;
     }
 
     .details {
@@ -70,6 +72,7 @@
                 white-space: nowrap;
                 color: colours.$grey-xlight;
                 font-size: fonts.$size-xs;
+                transition: $transition;
             }
         }
 
@@ -80,9 +83,11 @@
             text-align: left;
             color: colours.$grey-light;
             font-size: fonts.$size-xs;
+            transition: $transition;
 
             .author {
                 color: colours.$grey-xlight;
+                transition: $transition;
             }
         }
     }

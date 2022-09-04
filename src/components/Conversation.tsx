@@ -1,7 +1,7 @@
+import { useMemo } from "preact/hooks";
 import styles from "./Conversation.module.scss";
 import { Conversation as IConversation, Message, User } from "@types";
 import { Icon, HighlightedText, Timestamp } from ".";
-import { useMemo } from "preact/hooks";
 
 export interface ConversationsProps {
     search: string;
