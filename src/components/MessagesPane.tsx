@@ -98,7 +98,10 @@ export function MessagesPane({
      */
     function displayPointed(a: IMessage | undefined, b: IMessage | undefined) {
         return (
-            !!a && !!b && isWithinFiveMins(a, b) && a.createdBy === b.createdBy
+            !!a &&
+            !!b &&
+            isWithinFiveMins(a, b) &&
+            a.createdBy.id === b.createdBy.id
         );
     }
 
