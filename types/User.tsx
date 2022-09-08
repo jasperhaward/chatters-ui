@@ -3,7 +3,3 @@ export interface User {
     username: string;
     status: string;
 }
-
-export interface UserWithMeta extends User {
-    backgroundColor: string;
-}

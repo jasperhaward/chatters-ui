@@ -20,28 +20,20 @@ export function Conversation({
 }: ConversationsProps) {
     const [message] = conversation.messages;
 
-    const filteredRecipients = useMemo(() => {
-        // remove current user
-        return conversation.recipients.filter((recipient) => {
-            return recipient.id !== user.id;
-        });
-    }, [conversation, user]);
-
     const isGroupChat = useMemo(() => {
-        // filteredRecipients.length === 1 if its a direct message
-        return filteredRecipients.length > 1;
-    }, [filteredRecipients]);
+        return conversation.recipients.length > 1;
+    }, [conversation]);
 
     function author(message: Message) {
-        const author = filteredRecipients.find((recipient) => {
-            return recipient.id === message.createdBy;
-        });
+        const isCurrentUser = message.createdBy.id === user.id;
 
-        if (author && !isGroupChat) return "";
+        // don't show an author when the last message
+        // came from the conversation's only other recipient (a dm)
+        if (!isCurrentUser && !isGroupChat) return "";
 
         return (
             <span className={styles.author}>
-                {author ? author.username : "You"}:
+                {isCurrentUser ? "You" : message.createdBy.username}:
             </span>
         );
     }
@@ -60,7 +52,7 @@ export function Conversation({
                         className={styles.recipients}
                         query={search}
                     >
-                        {filteredRecipients
+                        {conversation.recipients
                             .map((recipient) => recipient.username)
                             .join(", ")}
                     </HighlightedText>

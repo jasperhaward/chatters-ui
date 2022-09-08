@@ -3,12 +3,7 @@ import { Fragment } from "preact/jsx-runtime";
 import styles from "./MessagesPane.module.scss";
 
 import colours from "@styling/_colours.module.scss";
-import {
-    Conversation,
-    Message as IMessage,
-    Session,
-    UserWithMeta,
-} from "@types";
+import { Conversation, Message as IMessage, Session } from "@types";
 import { Spinner, Message } from "@components";
 
 const coloursArray = Object.values(colours);
@@ -65,7 +60,7 @@ export function MessagesPane({
         prevMessage: IMessage | undefined,
         message: IMessage
     ) {
-        if (message.createdBy !== session!.user.id) {
+        if (message.createdBy.id !== session!.user.id) {
             return !prevMessage || message.createdBy !== prevMessage.createdBy;
         }
 
@@ -132,33 +127,32 @@ export function MessagesPane({
         });
     }
 
-    function getAuthorWithMeta(message: IMessage): UserWithMeta {
+    function backgroundColour(message: IMessage) {
+        if (message.createdBy.id === session!.user.id) {
+            return colours.green;
+        }
+
         const { recipients } = selectedConversation!;
 
         let index = recipients.findIndex((recipient) => {
-            return recipient.id === message.createdBy;
+            return recipient.id === message.createdBy.id;
         })!;
-
-        const author = recipients[index];
 
         // incase the number of recipients > number of colours
         while (index > coloursArray.length - 1) {
             index -= coloursArray.length;
         }
 
-        const backgroundColor =
-            author.id === session!.user.id
-                ? colours.green
-                : coloursArray[index];
-
-        return { ...author, backgroundColor };
+        return coloursArray[index];
     }
 
     function isWithinFiveMins(a: IMessage, b: IMessage) {
-        return (
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime() <=
-            5 * 60 * 1000
-        );
+        const createdAt = {
+            a: new Date(a.createdAt).getTime(),
+            b: new Date(b.createdAt).getTime(),
+        };
+
+        return Math.abs(createdAt.a - createdAt.b) <= 5 * 60 * 1000;
     }
 
     function isSameDay(a: IMessage, b: IMessage) {
@@ -191,10 +185,10 @@ export function MessagesPane({
                         )}
                         <Message
                             message={message}
-                            author={getAuthorWithMeta(message)}
                             meta={{
                                 alignRight:
-                                    message.createdBy === session.user.id,
+                                    message.createdBy.id === session.user.id,
+                                backgroundColor: backgroundColour(message),
                                 showAuthor: displayAuthor(prev, message),
                                 showTimestamp: displayTimestamp(message, next),
                                 pointedTop: displayPointed(prev, message),
