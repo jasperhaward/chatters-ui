@@ -1,0 +1,12 @@
+@use "colours";
+
+:export {
+    // leave green first as the current user is often the first recipient
+    // of a conversation, so is assigned this colour first
+    green: colours.$green;
+    white: colours.$white;
+    black: colours.$black;
+    purple: colours.$purple;
+    yellow: colours.$yellow;
+    red: colours.$red;
+}

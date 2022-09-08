@@ -1,4 +1,5 @@
 @use "@styling/fonts";
+@use "@styling/colours";
 
 html,
 body {
@@ -61,4 +62,20 @@ input {
     border: none;
     outline: none;
     background-color: transparent;
+}
+
+::-webkit-scrollbar {
+    width: 18px;
+}
+
+::-webkit-scrollbar-thumb {
+    border: 5px solid transparent;
+    border-radius: 10px;
+    background-color: colours.$grey-dark;
+    background-clip: padding-box;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: colours.$grey;
+    }
 }

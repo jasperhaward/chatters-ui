@@ -1,0 +1,78 @@
+@use "@styling/fonts";
+@use "@styling/colours";
+@use "@styling/border";
+@use "@styling/padding";
+
+$avatar-width: 30px;
+$message-alignment-padding: 50px;
+
+.message {
+    padding-right: $message-alignment-padding;
+
+    .author {
+        margin: {
+            left: $avatar-width + padding.$md;
+            bottom: padding.$xs;
+        }
+        color: colours.$white;
+        font-size: fonts.$size-xs;
+    }
+
+    article {
+        display: flex;
+
+        .avatar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: $avatar-width;
+            color: colours.$white;
+            font-size: fonts.$size-lg;
+        }
+
+        .content {
+            padding: padding.$md;
+            border-radius: border.$radius-md;
+            font-size: fonts.$size-sm;
+        }
+    }
+
+    time {
+        display: block;
+        margin: {
+            left: $avatar-width + padding.$md;
+            top: padding.$xs;
+        }
+        color: colours.$grey-xlight;
+        font-size: fonts.$size-xs;
+    }
+}
+
+.message.alignRight {
+    margin-left: auto;
+    padding: {
+        left: $message-alignment-padding;
+        right: 0;
+    }
+
+    time {
+        float: right;
+        margin-right: padding.$md;
+    }
+}
+
+.message:not(.alignRight).pointedTop .content {
+    border-top-left-radius: border.$radius-sm;
+}
+
+.message:not(.alignRight).pointedBottom .content {
+    border-bottom-left-radius: border.$radius-sm;
+}
+
+.message.alignRight.pointedTop .content {
+    border-top-right-radius: border.$radius-sm;
+}
+
+.message.alignRight.pointedBottom .content {
+    border-bottom-right-radius: border.$radius-sm;
+}

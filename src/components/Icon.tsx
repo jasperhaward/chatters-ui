@@ -17,7 +17,7 @@ export function Icon(props: IconProps) {
     if (icon) {
         const [element] = icon.abstract;
 
-        const children = element.children?.map((child) =>
+        const children = element.children!.map((child) =>
             createElement(child.tag, child.attributes)
         );
 

@@ -70,7 +70,7 @@ export const conversations: Conversation[] = [
     },
     {
         id: "C0",
-        recipients: [user, recipient1, recipient2, recipient3],
+        recipients: [user, recipient1, recipient2, recipient3, recipient4],
         messages: [
             {
                 id: generateId(),
@@ -87,6 +87,13 @@ export const conversations: Conversation[] = [
                 content: "Hello guys!",
                 createdAt: new Date(2022, 0, 3, 15, 38).toISOString(),
                 createdBy: recipient1.id,
+            },
+            {
+                id: generateId(),
+                conversationId: "C0",
+                content: "Whats occuring",
+                createdAt: new Date(2022, 0, 3, 14, 59).toISOString(),
+                createdBy: recipient2.id,
             },
             {
                 id: generateId(),
@@ -122,6 +129,27 @@ export const conversations: Conversation[] = [
                 content: "Hello Hello Tim!",
                 createdAt: new Date(2022, 0, 3, 11, 12).toISOString(),
                 createdBy: recipient2.id,
+            },
+            {
+                id: generateId(),
+                conversationId: "C0",
+                content: "Lorem ipsum....",
+                createdAt: new Date(2022, 0, 3, 11, 15).toISOString(),
+                createdBy: user.id,
+            },
+            {
+                id: generateId(),
+                conversationId: "C0",
+                content: "Lorem ipsum....",
+                createdAt: new Date(2022, 0, 3, 12, 15).toISOString(),
+                createdBy: recipient3.id,
+            },
+            {
+                id: generateId(),
+                conversationId: "C0",
+                content: "Lorem ipsum 2....",
+                createdAt: new Date(2022, 0, 3, 13, 15).toISOString(),
+                createdBy: recipient4.id,
             },
         ],
     },
@@ -234,9 +262,25 @@ export const conversations: Conversation[] = [
             {
                 id: generateId(),
                 conversationId: "C2",
-                content: "This is a really long mesasage u cuck",
-                createdAt: new Date(2021, 11, 6, 15, 52).toISOString(),
+                content:
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                createdAt: new Date(2021, 11, 6, 15, 22).toISOString(),
                 createdBy: recipient2.id,
+            },
+            {
+                id: generateId(),
+                conversationId: "C2",
+                content: "This is a really long mesasage u cuck",
+                createdAt: new Date(2021, 11, 6, 15, 25).toISOString(),
+                createdBy: recipient2.id,
+            },
+            {
+                id: generateId(),
+                conversationId: "C2",
+                content:
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                createdAt: new Date(2021, 11, 6, 15, 12).toISOString(),
+                createdBy: user.id,
             },
             {
                 id: generateId(),

@@ -8,7 +8,7 @@ import {
     SearchBox,
     ConversationsPane,
     MessagesPane,
-    Spinner,
+    ConversationHeader,
 } from "@components";
 import { useForm } from "@hooks";
 import { Conversation } from "@types";
@@ -85,7 +85,13 @@ export function Chat({ params }: ChatProps) {
                     />
                 </section>
                 <section className={styles.messages}>
-                    <MessagesPane selectedConversation={selectedConversation} />
+                    <ConversationHeader
+                        selectedConversation={selectedConversation}
+                    />
+                    <MessagesPane
+                        session={session}
+                        selectedConversation={selectedConversation}
+                    />
                 </section>
             </main>
         </div>
