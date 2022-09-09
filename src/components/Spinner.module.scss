@@ -1,15 +1,28 @@
 @use "@styling/colours";
 
 .spinner {
-    display: block;
     width: 25px;
     height: 25px;
-    margin: auto;
     border: 2px solid colours.$green;
     border-bottom-color: transparent;
     border-radius: 50%;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
+
+    &.sm {
+        width: 20px;
+        height: 20px;
+    }
+
+    &.md {
+        width: 25px;
+        height: 25px;
+    }
+
+    &.lg {
+        width: 30px;
+        height: 30px;
+    }
 }
 
 @keyframes rotation {
@@ -20,4 +33,11 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+.spinnerContainer {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

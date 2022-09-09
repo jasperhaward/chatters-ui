@@ -55,6 +55,10 @@ $message-alignment-padding: 50px;
         right: 0;
     }
 
+    article {
+        justify-content: right;
+    }
+
     time {
         float: right;
         margin-right: padding.$md;

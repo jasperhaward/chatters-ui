@@ -4,7 +4,7 @@ import styles from "./MessagesPane.module.scss";
 
 import colours from "@styling/_colours.module.scss";
 import { Conversation, Message as IMessage, Session } from "@types";
-import { Spinner, Message } from "@components";
+import { Spinner, SpinnerContainer, Message } from "@components";
 
 const coloursArray = Object.values(colours);
 
@@ -18,7 +18,11 @@ export function MessagesPane({
     selectedConversation,
 }: MessagesPaneProps) {
     if (!selectedConversation || !session) {
-        return <Spinner />;
+        return (
+            <SpinnerContainer>
+                <Spinner />
+            </SpinnerContainer>
+        );
     }
 
     const ref = useRef<HTMLDivElement>(null);
@@ -174,6 +178,8 @@ export function MessagesPane({
     return (
         <div className={styles.messagesPane}>
             {selectedConversation.messages
+                .slice()
+                .reverse() // needed as messages are ordered most recent first
                 .map((message, index, messages) => ({
                     ...message,
                     prev: messages[index - 1],

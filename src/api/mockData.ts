@@ -1,49 +1,44 @@
 import { User, Conversation, Message } from "@types";
-
-export function generateId() {
-    var arr = new Uint8Array(40 / 2);
-    crypto.getRandomValues(arr);
-
-    const dec2hex = (dec: number) => dec.toString(16).padStart(2, "0");
-
-    return Array.from(arr, dec2hex).join("");
-}
+import { generateId } from "@utils/id";
 
 export const user: User = {
     id: generateId(),
     username: "Jasper Haward",
-    status: "Hello all",
 };
 
 export const recipient1: User = {
     id: generateId(),
     username: "Monika Rahne",
-    status: "Hello 1",
 };
 
 export const recipient2: User = {
     id: generateId(),
     username: "Benedict Ng",
-    status: "Hello 1",
 };
 
 export const recipient3: User = {
     id: generateId(),
     username: "Tim Bracken",
-    status: "Hello 2",
 };
 
 export const recipient4: User = {
     id: generateId(),
     username: "John Trollop",
-    status: "Hello 3",
 };
 
 export const recipient5: User = {
     id: generateId(),
     username: "Alasdair Dibben",
-    status: "Hello 4",
 };
+
+export const users = [
+    user,
+    recipient1,
+    recipient2,
+    recipient3,
+    recipient4,
+    recipient5,
+];
 
 const now = new Date();
 
@@ -85,71 +80,73 @@ export const conversations: Conversation[] = [
                 id: generateId(),
                 conversationId: "C0",
                 content: "Hello guys!",
-                createdAt: new Date(2022, 0, 3, 15, 38).toISOString(),
+                createdAt: new Date(
+                    now.getTime() - 1000 * 60 * 60 * 35
+                ).toISOString(),
                 createdBy: recipient1,
             },
             {
                 id: generateId(),
                 conversationId: "C0",
                 content: "Whats occuring",
-                createdAt: new Date(2022, 0, 3, 14, 59).toISOString(),
+                createdAt: new Date(
+                    now.getTime() - 1000 * 60 * 60 * 40
+                ).toISOString(),
                 createdBy: recipient2,
             },
             {
                 id: generateId(),
                 conversationId: "C0",
                 content: "Will see you soon",
-                createdAt: new Date(2022, 0, 3, 15, 12).toISOString(),
+                createdAt: new Date(
+                    now.getTime() - 1000 * 60 * 60 * 41
+                ).toISOString(),
                 createdBy: user,
             },
             {
                 id: generateId(),
                 conversationId: "C0",
                 content: "Hope you all had a good new year",
-                createdAt: new Date(2022, 0, 3, 15, 11).toISOString(),
+                createdAt: new Date(
+                    now.getTime() - 1000 * 60 * 60 * 42
+                ).toISOString(),
                 createdBy: user,
             },
             {
                 id: generateId(),
                 conversationId: "C0",
                 content: "Hello all!",
-                createdAt: new Date(2022, 0, 3, 15, 11).toISOString(),
+                createdAt: new Date(
+                    now.getTime() - 1000 * 60 * 60 * 43
+                ).toISOString(),
                 createdBy: user,
             },
             {
                 id: generateId(),
                 conversationId: "C0",
                 content: "Hello Monika!",
-                createdAt: new Date(2022, 0, 3, 14, 59).toISOString(),
+                createdAt: new Date(
+                    now.getTime() - 1000 * 60 * 60 * 45
+                ).toISOString(),
                 createdBy: recipient2,
             },
             {
                 id: generateId(),
                 conversationId: "C0",
                 content: "Hello Hello Tim!",
-                createdAt: new Date(2022, 0, 3, 11, 12).toISOString(),
+                createdAt: new Date(
+                    now.getTime() - 1000 * 60 * 60 * 58
+                ).toISOString(),
                 createdBy: recipient2,
             },
             {
                 id: generateId(),
                 conversationId: "C0",
                 content: "Lorem ipsum....",
-                createdAt: new Date(2022, 0, 3, 11, 15).toISOString(),
+                createdAt: new Date(
+                    now.getTime() - 1000 * 60 * 60 * 60
+                ).toISOString(),
                 createdBy: user,
-            },
-            {
-                id: generateId(),
-                conversationId: "C0",
-                content: "Lorem ipsum....",
-                createdAt: new Date(2022, 0, 3, 12, 15).toISOString(),
-                createdBy: recipient3,
-            },
-            {
-                id: generateId(),
-                conversationId: "C0",
-                content: "Lorem ipsum 2....",
-                createdAt: new Date(2022, 0, 3, 13, 15).toISOString(),
-                createdBy: recipient4,
             },
         ],
     },
@@ -170,77 +167,49 @@ export const conversations: Conversation[] = [
                 id: generateId(),
                 conversationId: "C1",
                 content: "Hello Monika!",
-                createdAt: new Date(2021, 11, 7, 13, 23).toISOString(),
+                createdAt: new Date(2021, 11, 7, 13, 21).toISOString(),
                 createdBy: user,
             },
             {
                 id: generateId(),
                 conversationId: "C1",
                 content: "Hello!",
-                createdAt: new Date(2021, 11, 7, 14, 36).toISOString(),
+                createdAt: new Date(2021, 11, 7, 13, 22).toISOString(),
                 createdBy: recipient1,
             },
             {
                 id: generateId(),
                 conversationId: "C1",
                 content: "Hello Monika!",
-                createdAt: new Date(2021, 11, 7, 13, 23).toISOString(),
+                createdAt: new Date(2021, 11, 7, 13, 31).toISOString(),
                 createdBy: user,
             },
             {
                 id: generateId(),
                 conversationId: "C1",
                 content: "Hello!",
-                createdAt: new Date(2021, 11, 7, 14, 36).toISOString(),
+                createdAt: new Date(2021, 11, 7, 13, 34).toISOString(),
                 createdBy: recipient1,
             },
             {
                 id: generateId(),
                 conversationId: "C1",
                 content: "Hello Monika!",
-                createdAt: new Date(2021, 11, 7, 13, 23).toISOString(),
+                createdAt: new Date(2021, 11, 7, 13, 54).toISOString(),
                 createdBy: user,
             },
             {
                 id: generateId(),
                 conversationId: "C1",
                 content: "Hello!",
-                createdAt: new Date(2021, 11, 7, 14, 36).toISOString(),
+                createdAt: new Date(2021, 11, 7, 13, 55).toISOString(),
                 createdBy: recipient1,
             },
             {
                 id: generateId(),
                 conversationId: "C1",
                 content: "Hello Monika!",
-                createdAt: new Date(2021, 11, 7, 13, 23).toISOString(),
-                createdBy: user,
-            },
-            {
-                id: generateId(),
-                conversationId: "C1",
-                content: "Hello!",
-                createdAt: new Date(2021, 11, 7, 14, 36).toISOString(),
-                createdBy: recipient1,
-            },
-            {
-                id: generateId(),
-                conversationId: "C1",
-                content: "Hello Monika!",
-                createdAt: new Date(2021, 11, 7, 13, 23).toISOString(),
-                createdBy: user,
-            },
-            {
-                id: generateId(),
-                conversationId: "C1",
-                content: "Hello Monika!",
-                createdAt: new Date(2021, 11, 7, 13, 23).toISOString(),
-                createdBy: user,
-            },
-            {
-                id: generateId(),
-                conversationId: "C1",
-                content: "Hello Monika!",
-                createdAt: new Date(2021, 11, 7, 13, 23).toISOString(),
+                createdAt: new Date(2021, 11, 7, 13, 56).toISOString(),
                 createdBy: user,
             },
         ],

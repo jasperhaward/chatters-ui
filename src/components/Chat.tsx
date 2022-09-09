@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo } from "preact/hooks";
+import { useContext, useEffect, useMemo, useReducer } from "preact/hooks";
 import { useLocation } from "wouter";
 import styles from "./Chat.module.scss";
 
@@ -9,8 +9,9 @@ import {
     ConversationsPane,
     MessagesPane,
     ConversationHeader,
+    MessageBox,
 } from "@components";
-import { useForm } from "@hooks";
+import { useForm, useToggle } from "@hooks";
 import { Conversation } from "@types";
 
 export interface ChatProps {
@@ -26,7 +27,9 @@ export function Chat({ params }: ChatProps) {
     const [_location, setLocation] = useLocation();
     const [inputs, onInput, setInputs] = useForm({
         search: "",
+        message: "",
     });
+    const [isSendingMessage, toggleIsSendingMessage] = useToggle(false);
 
     useEffect(() => {
         api.conversations
@@ -64,6 +67,28 @@ export function Chat({ params }: ChatProps) {
         setLocation(`/conversations/${conversation.id}`);
     }
 
+    async function onSendClick() {
+        toggleIsSendingMessage();
+
+        const params = {
+            content: inputs.message.trim(),
+            conversationId: selectedConversation!.id,
+            createdBy: session!.user.id,
+        };
+
+        const message = await api.messages.create(params);
+
+        dispatch({
+            type: "conversations/messages/prepend",
+            payload: {
+                conversationId: selectedConversation!.id,
+                messages: [message],
+            },
+        });
+        setInputs({ message: "" });
+        toggleIsSendingMessage();
+    }
+
     return (
         <div className={styles.chat}>
             <h1>Chat</h1>
@@ -91,6 +116,18 @@ export function Chat({ params }: ChatProps) {
                     <MessagesPane
                         session={session}
                         selectedConversation={selectedConversation}
+                    />
+                    <MessageBox
+                        name="message"
+                        value={inputs.message}
+                        disabled={
+                            !session ||
+                            conversations.length === 0 ||
+                            !selectedConversation
+                        }
+                        loading={isSendingMessage}
+                        onInput={onInput}
+                        onClick={onSendClick}
                     />
                 </section>
             </main>

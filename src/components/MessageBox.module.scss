@@ -4,9 +4,10 @@
 @use "@styling/brightness";
 @use "@styling/border";
 
-.searchBox {
+.messageBox {
     display: flex;
     align-items: center;
+    margin-top: auto;
     padding: padding.$md;
     border-radius: border.$radius-lg;
     backdrop-filter: brightness.$light;
@@ -17,18 +18,28 @@
         font-size: fonts.$size-sm;
 
         &::placeholder {
-            color: colours.$grey-xlight;
+            color: colours.$grey-light;
         }
     }
 
     button {
-        display: contents;
-        margin-right: 2px;
-        font-size: fonts.$size-md;
+        display: block;
+        margin-right: padding.$xs;
+        min-height: fonts.$size-lg;
         color: colours.$green;
 
-        &:hover {
-            opacity: 0.4;
+        svg {
+            width: fonts.$size-md;
+            height: inherit;
+            transition: opacity 0.3s ease;
+        }
+
+        &:disabled {
+            opacity: 1;
+        }
+
+        &:hover svg {
+            opacity: 0.8;
         }
     }
 }

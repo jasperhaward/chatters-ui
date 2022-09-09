@@ -20,6 +20,7 @@ export function SearchBox({
         <div className={styles.searchBox}>
             <input
                 placeholder="Search..."
+                autoComplete="off"
                 name={name}
                 value={value}
                 disabled={disabled}

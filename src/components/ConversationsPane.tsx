@@ -1,7 +1,7 @@
 import { useMemo } from "preact/hooks";
 import styles from "./ConversationsPane.module.scss";
 import { Conversation as IConversation, Session } from "@types";
-import { Conversation, Spinner } from "@components";
+import { Conversation, Spinner, SpinnerContainer } from "@components";
 
 export interface ConversationsPaneProps {
     search: string;
@@ -19,7 +19,11 @@ export function ConversationsPane({
     onConversationClick,
 }: ConversationsPaneProps) {
     if (conversations.length === 0 || !session) {
-        return <Spinner />;
+        return (
+            <SpinnerContainer>
+                <Spinner />
+            </SpinnerContainer>
+        );
     }
 
     function filterByRecipients(conversation: IConversation) {

@@ -5,6 +5,7 @@ export * from "./ConversationsPane";
 export * from "./HighlightedText";
 export * from "./Icon";
 export * from "./Message";
+export * from "./MessageBox";
 export * from "./MessagesPane";
 export * from "./SearchBox";
 export * from "./Spinner";
