@@ -67,7 +67,7 @@ export function Chat({ params }: ChatProps) {
         setLocation(`/conversations/${conversation.id}`);
     }
 
-    async function onSendClick() {
+    async function onMessageSubmit() {
         toggleIsSendingMessage();
 
         const params = {
@@ -127,7 +127,7 @@ export function Chat({ params }: ChatProps) {
                         }
                         loading={isSendingMessage}
                         onInput={onInput}
-                        onClick={onSendClick}
+                        onSubmit={onMessageSubmit}
                     />
                 </section>
             </main>

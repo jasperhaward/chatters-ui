@@ -1,3 +1,4 @@
+import { useMemo } from "preact/hooks";
 import { Icon, Spinner } from ".";
 import styles from "./MessageBox.module.scss";
 
@@ -7,7 +8,7 @@ export interface MessageBoxProps {
     loading: boolean;
     disabled: boolean;
     onInput: (event: JSX.TargetedEvent<HTMLInputElement>) => void;
-    onClick: () => void;
+    onSubmit: () => void;
 }
 
 export function MessageBox({
@@ -16,10 +17,17 @@ export function MessageBox({
     loading,
     disabled,
     onInput,
-    onClick,
+    onSubmit,
 }: MessageBoxProps) {
+    const isValidMessage = useMemo(() => {
+        return value.trim() !== "";
+    }, [value]);
+
     return (
-        <div className={styles.messageBox}>
+        <form
+            className={styles.messageBox}
+            onSubmit={isValidMessage ? onSubmit : undefined}
+        >
             <input
                 placeholder="Type a message..."
                 autoComplete="off"
@@ -28,13 +36,16 @@ export function MessageBox({
                 disabled={disabled || loading}
                 onInput={onInput}
             />
-            <button disabled={!value.trim() || loading} onClick={onClick}>
+            <button
+                disabled={disabled || loading || !isValidMessage}
+                onClick={onSubmit}
+            >
                 {loading ? (
                     <Spinner size="sm" />
                 ) : (
                     <Icon icon={["fas", "paper-plane"]} />
                 )}
             </button>
-        </div>
+        </form>
     );
 }
