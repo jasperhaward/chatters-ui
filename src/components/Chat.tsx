@@ -96,7 +96,7 @@ export function Chat({ params }: ChatProps) {
                         value={inputs.search}
                         disabled={conversations.length === 0}
                         onInput={onInput}
-                        onClick={onSearchClear}
+                        onClearClick={onSearchClear}
                     />
                     <ConversationsPane
                         search={inputs.search}
@@ -124,7 +124,7 @@ export function Chat({ params }: ChatProps) {
                         }
                         maxHeight={80}
                         onInput={onInput}
-                        onSubmit={onMessageSubmit}
+                        onMessageSubmit={onMessageSubmit}
                     />
                 </section>
             </main>

@@ -8,7 +8,7 @@ export interface MessageBoxProps {
     disabled: boolean;
     maxHeight: number;
     onInput: (event: JSX.TargetedEvent<HTMLTextAreaElement>) => void;
-    onSubmit: () => Promise<void>;
+    onMessageSubmit: () => Promise<void>;
 }
 
 export function MessageBox({
@@ -16,6 +16,7 @@ export function MessageBox({
     value,
     disabled,
     maxHeight,
+    onMessageSubmit,
     ...props
 }: MessageBoxProps) {
     const [sending, setSending] = useState(false);
@@ -51,7 +52,7 @@ export function MessageBox({
         if (isValidMessage) {
             setSending(true);
 
-            await props.onSubmit();
+            await onMessageSubmit();
 
             textarea.current!.style.height = "inherit";
 

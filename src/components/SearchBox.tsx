@@ -6,7 +6,7 @@ export interface SearchBoxProps {
     value: string;
     disabled: boolean;
     onInput: (event: JSX.TargetedEvent<HTMLInputElement>) => void;
-    onClick: () => void;
+    onClearClick: () => void;
 }
 
 export function SearchBox({
@@ -14,7 +14,7 @@ export function SearchBox({
     value,
     disabled,
     onInput,
-    onClick,
+    onClearClick,
 }: SearchBoxProps) {
     return (
         <div className={styles.searchBox}>
@@ -26,7 +26,7 @@ export function SearchBox({
                 disabled={disabled}
                 onInput={onInput}
             />
-            <button disabled={!value} onClick={onClick}>
+            <button disabled={!value} onClick={onClearClick}>
                 <Icon icon={["fas", value ? "times" : "search"]} />
             </button>
         </div>
