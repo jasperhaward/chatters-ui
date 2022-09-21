@@ -1,7 +1,11 @@
-import { useReducer } from "preact/hooks";
+import { useState } from "preact/hooks";
 
-export type Toggle = [boolean, () => void];
+export function useToggle(initialState: boolean): [boolean, () => void] {
+    const [state, setState] = useState(initialState);
 
-export function useToggle(initialState: boolean): Toggle {
-    return useReducer((prev) => !prev, initialState) as Toggle;
+    function toggle() {
+        setState((prev) => !prev);
+    }
+
+    return [state, toggle];
 }
