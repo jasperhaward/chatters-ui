@@ -12,10 +12,13 @@
     border-radius: border.$radius-lg;
     backdrop-filter: brightness.$light;
 
-    input {
+    textarea {
         margin: 0 padding.$sm;
+        padding: 0;
+        resize: none;
         color: colours.$white;
         font-size: fonts.$size-sm;
+        font-family: inherit;
 
         &::placeholder {
             color: colours.$grey-light;

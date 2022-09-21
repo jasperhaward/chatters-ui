@@ -126,6 +126,7 @@ export function Chat({ params }: ChatProps) {
                             !selectedConversation
                         }
                         loading={isSendingMessage}
+                        maxHeight={80}
                         onInput={onInput}
                         onSubmit={onMessageSubmit}
                     />

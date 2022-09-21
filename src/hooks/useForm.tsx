@@ -1,9 +1,8 @@
 import { Reducer, useReducer } from "preact/hooks";
 
-export interface FormEvent
-    extends JSX.TargetedEvent<HTMLInputElement | HTMLSelectElement> {
-    currentTarget: HTMLInputElement;
-}
+export type FormEvent = JSX.TargetedEvent<
+    HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+>;
 
 export interface FormInputs {
     [key: string]: string | boolean;
@@ -24,7 +23,8 @@ export function useForm<T extends FormInputs>(initialState: T): Form<T> {
     const [inputs, setInputs] = useReducer(reducer, initialState);
 
     function onInput(event: FormEvent) {
-        const { name, value, checked, type } = event.currentTarget;
+        const { name, value, checked, type } =
+            event.currentTarget as HTMLInputElement;
 
         if (type === "checkbox") {
             setInputs({ [name]: checked } as Partial<T>);
