@@ -1,11 +1,10 @@
-import { useMemo, useRef } from "preact/hooks";
+import { useState, useRef } from "preact/hooks";
 import styles from "./MessageBox.module.scss";
 import { Icon, Spinner } from ".";
 
 export interface MessageBoxProps {
     name: string;
     value: string;
-    loading: boolean;
     disabled: boolean;
     maxHeight: number;
     onInput: (event: JSX.TargetedEvent<HTMLTextAreaElement>) => void;
@@ -15,11 +14,12 @@ export interface MessageBoxProps {
 export function MessageBox({
     name,
     value,
-    loading,
     disabled,
     maxHeight,
     ...props
 }: MessageBoxProps) {
+    const [sending, setSending] = useState(false);
+
     const textarea = useRef<HTMLTextAreaElement>(null);
 
     function onInput(event: JSX.TargetedEvent<HTMLTextAreaElement>) {
@@ -34,7 +34,7 @@ export function MessageBox({
     }
 
     /**
-     * Handle message submission if Enter key is pressed
+     * Send message if Enter key is pressed
      */
     function onKeyPress(event: JSX.TargetedKeyboardEvent<HTMLTextAreaElement>) {
         if (!event.shiftKey && event.key === "Enter") {
@@ -43,17 +43,19 @@ export function MessageBox({
     }
 
     /**
-     * Submit message if valid and reset height after message submission
+     * Send message if message is valid and reset height after
      */
     async function onSubmit() {
         const isValidMessage = value.trim() !== "";
 
         if (isValidMessage) {
+            setSending(true);
+
             await props.onSubmit();
 
-            const textareaElement = textarea.current!;
+            textarea.current!.style.height = "inherit";
 
-            textareaElement.style.height = "inherit";
+            setSending(false);
         }
     }
 
@@ -66,12 +68,12 @@ export function MessageBox({
                 rows={1}
                 name={name}
                 value={value}
-                disabled={disabled || loading}
+                disabled={disabled || sending}
                 onInput={onInput}
                 onKeyPress={onKeyPress}
             />
-            <button disabled={disabled || loading} onClick={onSubmit}>
-                {loading ? (
+            <button disabled={disabled || sending} onClick={onSubmit}>
+                {sending ? (
                     <Spinner size="sm" />
                 ) : (
                     <Icon icon={["fas", "paper-plane"]} />

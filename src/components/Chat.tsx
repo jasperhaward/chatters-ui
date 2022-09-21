@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useReducer } from "preact/hooks";
+import { useContext, useEffect, useMemo } from "preact/hooks";
 import { useLocation } from "wouter";
 import styles from "./Chat.module.scss";
 
@@ -11,7 +11,7 @@ import {
     ConversationHeader,
     MessageBox,
 } from "@components";
-import { useForm, useToggle } from "@hooks";
+import { useForm } from "@hooks";
 import { Conversation } from "@types";
 
 export interface ChatProps {
@@ -29,7 +29,6 @@ export function Chat({ params }: ChatProps) {
         search: "",
         message: "",
     });
-    const [isSendingMessage, toggleIsSendingMessage] = useToggle(false);
 
     useEffect(() => {
         api.conversations
@@ -59,17 +58,16 @@ export function Chat({ params }: ChatProps) {
         }
     }, [conversations, selectedConversation]);
 
-    function onSearchClick() {
+    function onSearchClear() {
         setInputs({ search: "" });
     }
 
     function onConversationClick(conversation: Conversation) {
         setLocation(`/conversations/${conversation.id}`);
+        setInputs({ message: "" });
     }
 
     async function onMessageSubmit() {
-        toggleIsSendingMessage();
-
         const params = {
             content: inputs.message.trim(),
             conversationId: selectedConversation!.id,
@@ -86,7 +84,6 @@ export function Chat({ params }: ChatProps) {
             },
         });
         setInputs({ message: "" });
-        toggleIsSendingMessage();
     }
 
     return (
@@ -99,7 +96,7 @@ export function Chat({ params }: ChatProps) {
                         value={inputs.search}
                         disabled={conversations.length === 0}
                         onInput={onInput}
-                        onClick={onSearchClick}
+                        onClick={onSearchClear}
                     />
                     <ConversationsPane
                         search={inputs.search}
@@ -125,7 +122,6 @@ export function Chat({ params }: ChatProps) {
                             conversations.length === 0 ||
                             !selectedConversation
                         }
-                        loading={isSendingMessage}
                         maxHeight={80}
                         onInput={onInput}
                         onSubmit={onMessageSubmit}
