@@ -8,15 +8,17 @@ export interface ConversationHeaderProps {
 export function ConversationHeader({
     selectedConversation,
 }: ConversationHeaderProps) {
+    if (!selectedConversation) {
+        return null;
+    }
+
     return (
         <div className={styles.conversationHeader}>
-            {selectedConversation && (
-                <h2>
-                    {selectedConversation.recipients
-                        .map((recpient) => recpient.username)
-                        .join(", ")}
-                </h2>
-            )}
+            <h2>
+                {selectedConversation.recipients
+                    .map((recpient) => recpient.username)
+                    .join(", ")}
+            </h2>
         </div>
     );
 }

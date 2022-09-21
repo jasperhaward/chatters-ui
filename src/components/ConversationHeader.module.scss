@@ -1,0 +1,11 @@
+@use "@styling/fonts";
+@use "@styling/colours";
+@use "@styling/padding";
+
+.conversationHeader {
+    h2 {
+        margin: padding.$md;
+        font-weight: 300;
+        color: colours.$white;
+    }
+}
