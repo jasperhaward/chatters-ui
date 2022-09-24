@@ -11,17 +11,19 @@ export function HighlightedText({
     query,
     children,
 }: HighlightedTextProps) {
-    const parts = children.split(new RegExp(`(${query})`, "i"));
+    const substrings = children.split(new RegExp(`(${query})`, "i"));
+
+    function renderSubstring(substring: string, index: number) {
+        if (substring.toUpperCase() === query.toUpperCase()) {
+            return <b key={index}>{substring}</b>;
+        }
+
+        return substring;
+    }
 
     return (
         <span className={className}>
-            {parts.map((part, index) =>
-                part.toUpperCase() === query.toUpperCase() ? (
-                    <b key={index}>{part}</b>
-                ) : (
-                    part
-                )
-            )}
+            {query === "" ? children : substrings.map(renderSubstring)}
         </span>
     );
 }
