@@ -10,6 +10,8 @@ import {
     MessagesPane,
     ConversationHeader,
     MessageBox,
+    Spinner,
+    SpinnerContainer,
 } from "@components";
 import { useForm } from "@hooks";
 import { Conversation } from "@types";
@@ -107,13 +109,21 @@ export function Chat({ params }: ChatProps) {
                     />
                 </section>
                 <section className={styles.messages}>
-                    <ConversationHeader
-                        selectedConversation={selectedConversation}
-                    />
-                    <MessagesPane
-                        session={session}
-                        selectedConversation={selectedConversation}
-                    />
+                    {!selectedConversation || !session ? (
+                        <SpinnerContainer>
+                            <Spinner />
+                        </SpinnerContainer>
+                    ) : (
+                        <>
+                            <ConversationHeader
+                                selectedConversation={selectedConversation}
+                            />
+                            <MessagesPane
+                                session={session}
+                                selectedConversation={selectedConversation}
+                            />
+                        </>
+                    )}
                     <MessageBox
                         name="message"
                         value={inputs.message}

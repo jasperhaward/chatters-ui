@@ -4,27 +4,19 @@ import styles from "./MessagesPane.module.scss";
 
 import colours from "@styling/_colours.module.scss";
 import { Conversation, Message as IMessage, Session } from "@types";
-import { Spinner, SpinnerContainer, Message } from "@components";
+import { Message } from "@components";
 
 const coloursArray = Object.values(colours);
 
 export interface MessagesPaneProps {
-    session: Session | undefined;
-    selectedConversation: Conversation | undefined;
+    session: Session;
+    selectedConversation: Conversation;
 }
 
 export function MessagesPane({
     session,
     selectedConversation,
 }: MessagesPaneProps) {
-    if (!selectedConversation || !session) {
-        return (
-            <SpinnerContainer>
-                <Spinner />
-            </SpinnerContainer>
-        );
-    }
-
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {

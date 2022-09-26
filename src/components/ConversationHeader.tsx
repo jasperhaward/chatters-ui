@@ -2,16 +2,12 @@ import styles from "./ConversationHeader.module.scss";
 import { Conversation } from "@types";
 
 export interface ConversationHeaderProps {
-    selectedConversation: Conversation | undefined;
+    selectedConversation: Conversation;
 }
 
 export function ConversationHeader({
     selectedConversation,
 }: ConversationHeaderProps) {
-    if (!selectedConversation) {
-        return null;
-    }
-
     return (
         <div className={styles.conversationHeader}>
             <h2>
