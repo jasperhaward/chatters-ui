@@ -18,7 +18,7 @@ export function ConversationsPane({
     selectedConversation,
     onConversationClick,
 }: ConversationsPaneProps) {
-    if (conversations.length === 0 || !session) {
+    if (!selectedConversation || !session) {
         return (
             <SpinnerContainer>
                 <Spinner />
