@@ -19,7 +19,8 @@
       "@hooks": ["./src/hooks/index"],
       "@types": ["./types/index"],
       "@utils/*": ["./src/utils/*"]
-    }
+    },
+    "noEmit": true
   },
   "include": ["src", "types"],
   "references": [{ "path": "./tsconfig.node.json" }]
