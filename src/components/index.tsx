@@ -4,6 +4,7 @@ export * from "./ConversationHeader";
 export * from "./ConversationsPane";
 export * from "./HighlightedText";
 export * from "./Icon";
+export * from "./IconButton";
 export * from "./Message";
 export * from "./MessageBox";
 export * from "./MessagesPane";

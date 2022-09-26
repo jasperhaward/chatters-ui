@@ -25,23 +25,6 @@
     }
 
     button {
-        display: block;
         margin-right: padding.$xs;
-        min-height: fonts.$size-lg;
-        color: colours.$green;
-
-        svg {
-            width: fonts.$size-md;
-            height: inherit;
-            transition: opacity 0.3s ease;
-        }
-
-        &:disabled {
-            opacity: 1;
-        }
-
-        &:hover svg {
-            opacity: 0.8;
-        }
     }
 }

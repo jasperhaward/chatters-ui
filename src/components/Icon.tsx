@@ -5,8 +5,10 @@ import {
     icon as factory,
 } from "@fortawesome/fontawesome-svg-core";
 
+export type IconTuple = [IconPrefix, IconName];
+
 export interface IconProps {
-    icon: [IconPrefix, IconName];
+    icon: IconTuple;
 }
 
 export function Icon(props: IconProps) {

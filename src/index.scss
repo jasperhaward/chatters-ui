@@ -1,5 +1,7 @@
 @use "@styling/fonts";
 @use "@styling/colours";
+@use "@styling/opacity";
+@use "@styling/transition";
 
 html,
 body {
@@ -45,7 +47,7 @@ button {
     border: none;
     outline: none;
     background-color: transparent;
-    transition: opacity 0.3s;
+    transition: opacity transition.$duration-short;
 
     &:hover {
         cursor: pointer;
@@ -53,7 +55,7 @@ button {
 
     &:disabled {
         pointer-events: none;
-        opacity: 0.7;
+        opacity: opacity.$disabled-button-opacity;
     }
 }
 
@@ -79,7 +81,7 @@ b {
     border-radius: 10px;
     background-color: colours.$grey-dark;
     background-clip: padding-box;
-    transition: all 0.3s ease;
+    transition: all transition.$duration-short ease;
 
     &:hover {
         background-color: colours.$grey;

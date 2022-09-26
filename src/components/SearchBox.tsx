@@ -1,4 +1,4 @@
-import { Icon } from ".";
+import { IconButton } from ".";
 import styles from "./SearchBox.module.scss";
 
 export interface SearchBoxProps {
@@ -26,9 +26,12 @@ export function SearchBox({
                 disabled={disabled}
                 onInput={onInput}
             />
-            <button disabled={!value} onClick={onClearClick}>
-                <Icon icon={["fas", value ? "times" : "search"]} />
-            </button>
+            <IconButton
+                icon={["fas", value ? "times" : "search"]}
+                color="green"
+                disabled={!value}
+                onClick={onClearClick}
+            />
         </div>
     );
 }

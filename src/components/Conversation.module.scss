@@ -3,8 +3,9 @@
 @use "@styling/fonts";
 @use "@styling/border";
 @use "@styling/brightness";
+@use "@styling/transition";
 
-$transition: all 0.4s ease;
+$transition: all transition.$duration-medium ease;
 
 .conversation {
     display: flex;

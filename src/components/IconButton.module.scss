@@ -1,0 +1,24 @@
+@use "@styling/padding";
+@use "@styling/colours";
+@use "@styling/fonts";
+@use "@styling/opacity";
+@use "@styling/transition";
+
+.iconButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: fonts.$size-md;
+
+    svg {
+        transition: opacity transition.$duration-short;
+    }
+
+    &:hover svg {
+        opacity: opacity.$disabled-button-opacity;
+    }
+
+    &.green {
+        color: colours.$green;
+    }
+}

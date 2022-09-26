@@ -22,13 +22,10 @@
     }
 
     button {
-        display: contents;
         margin-right: 2px;
-        font-size: fonts.$size-md;
-        color: colours.$green;
 
-        &:hover {
-            opacity: 0.4;
+        &:disabled {
+            opacity: 1;
         }
     }
 }

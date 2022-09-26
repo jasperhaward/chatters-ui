@@ -1,6 +1,6 @@
-import { useState, useRef } from "preact/hooks";
+import { useState, useRef, useMemo } from "preact/hooks";
 import styles from "./MessageBox.module.scss";
-import { Icon, Spinner } from ".";
+import { IconButton, Spinner } from ".";
 
 export interface MessageBoxProps {
     name: string;
@@ -23,6 +23,10 @@ export function MessageBox({
 
     const textarea = useRef<HTMLTextAreaElement>(null);
 
+    const isValidMessage = useMemo(() => {
+        return value.trim() !== "";
+    }, [value]);
+
     function onInput(event: JSX.TargetedEvent<HTMLTextAreaElement>) {
         const textareaElement = textarea.current!;
 
@@ -38,7 +42,7 @@ export function MessageBox({
      * Send message if Enter key is pressed
      */
     function onKeyPress(event: JSX.TargetedKeyboardEvent<HTMLTextAreaElement>) {
-        if (!event.shiftKey && event.key === "Enter") {
+        if (isValidMessage && !event.shiftKey && event.key === "Enter") {
             onSubmit();
         }
     }
@@ -47,17 +51,13 @@ export function MessageBox({
      * Send message if message is valid and reset height after
      */
     async function onSubmit() {
-        const isValidMessage = value.trim() !== "";
+        setSending(true);
 
-        if (isValidMessage) {
-            setSending(true);
+        await onMessageSubmit();
 
-            await onMessageSubmit();
+        textarea.current!.style.height = "inherit";
 
-            textarea.current!.style.height = "inherit";
-
-            setSending(false);
-        }
+        setSending(false);
     }
 
     return (
@@ -73,13 +73,16 @@ export function MessageBox({
                 onInput={onInput}
                 onKeyPress={onKeyPress}
             />
-            <button disabled={disabled || sending} onClick={onSubmit}>
-                {sending ? (
-                    <Spinner size="sm" />
-                ) : (
-                    <Icon icon={["fas", "paper-plane"]} />
-                )}
-            </button>
+            {sending ? (
+                <Spinner size="sm" />
+            ) : (
+                <IconButton
+                    icon={["fas", "paper-plane"]}
+                    color="green"
+                    disabled={disabled || !isValidMessage}
+                    onClick={onSubmit}
+                />
+            )}
         </div>
     );
 }
