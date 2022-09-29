@@ -1,22 +1,36 @@
 import styles from "./IconButton.module.scss";
 import { Icon, IconTuple } from ".";
 
-type HTMLButtonElementProps = JSX.HTMLAttributes<HTMLButtonElement>;
+type BaseButtonElementProps = Omit<
+    JSX.HTMLAttributes<HTMLButtonElement>,
+    "icon" | "size"
+>;
 
-export interface IconButtonProps extends Omit<HTMLButtonElementProps, "icon"> {
+export type IconButtonColor =
+    | "green"
+    | "white"
+    | "grey"
+    | "grey-dark"
+    | "grey-xdark";
+
+export type IconButtonSize = "sm" | "md" | "lg";
+
+export interface IconButtonProps extends BaseButtonElementProps {
     icon: IconTuple;
-    color?: "green";
+    color?: IconButtonColor;
+    size?: IconButtonSize;
 }
 
 export function IconButton({
     icon,
-    color,
+    color = "green",
+    size = "md",
     className,
     ...props
 }: IconButtonProps) {
     return (
         <button
-            className={`${styles.iconButton} ${color ? styles[color] : ""} ${
+            className={`${styles.iconButton} ${styles[color]} ${styles[size]} ${
                 className || ""
             }`}
             {...props}
