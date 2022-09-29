@@ -24,19 +24,28 @@ const conversations: Reducer<Conversation[], AppContextAction> = (
                 return conversation;
             });
         case "conversations/messages/prepend":
-            return state.map((conversation) => {
-                if (conversation.id === action.payload.conversationId) {
-                    return {
-                        ...conversation,
-                        messages: [
-                            ...action.payload.messages,
-                            ...conversation.messages,
-                        ],
-                    };
-                }
+            // when messages are prepended, it's safe to assume they are the most
+            // recent recieved/sent messages, hence the conversation which they belong to
+            // should become the first conversation in the conversations array
 
-                return conversation;
-            });
+            const conversation = state.find((conversation) => {
+                return conversation.id === action.payload.conversationId;
+            })!;
+
+            const updatedConversation: Conversation = {
+                ...conversation,
+                messages: [
+                    ...action.payload.messages,
+                    ...conversation.messages,
+                ],
+            };
+
+            return [
+                updatedConversation,
+                ...state.filter((conversation) => {
+                    return conversation.id !== action.payload.conversationId;
+                }),
+            ];
         default:
             return state;
     }
