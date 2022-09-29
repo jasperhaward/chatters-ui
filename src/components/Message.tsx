@@ -37,10 +37,10 @@ export function Message({
     if (pointedBottom) className += ` ${styles.pointedBottom}`;
 
     function color() {
-        const whiteContrast = contrast(backgroundColor, colours.white);
-        const blackContrast = contrast(backgroundColor, colours.black);
-
-        return whiteContrast > blackContrast ? colours.white : colours.black;
+        return contrast(backgroundColor, colours.white) >
+            contrast(backgroundColor, colours.greyDark)
+            ? colours.white
+            : colours.greyDark;
     }
 
     return (

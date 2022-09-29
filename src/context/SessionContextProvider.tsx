@@ -1,7 +1,6 @@
 import { Session } from "@types";
 import type { ComponentChildren } from "preact";
 import { useState } from "preact/hooks";
-
 import { SessionContext } from ".";
 
 export interface SessionContextProviderProps {

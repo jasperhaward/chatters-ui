@@ -4,7 +4,7 @@ import styles from "./MessagesPane.module.scss";
 
 import colours from "@styling/_colours.module.scss";
 import { Conversation, Message as IMessage, Session } from "@types";
-import { Message } from "@components";
+import { Message } from ".";
 
 const coloursArray = Object.values(colours);
 

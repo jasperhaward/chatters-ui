@@ -1,7 +1,7 @@
 import { useMemo } from "preact/hooks";
 import styles from "./ConversationsPane.module.scss";
 import { Conversation as IConversation, Session } from "@types";
-import { Conversation, Spinner, SpinnerContainer } from "@components";
+import { Conversation, Spinner, SpinnerContainer } from ".";
 
 export interface ConversationsPaneProps {
     search: string;
