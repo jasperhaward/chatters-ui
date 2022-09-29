@@ -5,7 +5,7 @@ import styles from "./Chat.module.scss";
 import * as api from "@api";
 import { AppContext, SessionContext } from "@context";
 import { useForm } from "@hooks";
-import { Conversation, User } from "@types";
+import { Conversation } from "@types";
 import {
     SearchBox,
     ConversationsPane,
@@ -33,17 +33,7 @@ export function Chat({ params }: ChatProps) {
     });
 
     useEffect(() => {
-        api.conversations
-            .get()
-            .then((conversations) => {
-                dispatch({
-                    type: "conversations/append",
-                    payload: conversations,
-                });
-            })
-            .catch(console.error);
-
-        api.session.load().then(setSession).catch(console.error);
+        load();
     }, []);
 
     const selectedConversation = useMemo(() => {
@@ -59,6 +49,21 @@ export function Chat({ params }: ChatProps) {
             setLocation(`/conversations/${conversations[0].id}`);
         }
     }, [conversations, selectedConversation]);
+
+    async function load() {
+        try {
+            const session = await api.session.load();
+            const conversations = await api.conversations.get();
+
+            setSession(session);
+            dispatch({
+                type: "conversations/append",
+                payload: conversations,
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
 
     function onSearchClear() {
         setInputs({ search: "" });
@@ -100,16 +105,21 @@ export function Chat({ params }: ChatProps) {
                         onInput={onInput}
                         onClearClick={onSearchClear}
                     />
-                    <ConversationsPane
-                        search={inputs.search}
-                        session={session}
-                        conversations={conversations}
-                        selectedConversation={selectedConversation}
-                        onConversationClick={onConversationClick}
-                    />
+                    {!selectedConversation ? (
+                        <SpinnerContainer>
+                            <Spinner />
+                        </SpinnerContainer>
+                    ) : (
+                        <ConversationsPane
+                            search={inputs.search}
+                            conversations={conversations}
+                            selectedConversation={selectedConversation}
+                            onConversationClick={onConversationClick}
+                        />
+                    )}
                 </section>
                 <section className={styles.messages}>
-                    {!selectedConversation || !session ? (
+                    {!selectedConversation ? (
                         <SpinnerContainer>
                             <Spinner />
                         </SpinnerContainer>
@@ -119,7 +129,6 @@ export function Chat({ params }: ChatProps) {
                                 selectedConversation={selectedConversation}
                             />
                             <MessagesPane
-                                session={session}
                                 selectedConversation={selectedConversation}
                             />
                         </>
@@ -127,11 +136,7 @@ export function Chat({ params }: ChatProps) {
                     <MessageBox
                         name="message"
                         value={inputs.message}
-                        disabled={
-                            !session ||
-                            conversations.length === 0 ||
-                            !selectedConversation
-                        }
+                        disabled={!selectedConversation}
                         maxHeight={80}
                         onInput={onInput}
                         onMessageSubmit={onMessageSubmit}

@@ -1,11 +1,12 @@
 import { useMemo } from "preact/hooks";
 import styles from "./Conversation.module.scss";
-import { Conversation as IConversation, Message, User } from "@types";
+
+import { useCurrentUser } from "@hooks";
+import { Conversation as IConversation, Message } from "@types";
 import { Icon, HighlightedText, Timestamp } from ".";
 
 export interface ConversationsProps {
     search: string;
-    user: User;
     conversation: IConversation;
     selected: boolean;
     onClick: (conversation: IConversation) => void;
@@ -13,11 +14,12 @@ export interface ConversationsProps {
 
 export function Conversation({
     search,
-    user,
     conversation,
     selected,
     onClick,
 }: ConversationsProps) {
+    const user = useCurrentUser();
+
     const [message] = conversation.messages;
 
     const isGroupChat = useMemo(() => {

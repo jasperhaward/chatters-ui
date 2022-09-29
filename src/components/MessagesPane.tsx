@@ -3,20 +3,19 @@ import { Fragment } from "preact/jsx-runtime";
 import styles from "./MessagesPane.module.scss";
 
 import colours from "@styling/_colours.module.scss";
-import { Conversation, Message as IMessage, Session } from "@types";
+import { useCurrentUser } from "@hooks";
+import { Conversation, Message as IMessage } from "@types";
 import { Message } from ".";
 
 const coloursArray = Object.values(colours);
 
 export interface MessagesPaneProps {
-    session: Session;
     selectedConversation: Conversation;
 }
 
-export function MessagesPane({
-    session,
-    selectedConversation,
-}: MessagesPaneProps) {
+export function MessagesPane({ selectedConversation }: MessagesPaneProps) {
+    const user = useCurrentUser();
+
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -56,7 +55,7 @@ export function MessagesPane({
         prevMessage: IMessage | undefined,
         message: IMessage
     ) {
-        if (message.createdBy.id !== session!.user.id) {
+        if (message.createdBy.id !== user.id) {
             return !prevMessage || message.createdBy !== prevMessage.createdBy;
         }
 
@@ -127,7 +126,7 @@ export function MessagesPane({
     }
 
     function backgroundColour(message: IMessage) {
-        if (message.createdBy.id === session!.user.id) {
+        if (message.createdBy.id === user.id) {
             return colours.green;
         }
 
@@ -187,8 +186,7 @@ export function MessagesPane({
                         <Message
                             message={message}
                             meta={{
-                                alignRight:
-                                    message.createdBy.id === session.user.id,
+                                alignRight: message.createdBy.id === user.id,
                                 backgroundColor: backgroundColour(message),
                                 showAuthor: displayAuthor(prev, message),
                                 showTimestamp: displayTimestamp(message, next),

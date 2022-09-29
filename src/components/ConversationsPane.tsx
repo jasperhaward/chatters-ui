@@ -1,31 +1,21 @@
 import { useMemo } from "preact/hooks";
 import styles from "./ConversationsPane.module.scss";
-import { Conversation as IConversation, Session } from "@types";
-import { Conversation, Spinner, SpinnerContainer } from ".";
+import { Conversation as IConversation } from "@types";
+import { Conversation } from ".";
 
 export interface ConversationsPaneProps {
     search: string;
-    session: Session | undefined;
     conversations: IConversation[];
-    selectedConversation: IConversation | undefined;
+    selectedConversation: IConversation;
     onConversationClick: (conversation: IConversation) => void;
 }
 
 export function ConversationsPane({
     search,
-    session,
     conversations,
     selectedConversation,
     onConversationClick,
 }: ConversationsPaneProps) {
-    if (!selectedConversation || !session) {
-        return (
-            <SpinnerContainer>
-                <Spinner />
-            </SpinnerContainer>
-        );
-    }
-
     function filterByRecipients(conversation: IConversation) {
         return conversation.recipients
             .map((recipient) => recipient.username.toUpperCase())
@@ -44,7 +34,6 @@ export function ConversationsPane({
                     <Conversation
                         key={conversation.id}
                         search={search}
-                        user={session.user}
                         conversation={conversation}
                         selected={conversation.id === selectedConversation?.id}
                         onClick={onConversationClick}
