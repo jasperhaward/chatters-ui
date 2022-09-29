@@ -4,6 +4,8 @@ import styles from "./Chat.module.scss";
 
 import * as api from "@api";
 import { AppContext, SessionContext } from "@context";
+import { useForm } from "@hooks";
+import { Conversation, User } from "@types";
 import {
     SearchBox,
     ConversationsPane,
@@ -12,9 +14,7 @@ import {
     MessageBox,
     Spinner,
     SpinnerContainer,
-} from "@components";
-import { useForm } from "@hooks";
-import { Conversation } from "@types";
+} from ".";
 
 export interface ChatProps {
     params: {
@@ -24,9 +24,9 @@ export interface ChatProps {
 
 export function Chat({ params }: ChatProps) {
     const [{ conversations }, dispatch] = useContext(AppContext);
-    const [session, loadSession] = useContext(SessionContext);
+    const [session, setSession] = useContext(SessionContext);
 
-    const [_location, setLocation] = useLocation();
+    const [location, setLocation] = useLocation();
     const [inputs, onInput, setInputs] = useForm({
         search: "",
         message: "",
@@ -43,7 +43,7 @@ export function Chat({ params }: ChatProps) {
             })
             .catch(console.error);
 
-        api.session.load().then(loadSession).catch(console.error);
+        api.session.load().then(setSession).catch(console.error);
     }, []);
 
     const selectedConversation = useMemo(() => {
