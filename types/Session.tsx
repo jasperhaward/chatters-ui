@@ -1,5 +1,5 @@
-import { User } from ".";
+import { UserWithContacts } from ".";
 
 export interface Session {
-    user: User;
+    user: UserWithContacts;
 }

@@ -1,10 +1,5 @@
-import { User, Conversation, Message } from "@types";
+import { User, UserWithContacts, Conversation, Message } from "@types";
 import { generateId } from "@utils/id";
-
-export const user: User = {
-    id: generateId(),
-    username: "Jasper Haward",
-};
 
 export const recipient1: User = {
     id: generateId(),
@@ -31,14 +26,19 @@ export const recipient5: User = {
     username: "Alasdair Dibben",
 };
 
-export const users = [
-    user,
+export const contacts = [
     recipient1,
     recipient2,
     recipient3,
     recipient4,
     recipient5,
 ];
+
+export const user: UserWithContacts = {
+    id: generateId(),
+    username: "Jasper Haward",
+    contacts,
+};
 
 const now = new Date();
 
