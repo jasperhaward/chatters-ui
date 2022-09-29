@@ -78,7 +78,6 @@ export function MessageBox({
             ) : (
                 <IconButton
                     icon={["fas", "paper-plane"]}
-                    color="green"
                     disabled={disabled || !isValidMessage}
                     onClick={onSubmit}
                 />
