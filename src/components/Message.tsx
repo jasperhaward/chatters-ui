@@ -38,9 +38,9 @@ export function Message({
 
     function color() {
         return contrast(backgroundColor, colours.white) >
-            contrast(backgroundColor, colours.greyDark)
+            contrast(backgroundColor, colours.black)
             ? colours.white
-            : colours.greyDark;
+            : colours.black;
     }
 
     return (
