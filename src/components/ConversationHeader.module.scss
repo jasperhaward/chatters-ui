@@ -1,11 +1,28 @@
-@use "@styling/fonts";
 @use "@styling/colours";
 @use "@styling/padding";
+@use "@styling/transition";
 
 .conversationHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     h2 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         margin: padding.$md;
         font-weight: 300;
         color: colours.$white;
+    }
+
+    button {
+        margin: padding.$sm padding.$md;
+        transition-duration: transition.$duration-medium;
+        transition-property: transform;
+
+        &.rotate {
+            transform: rotate(180deg);
+        }
     }
 }

@@ -1,0 +1,25 @@
+@use "@styling/fonts";
+@use "@styling/colours";
+@use "@styling/padding";
+@use "@styling/border";
+
+.pill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: padding.$sm padding.$sm padding.$sm padding.$md;
+    border-radius: border.$radius-md;
+    font-size: fonts.$size-sm;
+    color: colours.$grey-xdark;
+    background-color: colours.$green;
+
+    button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background-color: colours.$white;
+    }
+}

@@ -5,7 +5,7 @@ import styles from "./Chat.module.scss";
 import * as api from "@api";
 import { AppContext, SessionContext } from "@context";
 import { useForm } from "@hooks";
-import { Conversation } from "@types";
+import { Conversation, User } from "@types";
 import {
     SearchBox,
     ConversationsPane,
@@ -74,6 +74,10 @@ export function Chat({ params }: ChatProps) {
         setInputs({ message: "" });
     }
 
+    async function onRecipientAdd(recipient: User) {}
+
+    async function onRecipientRemove(recipient: User) {}
+
     async function onMessageSubmit() {
         const params = {
             content: inputs.message.trim(),
@@ -127,6 +131,8 @@ export function Chat({ params }: ChatProps) {
                         <>
                             <ConversationHeader
                                 selectedConversation={selectedConversation}
+                                onRecipientAdd={onRecipientAdd}
+                                onRecipientRemove={onRecipientRemove}
                             />
                             <MessagesPane
                                 selectedConversation={selectedConversation}

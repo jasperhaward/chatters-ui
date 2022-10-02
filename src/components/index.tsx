@@ -8,6 +8,8 @@ export * from "./IconButton";
 export * from "./Message";
 export * from "./MessageBox";
 export * from "./MessagesPane";
+export * from "./Pill";
+export * from "./Popover";
 export * from "./SearchBox";
 export * from "./Spinner";
 export * from "./Timestamp";
