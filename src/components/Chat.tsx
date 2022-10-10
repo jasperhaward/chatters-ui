@@ -33,6 +33,21 @@ export function Chat({ params }: ChatProps) {
     });
 
     useEffect(() => {
+        async function load() {
+            try {
+                const session = await api.session.load();
+                const conversations = await api.conversations.get();
+
+                dispatch({
+                    type: "conversations/append",
+                    payload: conversations,
+                });
+                setSession(session);
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
         load();
     }, []);
 
@@ -49,21 +64,6 @@ export function Chat({ params }: ChatProps) {
             setLocation(`/conversations/${conversations[0].id}`);
         }
     }, [conversations, selectedConversation]);
-
-    async function load() {
-        try {
-            const session = await api.session.load();
-            const conversations = await api.conversations.get();
-
-            setSession(session);
-            dispatch({
-                type: "conversations/append",
-                payload: conversations,
-            });
-        } catch (e) {
-            console.error(e);
-        }
-    }
 
     function onSearchClear() {
         setInputs({ search: "" });
