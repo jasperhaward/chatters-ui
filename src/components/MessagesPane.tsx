@@ -7,8 +7,6 @@ import { useCurrentUser } from "@hooks";
 import { Conversation, Message as IMessage } from "@types";
 import { Message } from ".";
 
-const coloursArray = Object.values(colours);
-
 export interface MessagesPaneProps {
     selectedConversation: Conversation;
 }
@@ -128,20 +126,9 @@ export function MessagesPane({ selectedConversation }: MessagesPaneProps) {
     function backgroundColour(message: IMessage) {
         if (message.createdBy.id === user.id) {
             return colours.green;
+        } else {
+            return colours.magenta;
         }
-
-        const { recipients } = selectedConversation!;
-
-        let index = recipients.findIndex((recipient) => {
-            return recipient.id === message.createdBy.id;
-        })!;
-
-        // incase the number of recipients > number of colours
-        while (index > coloursArray.length - 1) {
-            index -= coloursArray.length;
-        }
-
-        return coloursArray[index];
     }
 
     function isWithinFiveMins(a: IMessage, b: IMessage) {
