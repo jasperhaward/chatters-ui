@@ -1,11 +1,23 @@
-import type { Conversation, Message } from "@types";
+import type { Conversation, Message, User } from "@types";
 
-export interface ConversationsAppendAction {
+type Reducers = "contacts" | "conversations";
+
+interface Action {
+    type: `${Reducers}/${string}`;
+    payload: unknown;
+}
+
+export interface ContactsAppendAction extends Action {
+    type: "contacts/append";
+    payload: User[];
+}
+
+export interface ConversationsAppendAction extends Action {
     type: "conversations/append";
     payload: Conversation[];
 }
 
-export interface ConversationsMessagesAppendAction {
+export interface ConversationsMessagesAppendAction extends Action {
     type: "conversations/messages/append";
     payload: {
         conversationId: string;
@@ -13,7 +25,7 @@ export interface ConversationsMessagesAppendAction {
     };
 }
 
-export interface ConversationsMessagesPrependAction {
+export interface ConversationsMessagesPrependAction extends Action {
     type: "conversations/messages/prepend";
     payload: {
         conversationId: string;
