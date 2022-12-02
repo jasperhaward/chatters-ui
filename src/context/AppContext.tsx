@@ -6,13 +6,17 @@ import type {
     ConversationsAppendAction,
     ConversationsMessagesAppendAction,
     ConversationsMessagesPrependAction,
+    ConversationsRecipientsAddAction,
+    ConversationsRecipientsRemoveAction,
 } from "./AppContextActions";
 
 export type AppContextAction =
     | ContactsAppendAction
     | ConversationsAppendAction
     | ConversationsMessagesAppendAction
-    | ConversationsMessagesPrependAction;
+    | ConversationsMessagesPrependAction
+    | ConversationsRecipientsAddAction
+    | ConversationsRecipientsRemoveAction;
 
 export interface AppContextState {
     contacts: User[];

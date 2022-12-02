@@ -32,3 +32,19 @@ export interface ConversationsMessagesPrependAction extends Action {
         messages: Message[];
     };
 }
+
+export interface ConversationsRecipientsAddAction extends Action {
+    type: "conversations/recipients/add";
+    payload: {
+        conversationId: string;
+        recipient: User;
+    };
+}
+
+export interface ConversationsRecipientsRemoveAction extends Action {
+    type: "conversations/recipients/remove";
+    payload: {
+        conversationId: string;
+        recipient: User;
+    };
+}
