@@ -16,16 +16,22 @@ export function ConversationsPane({
     selectedConversation,
     onConversationClick,
 }: ConversationsPaneProps) {
-    function filterByRecipients(conversation: IConversation) {
-        return conversation.recipients
-            .map((recipient) => recipient.username.toUpperCase())
-            .join()
-            .includes(search.trim().toUpperCase());
-    }
-
     const filteredConversations = useMemo(() => {
-        return conversations.filter(filterByRecipients);
+        if (search === "") {
+            return conversations;
+        }
+
+        return conversations.filter(filterByRecipients(search));
     }, [search, conversations]);
+
+    function filterByRecipients(searchTerm: string) {
+        return (conversation: IConversation) => {
+            return conversation.recipients
+                .map((recipient) => recipient.username.toUpperCase())
+                .join()
+                .includes(searchTerm.toUpperCase());
+        };
+    }
 
     return (
         <div className={styles.conversationsPane}>
