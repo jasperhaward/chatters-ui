@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo } from "preact/hooks";
+import { useContext, useEffect, useMemo, useState } from "preact/hooks";
 import { useLocation } from "wouter";
 import styles from "./Chat.module.scss";
 
@@ -14,6 +14,7 @@ import {
     MessageBox,
     Spinner,
     SpinnerContainer,
+    TabbedMenu,
 } from ".";
 
 export interface ChatProps {
@@ -22,10 +23,13 @@ export interface ChatProps {
     };
 }
 
+export type View = "Conversations" | "Contacts" | "Recipients";
+
 export function Chat({ params }: ChatProps) {
-    const [{ conversations }, dispatch] = useContext(AppContext);
+    const [{ contacts, conversations }, dispatch] = useContext(AppContext);
     const [session, setSession] = useContext(SessionContext);
 
+    const [view, setView] = useState<View>("Conversations");
     const [location, setLocation] = useLocation();
     const [inputs, onInput, setInputs] = useForm({
         search: "",
@@ -33,22 +37,9 @@ export function Chat({ params }: ChatProps) {
     });
 
     useEffect(() => {
-        async function load() {
-            try {
-                const session = await api.session.load();
-                const conversations = await api.conversations.get();
-
-                dispatch({
-                    type: "conversations/append",
-                    payload: conversations,
-                });
-                setSession(session);
-            } catch (e) {
-                console.error(e);
-            }
-        }
-
-        load();
+        loadSession().catch(console.error);
+        loadContacts().catch(console.error);
+        loadConversations().catch(console.error);
     }, []);
 
     const selectedConversation = useMemo(() => {
@@ -65,6 +56,30 @@ export function Chat({ params }: ChatProps) {
         }
     }, [conversations, selectedConversation]);
 
+    async function loadSession() {
+        const session = await api.session.get();
+
+        setSession(session);
+    }
+
+    async function loadContacts() {
+        const contacts = await api.contacts.get();
+
+        dispatch({
+            type: "contacts/append",
+            payload: contacts,
+        });
+    }
+
+    async function loadConversations() {
+        const conversations = await api.conversations.get();
+
+        dispatch({
+            type: "conversations/append",
+            payload: conversations,
+        });
+    }
+
     function onSearchClear() {
         setInputs({ search: "" });
     }
@@ -74,9 +89,39 @@ export function Chat({ params }: ChatProps) {
         setInputs({ message: "" });
     }
 
-    async function onRecipientAdd(recipient: User) {}
+    async function onRecipientAdd(recipient: User) {
+        const params = {
+            conversationId: selectedConversation!.id,
+            userId: recipient.id,
+        };
 
-    async function onRecipientRemove(recipient: User) {}
+        await api.conversations.recipients.add(params);
+
+        dispatch({
+            type: "conversations/recipients/add",
+            payload: {
+                conversationId: selectedConversation!.id,
+                recipient,
+            },
+        });
+    }
+
+    async function onRecipientRemove(recipient: User) {
+        const params = {
+            conversationId: selectedConversation!.id,
+            userId: recipient.id,
+        };
+
+        await api.conversations.recipients.remove(params);
+
+        dispatch({
+            type: "conversations/recipients/remove",
+            payload: {
+                conversationId: selectedConversation!.id,
+                recipient,
+            },
+        });
+    }
 
     async function onMessageSubmit() {
         const params = {
@@ -97,6 +142,21 @@ export function Chat({ params }: ChatProps) {
         setInputs({ message: "" });
     }
 
+    function renderView(view: View) {
+        switch (view) {
+            case "Conversations":
+                return (
+                    <ConversationsPane
+                        search={inputs.search.trim()}
+                        conversations={conversations}
+                        selectedConversation={selectedConversation!}
+                        onConversationClick={onConversationClick}
+                    />
+                );
+            case "Recipients":
+        }
+    }
+
     return (
         <div className={styles.chat}>
             <h1>Chat</h1>
@@ -109,27 +169,36 @@ export function Chat({ params }: ChatProps) {
                         onInput={onInput}
                         onClearClick={onSearchClear}
                     />
-                    {!selectedConversation ? (
+                    {!selectedConversation || !session ? (
                         <SpinnerContainer>
                             <Spinner />
                         </SpinnerContainer>
                     ) : (
-                        <ConversationsPane
-                            search={inputs.search}
-                            conversations={conversations}
-                            selectedConversation={selectedConversation}
-                            onConversationClick={onConversationClick}
-                        />
+                        <>
+                            <TabbedMenu
+                                selected={view}
+                                options={[
+                                    "Conversations",
+                                    "Contacts",
+                                    "Recipients",
+                                ]}
+                                onSelect={setView}
+                            />
+                            {renderView(view)}
+                        </>
                     )}
                 </section>
                 <section className={styles.messages}>
-                    {!selectedConversation ? (
+                    {!selectedConversation ||
+                    !session ||
+                    contacts.length === 0 ? (
                         <SpinnerContainer>
                             <Spinner />
                         </SpinnerContainer>
                     ) : (
                         <>
                             <ConversationHeader
+                                contacts={contacts}
                                 selectedConversation={selectedConversation}
                                 onRecipientAdd={onRecipientAdd}
                                 onRecipientRemove={onRecipientRemove}

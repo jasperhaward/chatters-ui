@@ -1,5 +1,6 @@
+import { useMemo, useState } from "preact/hooks";
 import styles from "./MultiSelect.module.scss";
-import { Pill } from ".";
+import { Pill, HighlightedText } from ".";
 import { useForm } from "@hooks";
 
 export interface MultiSelectOption {
@@ -11,6 +12,7 @@ export interface MultiSelectProps {
     value: MultiSelectOption[];
     options: MultiSelectOption[];
     disabled?: boolean;
+    placeholder?: string;
     onOptionAdd: (option: MultiSelectOption) => void;
     onOptionRemove: (option: MultiSelectOption) => void;
 }
@@ -19,40 +21,66 @@ export function MultiSelect({
     value,
     options,
     disabled,
-    onOptionAdd,
-    onOptionRemove,
+    placeholder,
+    ...props
 }: MultiSelectProps) {
-    const [inputs, onInput] = useForm({
+    const [showOptions, setShowOptions] = useState(false);
+    const [inputs, onInput, setInputs] = useForm({
         search: "",
     });
 
+    const filteredOptions = useMemo(() => {
+        if (inputs.search === "") {
+            return options;
+        }
+
+        return options.filter((option) => {
+            const searchTerm = inputs.search.toUpperCase();
+            const text = option.text.toUpperCase();
+
+            return text.includes(searchTerm);
+        });
+    }, [options]);
+
+    function onOptionAdd(option: MultiSelectOption) {
+        setInputs({ search: "" });
+        props.onOptionAdd(option);
+    }
+
+    function onOptionRemove(option: MultiSelectOption) {
+        setInputs({ search: "" });
+        props.onOptionRemove(option);
+    }
+
     return (
-        <>
+        <div className={styles.multiSelect}>
             <div className={styles.selected}>
-                {value.map((option) => (
-                    <Pill onClick={() => onOptionRemove(option)}>
+                {value.map((option, index) => (
+                    <Pill key={index} onClick={() => onOptionRemove(option)}>
                         {option.text}
                     </Pill>
                 ))}
             </div>
-            <div className={styles.search}>
-                <input
-                    name="search"
-                    value={inputs.search}
-                    disabled={disabled}
-                    onInput={onInput}
-                />
-            </div>
-            <select className={styles.results} size={4} disabled={disabled}>
-                {options.map((option) => (
-                    <option
-                        value={option.value}
-                        onClick={() => onOptionAdd(option)}
-                    >
-                        {option.text}
-                    </option>
-                ))}
-            </select>
-        </>
+            <input
+                name="search"
+                placeholder={placeholder}
+                autoComplete="off"
+                value={inputs.search}
+                onInput={onInput}
+                onFocus={() => setShowOptions(true)}
+                onBlur={() => setShowOptions(false)}
+            />
+            {showOptions && (
+                <div className={styles.options}>
+                    {filteredOptions.map((option, index) => (
+                        <button key={index} onClick={() => onOptionAdd(option)}>
+                            <HighlightedText query={inputs.search}>
+                                {option.text}
+                            </HighlightedText>
+                        </button>
+                    ))}
+                </div>
+            )}
+        </div>
     );
 }

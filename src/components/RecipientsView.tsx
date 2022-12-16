@@ -17,7 +17,7 @@ export interface ConversationHeaderProps {
     onRecipientRemove: (recipient: User) => void;
 }
 
-export function ConversationHeader({
+export function RecipientsView({
     contacts,
     selectedConversation,
     onRecipientAdd,
@@ -76,32 +76,13 @@ export function ConversationHeader({
 
     return (
         <div className={styles.conversationHeader}>
-            <h2>
-                {selectedConversation.recipients
-                    .map((recpient) => recpient.username)
-                    .join(", ")}
-            </h2>
-            <PopoverMenuContainer>
-                <IconButton
-                    className={styles.recipientsToggle}
-                    icon={["fas", "users"]}
-                    color="green"
-                    onClick={toggleShowRecipients}
-                />
-                <PopoverMenu
-                    title="Recipients"
-                    show={showRecipients}
-                    toggle={toggleShowRecipients}
-                >
-                    <MultiSelect
-                        value={sortedRecipients.map(toMultiSelectOption)}
-                        options={nonRecipientContacts.map(toMultiSelectOption)}
-                        placeholder="Search contacts..."
-                        onOptionAdd={onOptionAdd}
-                        onOptionRemove={onOptionRemove}
-                    />
-                </PopoverMenu>
-            </PopoverMenuContainer>
+            <MultiSelect
+                value={sortedRecipients.map(toMultiSelectOption)}
+                options={nonRecipientContacts.map(toMultiSelectOption)}
+                placeholder="Search contacts..."
+                onOptionAdd={onOptionAdd}
+                onOptionRemove={onOptionRemove}
+            />
         </div>
     );
 }

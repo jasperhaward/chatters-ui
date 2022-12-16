@@ -1,0 +1,39 @@
+@use "@styling/colours";
+@use "@styling/border";
+@use "@styling/padding";
+@use "@styling/fonts";
+
+.multiSelect {
+    padding: padding.$md;
+
+    .selected {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: padding.$md;
+        gap: padding.$md;
+        border-radius: border.$radius-sm;
+    }
+
+    input {
+        width: 100%;
+        font-size: fonts.$size-sm;
+        color: colours.$white;
+
+        &::placeholder {
+            color: colours.$grey-light;
+        }
+    }
+
+    .options {
+        width: 100%;
+        max-height: 150px;
+        margin-top: padding.$md;
+        overflow-y: auto;
+
+        button {
+            display: block;
+            color: colours.$white;
+            font-size: fonts.$size-sm;
+        }
+    }
+}

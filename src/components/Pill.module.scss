@@ -5,12 +5,10 @@
 
 .pill {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding: padding.$sm padding.$sm padding.$sm padding.$md;
     border-radius: border.$radius-md;
     font-size: fonts.$size-sm;
-    color: colours.$grey-xdark;
+    color: colours.$grey-xxdark;
     background-color: colours.$green;
 
     button {
@@ -19,7 +17,7 @@
         justify-content: center;
         width: 18px;
         height: 18px;
+        margin-left: padding.$xs;
         border-radius: 50%;
-        background-color: colours.$white;
     }
 }

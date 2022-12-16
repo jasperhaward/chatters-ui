@@ -19,7 +19,7 @@ export function SearchBox({
     return (
         <div className={styles.searchBox}>
             <input
-                placeholder="Search..."
+                placeholder="Search"
                 autoComplete="off"
                 name={name}
                 value={value}

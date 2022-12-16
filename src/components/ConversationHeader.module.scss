@@ -1,6 +1,5 @@
 @use "@styling/colours";
 @use "@styling/padding";
-@use "@styling/transition";
 
 .conversationHeader {
     display: flex;
@@ -11,18 +10,12 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        margin: padding.$md;
+        margin: padding.$sm;
         font-weight: 300;
         color: colours.$white;
     }
 
-    button {
-        margin: padding.$sm padding.$md;
-        transition-duration: transition.$duration-medium;
-        transition-property: transform;
-
-        &.rotate {
-            transform: rotate(180deg);
-        }
+    .recipientsToggle {
+        margin-right: padding.$md;
     }
 }
