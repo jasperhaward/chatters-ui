@@ -1,5 +1,5 @@
 import type { Message } from "@types";
-import { generateId } from "@utils/id";
+import { generateId } from "@utils";
 import { user, contacts, messages } from "../mockData";
 
 export async function get() {

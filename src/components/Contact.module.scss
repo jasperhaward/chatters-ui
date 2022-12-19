@@ -1,0 +1,40 @@
+@use "@styling/colours";
+@use "@styling/padding";
+@use "@styling/fonts";
+@use "@styling/border";
+@use "@styling/brightness";
+@use "@styling/transition";
+
+$transition: all transition.$duration-medium ease;
+
+.contact {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: padding.$lg;
+    transition: $transition;
+    border-radius: border.$radius-md;
+    backdrop-filter: brightness.$light;
+
+    &:focus,
+    &:hover {
+        backdrop-filter: none;
+        background-color: colours.$green;
+
+        svg {
+            color: colours.$white;
+        }
+    }
+
+    svg {
+        margin-right: padding.$md;
+        font-size: 18px;
+        color: colours.$green;
+        transition: $transition;
+    }
+
+    .username {
+        font-size: fonts.$size-sm;
+        color: colours.$white;
+    }
+}

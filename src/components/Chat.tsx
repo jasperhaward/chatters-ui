@@ -8,6 +8,7 @@ import { useForm } from "@hooks";
 import { Conversation, User } from "@types";
 import {
     SearchBox,
+    ContactsPane,
     ConversationsPane,
     MessagesPane,
     ConversationHeader,
@@ -89,6 +90,8 @@ export function Chat({ params }: ChatProps) {
         setInputs({ message: "" });
     }
 
+    function onContactClick(contact: User) {}
+
     async function onRecipientAdd(recipient: User) {
         const params = {
             conversationId: selectedConversation!.id,
@@ -143,17 +146,34 @@ export function Chat({ params }: ChatProps) {
     }
 
     function renderView(view: View) {
+        const search = inputs.search.trim();
+
         switch (view) {
             case "Conversations":
                 return (
                     <ConversationsPane
-                        search={inputs.search.trim()}
+                        search={search}
                         conversations={conversations}
                         selectedConversation={selectedConversation!}
                         onConversationClick={onConversationClick}
                     />
                 );
+            case "Contacts":
+                return (
+                    <ContactsPane
+                        search={search}
+                        contacts={contacts}
+                        onContactClick={onContactClick}
+                    />
+                );
             case "Recipients":
+                return (
+                    <ContactsPane
+                        search={search}
+                        contacts={contacts}
+                        onContactClick={onContactClick}
+                    />
+                );
         }
     }
 

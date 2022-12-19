@@ -1,5 +1,5 @@
 import { User, Conversation, Message } from "@types";
-import { generateId } from "@utils/id";
+import { generateId } from "@utils";
 
 export const recipient1: User = {
     id: generateId(),
@@ -26,12 +26,18 @@ export const recipient5: User = {
     username: "Alasdair Dibben",
 };
 
+export const recipient6: User = {
+    id: generateId(),
+    username: "Tom Smith",
+};
+
 export const contacts = [
     recipient1,
     recipient2,
     recipient3,
     recipient4,
     recipient5,
+    recipient6,
 ];
 
 export const user: User = {

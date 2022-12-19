@@ -1,0 +1,26 @@
+@use "@styling/colours";
+@use "@styling/padding";
+@use "@styling/fonts";
+@use "@styling/brightness";
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: padding.$sm;
+    margin: {
+        left: padding.$lg;
+        right: padding.$md;
+    }
+
+    span {
+        font-size: fonts.$size-sm;
+        color: colours.$green;
+    }
+
+    .line {
+        flex-grow: 1;
+        height: 3px;
+        border-radius: 3px;
+        backdrop-filter: brightness.$light;
+    }
+}

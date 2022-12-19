@@ -2,7 +2,7 @@ import styles from "./Message.module.scss";
 
 import colours from "@styling/_colours.module.scss";
 import { Message as IMessage } from "@types";
-import { contrast } from "@utils/colours";
+import { contrast } from "@utils";
 import { Icon } from ".";
 
 export interface MessageProps {

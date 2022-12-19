@@ -1,5 +1,7 @@
 import { useMemo } from "preact/hooks";
 import styles from "./ConversationHeader.module.scss";
+
+import { sortAlphabeticallyBy } from "@utils";
 import { Conversation, User } from "@types";
 import { useToggle } from "@hooks";
 import {
@@ -27,7 +29,9 @@ export function RecipientsView({
 
     /** Conversation recipients sorted alphabetically */
     const sortedRecipients = useMemo(() => {
-        return selectedConversation.recipients.sort(sortAlphabetically);
+        return selectedConversation.recipients.sort(
+            sortAlphabeticallyBy("username")
+        );
     }, [selectedConversation]);
 
     /** Contacts which are not conversation recipients */
@@ -38,18 +42,8 @@ export function RecipientsView({
                     return recipient.id === contact.id;
                 });
             })
-            .sort(sortAlphabetically);
+            .sort(sortAlphabeticallyBy("username"));
     }, [contacts, selectedConversation]);
-
-    function sortAlphabetically(a: User, b: User) {
-        if (a.username > b.username) {
-            return 1;
-        } else if (a.username < b.username) {
-            return -1;
-        }
-
-        return 0;
-    }
 
     function toMultiSelectOption(recipient: User): MultiSelectOption {
         return {

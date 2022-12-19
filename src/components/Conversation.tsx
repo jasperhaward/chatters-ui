@@ -6,15 +6,15 @@ import { Conversation as IConversation, Message } from "@types";
 import { Icon, HighlightedText, Timestamp } from ".";
 
 export interface ConversationsProps {
-    search: string;
     conversation: IConversation;
+    search: string;
     selected: boolean;
     onClick: (conversation: IConversation) => void;
 }
 
 export function Conversation({
-    search,
     conversation,
+    search,
     selected,
     onClick,
 }: ConversationsProps) {

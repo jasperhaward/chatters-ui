@@ -43,10 +43,6 @@ $transition: all transition.$duration-medium ease;
         }
     }
 
-    &:not(:last-child) {
-        margin-bottom: padding.$md;
-    }
-
     svg {
         min-width: 30px;
         margin-right: padding.$md;

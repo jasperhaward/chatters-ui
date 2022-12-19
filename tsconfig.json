@@ -1,27 +1,27 @@
 {
-  "compilerOptions": {
-    "strict": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "target": "ESNext",
-    "allowSyntheticDefaultImports": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "isolatedModules": true,
-    "noEmitOnError": true,
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact",
-    "baseUrl": ".",
-    "skipLibCheck": true,
-    "paths": {
-      "@api": ["./src/api/index"],
-      "@components": ["./src/components/index"],
-      "@context": ["./src/context/index"],
-      "@hooks": ["./src/hooks/index"],
-      "@types": ["./types/index"],
-      "@utils/*": ["./src/utils/*"]
+    "compilerOptions": {
+        "strict": true,
+        "module": "ESNext",
+        "moduleResolution": "Node",
+        "target": "ESNext",
+        "allowSyntheticDefaultImports": true,
+        "lib": ["DOM", "DOM.Iterable", "ESNext"],
+        "isolatedModules": true,
+        "noEmitOnError": true,
+        "jsx": "react-jsx",
+        "jsxImportSource": "preact",
+        "baseUrl": ".",
+        "skipLibCheck": true,
+        "paths": {
+            "@api": ["./src/api/index"],
+            "@components": ["./src/components/index"],
+            "@context": ["./src/context/index"],
+            "@hooks": ["./src/hooks/index"],
+            "@types": ["./types/index"],
+            "@utils": ["./src/utils/index"]
+        },
+        "noEmit": true
     },
-    "noEmit": true
-  },
-  "include": ["src", "types"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+    "include": ["src", "types"],
+    "references": [{ "path": "./tsconfig.node.json" }]
 }

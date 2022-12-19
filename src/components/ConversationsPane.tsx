@@ -1,18 +1,17 @@
 import { useMemo } from "preact/hooks";
-import styles from "./ConversationsPane.module.scss";
 import { Conversation as IConversation } from "@types";
-import { Conversation } from ".";
+import { Conversation, ScrollableList, NoResultsText } from ".";
 
 export interface ConversationsPaneProps {
-    search: string;
     conversations: IConversation[];
+    search: string;
     selectedConversation: IConversation;
     onConversationClick: (conversation: IConversation) => void;
 }
 
 export function ConversationsPane({
-    search,
     conversations,
+    search,
     selectedConversation,
     onConversationClick,
 }: ConversationsPaneProps) {
@@ -33,21 +32,21 @@ export function ConversationsPane({
         };
     }
 
+    if (filteredConversations.length === 0) {
+        return <NoResultsText>No conversations found.</NoResultsText>;
+    }
+
     return (
-        <div className={styles.conversationsPane}>
-            {filteredConversations.length > 0 ? (
-                filteredConversations.map((conversation) => (
-                    <Conversation
-                        key={conversation.id}
-                        search={search}
-                        conversation={conversation}
-                        selected={conversation.id === selectedConversation?.id}
-                        onClick={onConversationClick}
-                    />
-                ))
-            ) : (
-                <span>No conversations found.</span>
-            )}
-        </div>
+        <ScrollableList>
+            {filteredConversations.map((conversation) => (
+                <Conversation
+                    key={conversation.id}
+                    search={search}
+                    conversation={conversation}
+                    selected={conversation.id === selectedConversation?.id}
+                    onClick={onConversationClick}
+                />
+            ))}
+        </ScrollableList>
     );
 }

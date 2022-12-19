@@ -1,0 +1,8 @@
+@use "@styling/colours";
+@use "@styling/fonts";
+
+.noResults {
+    text-align: center;
+    color: colours.$grey-light;
+    font-size: fonts.$size-xs;
+}
