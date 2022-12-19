@@ -24,13 +24,17 @@ export interface ChatProps {
     };
 }
 
-export type View = "Conversations" | "Contacts" | "Recipients";
+export enum View {
+    Contacts = "Contacts",
+    Conversations = "Conversations",
+    Recipients = "Recipients",
+}
 
 export function Chat({ params }: ChatProps) {
     const [{ contacts, conversations }, dispatch] = useContext(AppContext);
     const [session, setSession] = useContext(SessionContext);
 
-    const [view, setView] = useState<View>("Conversations");
+    const [view, setView] = useState<View>(View.Conversations);
     const [location, setLocation] = useLocation();
     const [inputs, onInput, setInputs] = useForm({
         search: "",
@@ -198,9 +202,9 @@ export function Chat({ params }: ChatProps) {
                             <TabbedMenu
                                 selected={view}
                                 options={[
-                                    "Conversations",
-                                    "Contacts",
-                                    "Recipients",
+                                    View.Conversations,
+                                    View.Contacts,
+                                    View.Recipients,
                                 ]}
                                 onSelect={setView}
                             />
