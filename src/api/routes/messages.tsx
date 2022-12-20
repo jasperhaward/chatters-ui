@@ -1,4 +1,4 @@
-import type { Message } from "@types";
+import type { Message, User } from "@types";
 import { generateId } from "@utils";
 import { user, contacts, messages } from "../mockData";
 
@@ -11,20 +11,16 @@ export async function get() {
 export interface CreateMessageParams {
     content: string;
     conversationId: string;
-    createdBy: string;
+    createdBy: User;
 }
 
 export async function create(params: CreateMessageParams) {
     return new Promise<Message>((resolve) => {
-        const users = [user, ...contacts];
-
         const message: Message = {
             id: generateId(),
             ...params,
             createdAt: new Date().toISOString(),
-            createdBy: users.find((user) => {
-                return user.id === params.createdBy;
-            })!,
+            createdBy: params.createdBy,
         };
 
         setTimeout(() => resolve(message), 700);

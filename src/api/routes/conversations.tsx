@@ -1,9 +1,26 @@
-import type { Conversation } from "@types";
+import type { Conversation, User } from "@types";
+import { generateId } from "@utils";
 import { conversations, contacts } from "../mockData";
 
 export async function get() {
     return new Promise<Conversation[]>((resolve) => {
         setTimeout(() => resolve(conversations), 1000);
+    });
+}
+
+export interface CreateConversationParams {
+    recipient: User;
+}
+
+export async function create(params: CreateConversationParams) {
+    return new Promise<Conversation>((resolve) => {
+        const conversation: Conversation = {
+            id: generateId(),
+            recipients: [params.recipient],
+            messages: [],
+        };
+
+        setTimeout(() => resolve(conversation), 750);
     });
 }
 

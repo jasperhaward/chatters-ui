@@ -94,7 +94,31 @@ export function Chat({ params }: ChatProps) {
         setInputs({ message: "" });
     }
 
-    function onContactClick(contact: User) {}
+    async function onContactClick(contact: User) {
+        /** Conversation where the sole recipient is the selected contact */
+        const existingConversation = conversations.find((conversation) => {
+            return (
+                conversation.recipients.length === 1 &&
+                conversation.recipients[0].id === contact.id
+            );
+        });
+
+        if (existingConversation) {
+            setView(View.Conversations);
+            onConversationClick(existingConversation);
+        } else {
+            const params = {
+                recipient: contact,
+            };
+
+            const conversation = await api.conversations.create(params);
+
+            dispatch({
+                type: "conversations/prepend",
+                payload: [conversation],
+            });
+        }
+    }
 
     async function onRecipientAdd(recipient: User) {
         const params = {
@@ -134,7 +158,7 @@ export function Chat({ params }: ChatProps) {
         const params = {
             content: inputs.message.trim(),
             conversationId: selectedConversation!.id,
-            createdBy: session!.user.id,
+            createdBy: session!.user,
         };
 
         const message = await api.messages.create(params);
