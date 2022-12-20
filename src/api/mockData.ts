@@ -1,6 +1,12 @@
 import { User, Conversation, Message } from "@types";
 import { generateId } from "@utils";
 
+export function response<T>(value: T, timeout: number) {
+    return new Promise<T>((resolve) => {
+        setTimeout(() => resolve(value), timeout);
+    });
+}
+
 export const recipient1: User = {
     id: generateId(),
     username: "Monika Rahne",

@@ -1,8 +1,10 @@
 import type { User } from "@types";
-import { contacts } from "../mockData";
+import { response, contacts } from "../mockData";
 
-export async function get() {
-    return new Promise<User[]>((resolve) => {
-        setTimeout(() => resolve(contacts), 2000);
-    });
+async function getContacts(): Promise<User[]> {
+    return response(contacts, 2000);
 }
+
+export default {
+    get: getContacts,
+};

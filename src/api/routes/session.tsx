@@ -1,12 +1,10 @@
 import type { Session } from "@types";
-import { user } from "../mockData";
+import { response, user } from "../mockData";
 
-export async function get() {
-    return new Promise<Session>((resolve) => {
-        const session = {
-            user,
-        };
-
-        setTimeout(() => resolve(session), 1500);
-    });
+async function getSession(): Promise<Session> {
+    return response({ user }, 1500);
 }
+
+export default {
+    get: getSession,
+};

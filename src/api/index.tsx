@@ -1,4 +1,3 @@
-export * as contacts from "./routes/contacts";
-export * as conversations from "./routes/conversations";
-export * as messages from "./routes/messages";
-export * as session from "./routes/session";
+export { default as contacts } from "./routes/contacts";
+export { default as conversations } from "./routes/conversations";
+export { default as session } from "./routes/session";

@@ -1,73 +1,111 @@
-import type { Conversation, User } from "@types";
+import type { Conversation, Message } from "@types";
 import { generateId } from "@utils";
-import { conversations, contacts } from "../mockData";
+import { response, conversations, contacts } from "../mockData";
 
-export async function get() {
-    return new Promise<Conversation[]>((resolve) => {
-        setTimeout(() => resolve(conversations), 1000);
-    });
+async function getConversations(): Promise<Conversation[]> {
+    return response(conversations, 1000);
 }
 
-export interface CreateConversationParams {
-    recipient: User;
+interface CreateConversationParams {
+    recipientId: string;
 }
 
-export async function create(params: CreateConversationParams) {
-    return new Promise<Conversation>((resolve) => {
-        const conversation: Conversation = {
-            id: generateId(),
-            recipients: [params.recipient],
-            messages: [],
-        };
+async function createConversation(
+    params: CreateConversationParams
+): Promise<Conversation> {
+    const recipients = contacts.filter((contact) => {
+        return contact.id === params.recipientId;
+    })!;
 
-        setTimeout(() => resolve(conversation), 750);
-    });
+    const conversation: Conversation = {
+        id: generateId(),
+        recipients,
+        messages: [],
+    };
+
+    return response(conversation, 750);
 }
 
-export interface AddRecipientParams {
+interface SendMessageParams {
+    content: string;
     conversationId: string;
-    userId: string;
+    createdById: string;
 }
 
-async function add(params: AddRecipientParams) {
-    return new Promise<Conversation>((resolve) => {
-        const conversation = conversations.find((conversation) => {
-            return conversation.id === params.conversationId;
-        })!;
+async function sendMessage({
+    content,
+    conversationId,
+    createdById,
+}: SendMessageParams): Promise<Message> {
+    const createdBy = contacts.find((contact) => {
+        return contact.id === createdById;
+    })!;
 
-        const contact = contacts.find((contact) => {
-            return contact.id === params.userId;
-        })!;
+    const message: Message = {
+        id: generateId(),
+        conversationId,
+        content,
+        createdAt: new Date().toISOString(),
+        createdBy,
+    };
 
-        const updatedConversation: Conversation = {
-            ...conversation,
-            recipients: [...conversation.recipients, contact],
-        };
-
-        setTimeout(() => resolve(updatedConversation), 750);
-    });
+    return response(message, 700);
 }
 
-export interface RemoveRecipientParams {
+interface AddRecipientParams {
     conversationId: string;
-    userId: string;
+    recipientId: string;
 }
 
-async function remove(params: RemoveRecipientParams) {
-    return new Promise<Conversation>((resolve) => {
-        const conversation = conversations.find((conversation) => {
-            return conversation.id === params.conversationId;
-        })!;
+async function addRecipient(params: AddRecipientParams): Promise<Conversation> {
+    const conversation = conversations.find((conversation) => {
+        return conversation.id === params.conversationId;
+    })!;
 
-        const updatedConversation: Conversation = {
-            ...conversation,
-            recipients: conversation.recipients.filter((recipient) => {
-                return recipient.id !== params.userId;
-            }),
-        };
+    const recipient = contacts.find((contact) => {
+        return contact.id === params.recipientId;
+    })!;
 
-        setTimeout(() => resolve(updatedConversation), 500);
+    const updatedConversation: Conversation = {
+        ...conversation,
+        recipients: [...conversation.recipients, recipient],
+    };
+
+    return response(updatedConversation, 750);
+}
+
+interface RemoveRecipientParams {
+    conversationId: string;
+    recipientId: string;
+}
+
+async function removeRecipient(
+    params: RemoveRecipientParams
+): Promise<Conversation> {
+    const conversation = conversations.find((conversation) => {
+        return conversation.id === params.conversationId;
+    })!;
+
+    const updatedRecipients = conversation.recipients.filter((recipient) => {
+        return recipient.id !== params.recipientId;
     });
+
+    const updatedConversation: Conversation = {
+        ...conversation,
+        recipients: updatedRecipients,
+    };
+
+    return response(updatedConversation, 500);
 }
 
-export const recipients = { add, remove };
+export default {
+    get: getConversations,
+    create: createConversation,
+    messages: {
+        send: sendMessage,
+    },
+    recipients: {
+        add: addRecipient,
+        remove: removeRecipient,
+    },
+};

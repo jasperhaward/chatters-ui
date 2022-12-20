@@ -108,7 +108,7 @@ export function Chat({ params }: ChatProps) {
             onConversationClick(existingConversation);
         } else {
             const params = {
-                recipient: contact,
+                recipientId: contact.id,
             };
 
             const conversation = await api.conversations.create(params);
@@ -123,7 +123,7 @@ export function Chat({ params }: ChatProps) {
     async function onRecipientAdd(recipient: User) {
         const params = {
             conversationId: selectedConversation!.id,
-            userId: recipient.id,
+            recipientId: recipient.id,
         };
 
         await api.conversations.recipients.add(params);
@@ -140,7 +140,7 @@ export function Chat({ params }: ChatProps) {
     async function onRecipientRemove(recipient: User) {
         const params = {
             conversationId: selectedConversation!.id,
-            userId: recipient.id,
+            recipientId: recipient.id,
         };
 
         await api.conversations.recipients.remove(params);
@@ -158,10 +158,10 @@ export function Chat({ params }: ChatProps) {
         const params = {
             content: inputs.message.trim(),
             conversationId: selectedConversation!.id,
-            createdBy: session!.user,
+            createdById: session!.user.id,
         };
 
-        const message = await api.messages.create(params);
+        const message = await api.conversations.messages.send(params);
 
         dispatch({
             type: "conversations/messages/prepend",
