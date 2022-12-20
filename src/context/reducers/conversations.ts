@@ -7,6 +7,8 @@ const conversations: Reducer<Conversation[], AppContextAction> = (
     action
 ) => {
     switch (action.type) {
+        case "conversations/prepend":
+            return [...action.payload, ...state];
         case "conversations/append":
             return [...state, ...action.payload];
         case "conversations/messages/append":

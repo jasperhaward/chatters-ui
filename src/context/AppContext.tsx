@@ -3,6 +3,7 @@ import type { Conversation, User } from "@types";
 
 import type {
     ContactsAppendAction,
+    ConversationsPrependAction,
     ConversationsAppendAction,
     ConversationsMessagesAppendAction,
     ConversationsMessagesPrependAction,
@@ -12,6 +13,7 @@ import type {
 
 export type AppContextAction =
     | ContactsAppendAction
+    | ConversationsPrependAction
     | ConversationsAppendAction
     | ConversationsMessagesAppendAction
     | ConversationsMessagesPrependAction

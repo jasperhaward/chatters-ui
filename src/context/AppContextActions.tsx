@@ -12,6 +12,11 @@ export interface ContactsAppendAction extends Action {
     payload: User[];
 }
 
+export interface ConversationsPrependAction extends Action {
+    type: "conversations/prepend";
+    payload: Conversation[];
+}
+
 export interface ConversationsAppendAction extends Action {
     type: "conversations/append";
     payload: Conversation[];
