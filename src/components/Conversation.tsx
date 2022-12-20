@@ -1,67 +1,73 @@
 import { useMemo } from "preact/hooks";
 import styles from "./Conversation.module.scss";
 
-import { useCurrentUser } from "@hooks";
-import { Conversation as IConversation, Message } from "@types";
-import { Icon, HighlightedText, Timestamp } from ".";
+import { DRAFT_CONVERSATION_ID } from "@constants";
+import { Conversation as IConversation, User } from "@types";
+import { Icon, HighlightedText, Author, Timestamp } from ".";
 
 export interface ConversationsProps {
     conversation: IConversation;
     search: string;
-    selected: boolean;
+    isSelected: boolean;
     onClick: (conversation: IConversation) => void;
 }
 
 export function Conversation({
     conversation,
     search,
-    selected,
+    isSelected,
     onClick,
 }: ConversationsProps) {
-    const user = useCurrentUser();
+    const isDraftConversation = useMemo(() => {
+        return conversation.id === DRAFT_CONVERSATION_ID;
+    }, [conversation]);
 
-    const [message] = conversation.messages;
-
-    const isGroupChat = useMemo(() => {
+    const isGroupConversation = useMemo(() => {
         return conversation.recipients.length > 1;
     }, [conversation]);
 
-    function author(message: Message) {
-        const isCurrentUser = message.createdBy.id === user.id;
+    const [message] = conversation.messages;
 
-        // don't show an author when the last message
-        // came from the conversation's only other recipient (a dm)
-        if (!isCurrentUser && !isGroupChat) return "";
-
-        return (
-            <span className={styles.author}>
-                {isCurrentUser ? "You" : message.createdBy.username}:
-            </span>
-        );
+    function formatRecipients(recipients: User[]) {
+        return recipients.map((recipient) => recipient.username).join(", ");
     }
 
     return (
         <button
             className={`${styles.conversation} ${
-                selected ? styles.selected : ""
+                isSelected ? styles.selected : ""
             }`}
             onClick={() => onClick(conversation)}
         >
-            <Icon icon={["fas", isGroupChat ? "users" : "user"]} />
+            <Icon icon={["fas", isGroupConversation ? "users" : "user"]} />
             <div className={styles.details}>
                 <div>
                     <HighlightedText
                         className={styles.recipients}
                         query={search}
                     >
-                        {conversation.recipients
-                            .map((recipient) => recipient.username)
-                            .join(", ")}
+                        {formatRecipients(conversation.recipients)}
                     </HighlightedText>
-                    <Timestamp className={styles.timestamp} message={message} />
+                    {!isDraftConversation && (
+                        <Timestamp
+                            message={message}
+                            isSelectedConversation={isSelected}
+                        />
+                    )}
                 </div>
                 <div className={styles.message}>
-                    {author(message)} {message.content}
+                    {isDraftConversation ? (
+                        "Draft"
+                    ) : (
+                        <>
+                            <Author
+                                message={message}
+                                isSelectedConversation={isSelected}
+                                isGroupConversation={isGroupConversation}
+                            />
+                            {message.content}
+                        </>
+                    )}
                 </div>
             </div>
         </button>

@@ -41,9 +41,9 @@ export function ConversationsPane({
             {filteredConversations.map((conversation) => (
                 <Conversation
                     key={conversation.id}
-                    search={search}
                     conversation={conversation}
-                    selected={conversation.id === selectedConversation?.id}
+                    search={search}
+                    isSelected={conversation.id === selectedConversation?.id}
                     onClick={onConversationClick}
                 />
             ))}

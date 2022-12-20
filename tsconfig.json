@@ -15,6 +15,7 @@
         "paths": {
             "@api": ["./src/api/index"],
             "@components": ["./src/components/index"],
+            "@constants": ["./src/constants"],
             "@context": ["./src/context/index"],
             "@hooks": ["./src/hooks/index"],
             "@types": ["./types/index"],

@@ -1,0 +1,14 @@
+@use "@styling/colours";
+@use "@styling/fonts";
+@use "@styling/transition";
+
+.timestamp {
+    &.selected {
+        color: colours.$grey-xdark;
+    }
+
+    white-space: nowrap;
+    color: colours.$grey-xlight;
+    font-size: fonts.$size-xs;
+    transition: color transition.$duration-medium ease;
+}

@@ -4,6 +4,7 @@ import styles from "./Chat.module.scss";
 
 import * as api from "@api";
 import { AppContext, SessionContext } from "@context";
+import { DRAFT_CONVERSATION_ID } from "@constants";
 import { useForm } from "@hooks";
 import { Conversation, User } from "@types";
 import {
@@ -95,7 +96,7 @@ export function Chat({ params }: ChatProps) {
     }
 
     async function onContactClick(contact: User) {
-        /** Conversation where the sole recipient is the selected contact */
+        /** Conversation where the sole recipient was the clicked contact */
         const existingConversation = conversations.find((conversation) => {
             return (
                 conversation.recipients.length === 1 &&
@@ -104,20 +105,23 @@ export function Chat({ params }: ChatProps) {
         });
 
         if (existingConversation) {
-            setView(View.Conversations);
             onConversationClick(existingConversation);
         } else {
-            const params = {
-                recipientId: contact.id,
+            // create draft conversation
+            const draftConversation: Conversation = {
+                id: DRAFT_CONVERSATION_ID,
+                recipients: [contact],
+                messages: [],
             };
-
-            const conversation = await api.conversations.create(params);
 
             dispatch({
                 type: "conversations/prepend",
-                payload: [conversation],
+                payload: [draftConversation],
             });
+            onConversationClick(draftConversation);
         }
+
+        setView(View.Conversations);
     }
 
     async function onRecipientAdd(recipient: User) {

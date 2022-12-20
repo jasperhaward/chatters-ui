@@ -17,7 +17,10 @@ $transition: all transition.$duration-medium ease;
     backdrop-filter: brightness.$light;
 
     &:focus,
-    &:hover,
+    &:hover {
+        backdrop-filter: brightness.$xlight;
+    }
+
     &.selected {
         backdrop-filter: none;
         background-color: colours.$green;
@@ -26,20 +29,8 @@ $transition: all transition.$duration-medium ease;
             color: colours.$white;
         }
 
-        .details {
-            div:first-child {
-                .timestamp {
-                    color: colours.$grey-xdark;
-                }
-            }
-
-            .message {
-                color: colours.$grey-dark;
-
-                .author {
-                    color: colours.$grey-xdark;
-                }
-            }
+        .details .message {
+            color: colours.$grey-dark;
         }
     }
 
@@ -69,13 +60,6 @@ $transition: all transition.$duration-medium ease;
                 font-size: fonts.$size-sm;
                 color: colours.$white;
             }
-
-            .timestamp {
-                white-space: nowrap;
-                color: colours.$grey-xlight;
-                font-size: fonts.$size-xs;
-                transition: $transition;
-            }
         }
 
         .message {
@@ -86,11 +70,6 @@ $transition: all transition.$duration-medium ease;
             color: colours.$grey-light;
             font-size: fonts.$size-xs;
             transition: $transition;
-
-            .author {
-                color: colours.$grey-xlight;
-                transition: $transition;
-            }
         }
     }
 }

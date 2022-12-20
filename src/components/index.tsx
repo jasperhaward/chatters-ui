@@ -1,3 +1,4 @@
+export * from "./Author";
 export * from "./Chat";
 export * from "./Contact";
 export * from "./ContactsPane";

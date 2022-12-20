@@ -1,37 +1,40 @@
+import styles from "./Timestamp.module.scss";
 import { Message } from "@types";
 
 export interface TimestampProps {
-    className?: string;
     message: Message;
+    isSelectedConversation: boolean;
 }
 
-export function Timestamp({ className, message }: TimestampProps) {
-    const createdAt = new Date(message.createdAt);
-
-    let timestamp: string;
-
-    if (createdAt.isToday()) {
-        timestamp = formatCreatedAt({
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: true,
-        });
-    } else if (createdAt.isYesterday()) {
-        timestamp = "Yesterday";
-    } else if (createdAt.isThisWeek()) {
-        timestamp = formatCreatedAt({
-            weekday: "long",
-        });
-    } else {
-        timestamp = formatCreatedAt({
-            day: "numeric",
-            month: "short",
-        });
+export function Timestamp({ message, isSelectedConversation }: TimestampProps) {
+    function format(createdAt: Date) {
+        if (createdAt.isToday()) {
+            return createdAt.toLocaleString("en-GB", {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+            });
+        } else if (createdAt.isYesterday()) {
+            return "Yesterday";
+        } else if (createdAt.isThisWeek()) {
+            return createdAt.toLocaleString("en-GB", {
+                weekday: "long",
+            });
+        } else {
+            return createdAt.toLocaleString("en-GB", {
+                day: "numeric",
+                month: "short",
+            });
+        }
     }
 
-    function formatCreatedAt(options: Intl.DateTimeFormatOptions) {
-        return createdAt.toLocaleString("en-GB", options);
-    }
-
-    return <time className={className}>{timestamp}</time>;
+    return (
+        <time
+            className={`${styles.timestamp} ${
+                isSelectedConversation ? styles.selected : ""
+            }`}
+        >
+            {format(new Date(message.createdAt))}
+        </time>
+    );
 }
