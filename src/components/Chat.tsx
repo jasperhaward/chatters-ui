@@ -91,8 +91,12 @@ export function Chat({ params }: ChatProps) {
     }
 
     function onConversationClick(conversation: Conversation) {
-        // if a new conversation is selected, remove the draft conversation
-        if (selectedConversation!.id === DRAFT_CONVERSATION_ID) {
+        // when the currently selected conversation is a draft and the newly
+        // selected conversation is not a draft, remove the draft conversation
+        if (
+            selectedConversation!.id === DRAFT_CONVERSATION_ID &&
+            conversation.id !== DRAFT_CONVERSATION_ID
+        ) {
             dispatch({
                 type: "conversations/remove",
                 payload: {
@@ -123,10 +127,22 @@ export function Chat({ params }: ChatProps) {
                 messages: [],
             };
 
-            dispatch({
-                type: "conversations/prepend",
-                payload: [draftConversation],
-            });
+            // if the selected conversation is a draft conversation,
+            // update it, as opposed to inserting a new draft conversation
+            if (selectedConversation!.id === DRAFT_CONVERSATION_ID) {
+                dispatch({
+                    type: "conversations/replace",
+                    payload: {
+                        conversationId: DRAFT_CONVERSATION_ID,
+                        conversation: draftConversation,
+                    },
+                });
+            } else {
+                dispatch({
+                    type: "conversations/prepend",
+                    payload: [draftConversation],
+                });
+            }
             onConversationClick(draftConversation);
         }
 
