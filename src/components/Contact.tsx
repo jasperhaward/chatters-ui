@@ -13,9 +13,11 @@ export function Contact({ contact, search, onClick }: ContactProps) {
     return (
         <button className={styles.contact} onClick={() => onClick(contact)}>
             <Icon icon={["fas", "user"]} />
-            <HighlightedText className={styles.username} query={search}>
-                {contact.username}
-            </HighlightedText>
+            <HighlightedText
+                className={styles.username}
+                query={search}
+                value={contact.username}
+            />
         </button>
     );
 }

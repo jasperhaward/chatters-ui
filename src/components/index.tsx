@@ -4,7 +4,6 @@ export * from "./ContactsPane";
 export * from "./Conversation";
 export * from "./ConversationMessageAuthor";
 export * from "./ConversationMessageTimestamp";
-export * from "./ConversationRecipients";
 export * from "./ConversationHeader";
 export * from "./ConversationsPane";
 export * from "./Divider";

@@ -1,7 +1,7 @@
 export interface HighlightedTextProps {
     className?: string;
     query: string;
-    children: string;
+    value: string;
 }
 
 // See https://www.vladopandzic.com/react/creating-react-highlighter-component/
@@ -9,9 +9,9 @@ export interface HighlightedTextProps {
 export function HighlightedText({
     className,
     query,
-    children,
+    value,
 }: HighlightedTextProps) {
-    const substrings = children.split(new RegExp(`(${query})`, "i"));
+    const substrings = value.split(new RegExp(`(${query})`, "i"));
 
     function renderSubstring(substring: string, index: number) {
         if (substring.toUpperCase() === query.toUpperCase()) {
@@ -21,9 +21,5 @@ export function HighlightedText({
         return substring;
     }
 
-    return (
-        <span className={className}>
-            {query === "" ? children : substrings.map(renderSubstring)}
-        </span>
-    );
+    return <span className={className}>{substrings.map(renderSubstring)}</span>;
 }

@@ -2,8 +2,13 @@ import { useMemo } from "preact/hooks";
 import styles from "./Conversation.module.scss";
 
 import { DRAFT_CONVERSATION_ID } from "@constants";
-import { Conversation as IConversation, User } from "@types";
-import { Icon, HighlightedText, Author, Timestamp } from ".";
+import { Conversation as IConversation } from "@types";
+import {
+    Icon,
+    HighlightedText,
+    ConversationMessageAuthor,
+    ConversationMessageTimestamp,
+} from ".";
 
 export interface ConversationsProps {
     conversation: IConversation;
@@ -28,10 +33,6 @@ export function Conversation({
 
     const [message] = conversation.messages;
 
-    function formatRecipients(recipients: User[]) {
-        return recipients.map((recipient) => recipient.username).join(", ");
-    }
-
     return (
         <button
             className={`${styles.conversation} ${
@@ -45,11 +46,12 @@ export function Conversation({
                     <HighlightedText
                         className={styles.recipients}
                         query={search}
-                    >
-                        {formatRecipients(conversation.recipients)}
-                    </HighlightedText>
+                        value={conversation.recipients
+                            .map((recipient) => recipient.username)
+                            .join(", ")}
+                    />
                     {!isDraftConversation && (
-                        <Timestamp
+                        <ConversationMessageTimestamp
                             message={message}
                             isSelectedConversation={isSelected}
                         />
@@ -60,7 +62,7 @@ export function Conversation({
                         "Draft"
                     ) : (
                         <>
-                            <Author
+                            <ConversationMessageAuthor
                                 message={message}
                                 isSelectedConversation={isSelected}
                                 isGroupConversation={isGroupConversation}
