@@ -1,19 +1,19 @@
-import styles from "./Author.module.scss";
+import styles from "./ConversationMessageAuthor.module.scss";
 
 import { Message } from "@types";
 import { useCurrentUser } from "@hooks";
 
-export interface AuthorProps {
+export interface ConversationMessageAuthorProps {
     message: Message;
     isSelectedConversation: boolean;
     isGroupConversation: boolean;
 }
 
-export function Author({
+export function ConversationMessageAuthor({
     message,
     isSelectedConversation,
     isGroupConversation,
-}: AuthorProps) {
+}: ConversationMessageAuthorProps) {
     const user = useCurrentUser();
 
     const isCreatedByCurrentUser = message.createdBy.id === user.id;

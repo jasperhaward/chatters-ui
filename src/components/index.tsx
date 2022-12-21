@@ -1,8 +1,10 @@
-export * from "./Author";
 export * from "./Chat";
 export * from "./Contact";
 export * from "./ContactsPane";
 export * from "./Conversation";
+export * from "./ConversationMessageAuthor";
+export * from "./ConversationMessageTimestamp";
+export * from "./ConversationRecipients";
 export * from "./ConversationHeader";
 export * from "./ConversationsPane";
 export * from "./Divider";
@@ -20,4 +22,3 @@ export * from "./ScrollableList";
 export * from "./SearchBox";
 export * from "./Spinner";
 export * from "./TabbedMenu";
-export * from "./Timestamp";

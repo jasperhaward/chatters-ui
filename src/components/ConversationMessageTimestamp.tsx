@@ -1,12 +1,15 @@
-import styles from "./Timestamp.module.scss";
+import styles from "./ConversationMessageTimestamp.module.scss";
 import { Message } from "@types";
 
-export interface TimestampProps {
+export interface ConversationMessageTimestampProps {
     message: Message;
     isSelectedConversation: boolean;
 }
 
-export function Timestamp({ message, isSelectedConversation }: TimestampProps) {
+export function ConversationMessageTimestamp({
+    message,
+    isSelectedConversation,
+}: ConversationMessageTimestampProps) {
     function format(createdAt: Date) {
         if (createdAt.isToday()) {
             return createdAt.toLocaleString("en-GB", {
