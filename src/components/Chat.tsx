@@ -12,7 +12,7 @@ import {
     ContactsPane,
     ConversationsPane,
     MessagesPane,
-    ConversationHeader,
+    MessagesPaneHeader,
     MessageBox,
     Spinner,
     SpinnerContainer,
@@ -282,11 +282,8 @@ export function Chat({ params }: ChatProps) {
                         </SpinnerContainer>
                     ) : (
                         <>
-                            <ConversationHeader
-                                contacts={contacts}
+                            <MessagesPaneHeader
                                 selectedConversation={selectedConversation}
-                                onRecipientAdd={onRecipientAdd}
-                                onRecipientRemove={onRecipientRemove}
                             />
                             <MessagesPane
                                 selectedConversation={selectedConversation}

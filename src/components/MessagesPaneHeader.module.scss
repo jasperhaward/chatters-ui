@@ -1,0 +1,11 @@
+@use "@styling/colours";
+@use "@styling/padding";
+
+.messagesHeader {
+    margin: padding.$sm;
+    font-weight: 300;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: colours.$white;
+}
