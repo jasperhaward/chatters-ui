@@ -168,7 +168,7 @@ export function Chat({ params }: ChatProps) {
     }
 
     async function onMessageSubmit() {
-        // if the selected conversation is a draft, create the conversation first
+        // if the selected conversation is a draft, create the conversation
         if (selectedConversation!.id === DRAFT_CONVERSATION_ID) {
             const [recipient] = selectedConversation!.recipients;
 
