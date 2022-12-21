@@ -1,4 +1,10 @@
-import { useContext, useEffect, useMemo, useState } from "preact/hooks";
+import {
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
+} from "preact/hooks";
 import { useLocation } from "wouter";
 import styles from "./Chat.module.scss";
 
@@ -61,6 +67,17 @@ export function Chat({ params }: ChatProps) {
             setLocation(`/conversations/${conversations[0].id}`);
         }
     }, [conversations, selectedConversation]);
+
+    const getViewOptions = useCallback(() => {
+        const options: View[] = [View.Conversations, View.Contacts];
+
+        // ensure user cannot add/remove recipients for a draft conversation
+        if (selectedConversation!.id !== DRAFT_CONVERSATION_ID) {
+            options.push(View.Recipients);
+        }
+
+        return options;
+    }, [selectedConversation?.id]);
 
     async function loadSession() {
         const session = await api.session.get();
@@ -278,11 +295,7 @@ export function Chat({ params }: ChatProps) {
                         <>
                             <TabbedMenu
                                 selected={view}
-                                options={[
-                                    View.Conversations,
-                                    View.Contacts,
-                                    View.Recipients,
-                                ]}
+                                options={getViewOptions()}
                                 onSelect={setView}
                             />
                             {renderView(view)}
