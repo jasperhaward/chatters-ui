@@ -1,6 +1,6 @@
 import { useMemo, useState } from "preact/hooks";
 import styles from "./MultiSelect.module.scss";
-import { Pill, HighlightedText } from ".";
+import { Pill, HighlightedText } from "..";
 import { useForm } from "@hooks";
 
 export interface MultiSelectOption {
@@ -74,9 +74,10 @@ export function MultiSelect({
                 <div className={styles.options}>
                     {filteredOptions.map((option, index) => (
                         <button key={index} onClick={() => onOptionAdd(option)}>
-                            <HighlightedText query={inputs.search}>
-                                {option.text}
-                            </HighlightedText>
+                            <HighlightedText
+                                query={inputs.search}
+                                value={option.text}
+                            />
                         </button>
                     ))}
                 </div>

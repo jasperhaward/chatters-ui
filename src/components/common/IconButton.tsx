@@ -1,5 +1,5 @@
 import styles from "./IconButton.module.scss";
-import { Icon, IconTuple } from ".";
+import { Icon, IconTuple } from "..";
 
 type BaseButtonElementProps = Omit<
     JSX.HTMLAttributes<HTMLButtonElement>,

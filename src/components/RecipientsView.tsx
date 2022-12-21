@@ -4,13 +4,7 @@ import styles from "./ConversationHeader.module.scss";
 import { sortAlphabeticallyBy } from "@utils";
 import { Conversation, User } from "@types";
 import { useToggle } from "@hooks";
-import {
-    IconButton,
-    PopoverMenuContainer,
-    PopoverMenu,
-    MultiSelect,
-    MultiSelectOption,
-} from ".";
+import { MultiSelect, MultiSelectOption } from ".";
 
 export interface ConversationHeaderProps {
     contacts: User[];
