@@ -43,13 +43,14 @@ export function Conversation({
             <Icon icon={["fas", isGroupConversation ? "users" : "user"]} />
             <div className={styles.details}>
                 <div>
-                    <HighlightedText
-                        className={styles.recipients}
-                        query={search}
-                        value={conversation.recipients
-                            .map((recipient) => recipient.username)
-                            .join(", ")}
-                    />
+                    <span className={styles.recipients}>
+                        <HighlightedText
+                            query={search}
+                            value={conversation.recipients
+                                .map((recipient) => recipient.username)
+                                .join(", ")}
+                        />
+                    </span>
                     {!isDraftConversation && (
                         <ConversationMessageTimestamp
                             message={message}
@@ -57,7 +58,7 @@ export function Conversation({
                         />
                     )}
                 </div>
-                <div className={styles.message}>
+                <div className={styles.messageDetails}>
                     {isDraftConversation ? (
                         "Draft"
                     ) : (

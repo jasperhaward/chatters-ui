@@ -1,3 +1,5 @@
+export * from "./common/Divider";
+export * from "./common/HighlightedText";
 export * from "./Chat";
 export * from "./Contact";
 export * from "./ContactsPane";
@@ -6,8 +8,6 @@ export * from "./ConversationMessageAuthor";
 export * from "./ConversationMessageTimestamp";
 export * from "./ConversationHeader";
 export * from "./ConversationsPane";
-export * from "./Divider";
-export * from "./HighlightedText";
 export * from "./Icon";
 export * from "./IconButton";
 export * from "./Message";
