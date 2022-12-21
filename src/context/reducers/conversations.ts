@@ -11,16 +11,27 @@ const conversations: Reducer<Conversation[], AppContextAction> = (
             return [...action.payload, ...state];
         case "conversations/append":
             return [...state, ...action.payload];
+        case "conversations/remove":
+            return state.filter((conversation) => {
+                return conversation.id !== action.payload.conversationId;
+            });
+        case "conversations/replace":
+            return state.map((conversation) => {
+                if (conversation.id === action.payload.conversationId) {
+                    return action.payload.conversation;
+                }
+
+                return conversation;
+            });
         case "conversations/messages/append":
             return state.map((conversation) => {
                 if (conversation.id === action.payload.conversationId) {
-                    return {
-                        ...conversation,
-                        messages: [
-                            ...conversation.messages,
-                            ...action.payload.messages,
-                        ],
-                    };
+                    const updatedMessages = [
+                        ...conversation.messages,
+                        ...action.payload.messages,
+                    ];
+
+                    return { ...conversation, messages: updatedMessages };
                 }
 
                 return conversation;
@@ -51,13 +62,12 @@ const conversations: Reducer<Conversation[], AppContextAction> = (
         case "conversations/recipients/add":
             return state.map((conversation) => {
                 if (conversation.id === action.payload.conversationId) {
-                    return {
-                        ...conversation,
-                        recipients: [
-                            ...conversation.recipients,
-                            action.payload.recipient,
-                        ],
-                    };
+                    const updatedRecipients = [
+                        ...conversation.recipients,
+                        action.payload.recipient,
+                    ];
+
+                    return { ...conversation, recipients: updatedRecipients };
                 }
 
                 return conversation;
@@ -65,16 +75,13 @@ const conversations: Reducer<Conversation[], AppContextAction> = (
         case "conversations/recipients/remove":
             return state.map((conversation) => {
                 if (conversation.id === action.payload.conversationId) {
-                    return {
-                        ...conversation,
-                        recipients: conversation.recipients.filter(
-                            (recipient) => {
-                                return (
-                                    recipient.id !== action.payload.recipient.id
-                                );
-                            }
-                        ),
-                    };
+                    const updatedRecipients = conversation.recipients.filter(
+                        (recipient) => {
+                            return recipient.id !== action.payload.recipient.id;
+                        }
+                    );
+
+                    return { ...conversation, recipients: updatedRecipients };
                 }
 
                 return conversation;

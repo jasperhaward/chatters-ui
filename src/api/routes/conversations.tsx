@@ -1,6 +1,6 @@
 import type { Conversation, Message } from "@types";
 import { generateId } from "@utils";
-import { response, conversations, contacts } from "../mockData";
+import { response, conversations, user, contacts } from "../mockData";
 
 async function getConversations(): Promise<Conversation[]> {
     return response(conversations, 1000);
@@ -8,45 +8,56 @@ async function getConversations(): Promise<Conversation[]> {
 
 interface CreateConversationParams {
     recipientId: string;
+    message: Omit<SendMessageParams, "conversationId">;
 }
 
 async function createConversation(
     params: CreateConversationParams
 ): Promise<Conversation> {
-    const recipients = contacts.filter((contact) => {
+    const recipient = contacts.find((contact) => {
         return contact.id === params.recipientId;
     })!;
 
     const conversation: Conversation = {
         id: generateId(),
-        recipients,
+        recipients: [recipient],
         messages: [],
     };
 
-    return response(conversation, 750);
+    const message = await sendMessage({
+        ...params.message,
+        conversationId: conversation.id,
+    });
+
+    const conversationWithMessage: Conversation = {
+        ...conversation,
+        messages: [message],
+    };
+
+    return response(conversationWithMessage, 750);
 }
 
 interface SendMessageParams {
     content: string;
     conversationId: string;
-    createdById: string;
+    /**
+     * Will be needed in the future as a new conversation's recipients
+     * are the selected recipients and the current user.
+     */
+    userId: string;
 }
 
 async function sendMessage({
     content,
     conversationId,
-    createdById,
+    userId,
 }: SendMessageParams): Promise<Message> {
-    const createdBy = contacts.find((contact) => {
-        return contact.id === createdById;
-    })!;
-
     const message: Message = {
         id: generateId(),
         conversationId,
         content,
         createdAt: new Date().toISOString(),
-        createdBy,
+        createdBy: user,
     };
 
     return response(message, 700);

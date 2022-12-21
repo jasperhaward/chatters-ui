@@ -5,6 +5,8 @@ import type {
     ContactsAppendAction,
     ConversationsPrependAction,
     ConversationsAppendAction,
+    ConversationsRemoveAction,
+    ConversationsReplaceAction,
     ConversationsMessagesAppendAction,
     ConversationsMessagesPrependAction,
     ConversationsRecipientsAddAction,
@@ -15,6 +17,8 @@ export type AppContextAction =
     | ContactsAppendAction
     | ConversationsPrependAction
     | ConversationsAppendAction
+    | ConversationsRemoveAction
+    | ConversationsReplaceAction
     | ConversationsMessagesAppendAction
     | ConversationsMessagesPrependAction
     | ConversationsRecipientsAddAction

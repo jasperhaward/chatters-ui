@@ -91,6 +91,16 @@ export function Chat({ params }: ChatProps) {
     }
 
     function onConversationClick(conversation: Conversation) {
+        // if a new conversation is selected, remove the draft conversation
+        if (selectedConversation!.id === DRAFT_CONVERSATION_ID) {
+            dispatch({
+                type: "conversations/remove",
+                payload: {
+                    conversationId: DRAFT_CONVERSATION_ID,
+                },
+            });
+        }
+
         setLocation(`/conversations/${conversation.id}`);
         setInputs({ message: "" });
     }
@@ -107,7 +117,6 @@ export function Chat({ params }: ChatProps) {
         if (existingConversation) {
             onConversationClick(existingConversation);
         } else {
-            // create draft conversation
             const draftConversation: Conversation = {
                 id: DRAFT_CONVERSATION_ID,
                 recipients: [contact],
@@ -159,22 +168,46 @@ export function Chat({ params }: ChatProps) {
     }
 
     async function onMessageSubmit() {
-        const params = {
-            content: inputs.message.trim(),
-            conversationId: selectedConversation!.id,
-            createdById: session!.user.id,
-        };
+        // if the selected conversation is a draft, create the conversation first
+        if (selectedConversation!.id === DRAFT_CONVERSATION_ID) {
+            const [recipient] = selectedConversation!.recipients;
 
-        const message = await api.conversations.messages.send(params);
+            const params = {
+                recipientId: recipient.id,
+                message: {
+                    content: inputs.message.trim(),
+                    userId: session!.user.id,
+                },
+            };
 
-        dispatch({
-            type: "conversations/messages/prepend",
-            payload: {
+            const createdConversation = await api.conversations.create(params);
+
+            dispatch({
+                type: "conversations/replace",
+                payload: {
+                    conversationId: DRAFT_CONVERSATION_ID,
+                    conversation: createdConversation,
+                },
+            });
+            onConversationClick(createdConversation);
+        } else {
+            const params = {
+                content: inputs.message.trim(),
                 conversationId: selectedConversation!.id,
-                messages: [message],
-            },
-        });
-        setInputs({ message: "" });
+                userId: session!.user.id,
+            };
+
+            const message = await api.conversations.messages.send(params);
+
+            dispatch({
+                type: "conversations/messages/prepend",
+                payload: {
+                    conversationId: selectedConversation!.id,
+                    messages: [message],
+                },
+            });
+            setInputs({ message: "" });
+        }
     }
 
     function renderView(view: View) {

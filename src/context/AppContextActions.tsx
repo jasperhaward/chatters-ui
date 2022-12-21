@@ -22,6 +22,21 @@ export interface ConversationsAppendAction extends Action {
     payload: Conversation[];
 }
 
+export interface ConversationsRemoveAction extends Action {
+    type: "conversations/remove";
+    payload: {
+        conversationId: string;
+    };
+}
+
+export interface ConversationsReplaceAction extends Action {
+    type: "conversations/replace";
+    payload: {
+        conversationId: string;
+        conversation: Conversation;
+    };
+}
+
 export interface ConversationsMessagesAppendAction extends Action {
     type: "conversations/messages/append";
     payload: {
