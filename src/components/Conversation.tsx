@@ -3,12 +3,7 @@ import styles from "./Conversation.module.scss";
 
 import { DRAFT_CONVERSATION_ID } from "@constants";
 import { Conversation as IConversation } from "@types";
-import {
-    Icon,
-    HighlightedText,
-    ConversationMessageAuthor,
-    ConversationMessageTimestamp,
-} from ".";
+import { Icon, HighlightedText, ConversationMessageAuthor, Timestamp } from ".";
 
 export interface ConversationsProps {
     conversation: IConversation;
@@ -52,9 +47,12 @@ export function Conversation({
                         />
                     </span>
                     {!isDraftConversation && (
-                        <ConversationMessageTimestamp
-                            message={message}
-                            isSelectedConversation={isSelected}
+                        <Timestamp
+                            className={`${styles.timestamp} ${
+                                isSelected ? styles.selected : ""
+                            }`}
+                            timestamp={message.createdAt}
+                            short={true}
                         />
                     )}
                 </div>

@@ -5,7 +5,7 @@ import styles from "./MessagesPane.module.scss";
 import colours from "@styling/_colours.module.scss";
 import { useCurrentUser } from "@hooks";
 import { Conversation, Message as IMessage } from "@types";
-import { Message, Datestamp } from ".";
+import { Message, Timestamp } from ".";
 
 export interface MessagesPaneProps {
     selectedConversation: Conversation;
@@ -141,9 +141,10 @@ export function MessagesPane({ selectedConversation }: MessagesPaneProps) {
                 .map(({ prev, next, ...message }) => (
                     <Fragment key={message.id}>
                         {displayDatestamp(prev, message) && (
-                            <Datestamp
+                            <Timestamp
                                 className={styles.datestamp}
                                 timestamp={message.createdAt}
+                                time={false}
                             />
                         )}
                         <Message

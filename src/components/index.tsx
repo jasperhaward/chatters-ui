@@ -1,4 +1,3 @@
-export * from "./common/Datestamp";
 export * from "./common/Divider";
 export * from "./common/HighlightedText";
 export * from "./common/Icon";
@@ -13,7 +12,7 @@ export * from "./Contact";
 export * from "./ContactsPane";
 export * from "./Conversation";
 export * from "./ConversationMessageAuthor";
-export * from "./ConversationMessageTimestamp";
+export * from "./common/Timestamp";
 export * from "./ConversationsPane";
 export * from "./Message";
 export * from "./MessageBox";

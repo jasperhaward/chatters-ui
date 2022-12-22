@@ -29,8 +29,14 @@ $transition: all transition.$duration-medium ease;
             color: colours.$white;
         }
 
-        .details .messageDetails {
-            color: colours.$grey-dark;
+        .details {
+            .timestamp {
+                color: colours.$grey-xdark !important;
+            }
+
+            .messageDetails {
+                color: colours.$grey-dark;
+            }
         }
     }
 
@@ -59,6 +65,13 @@ $transition: all transition.$duration-medium ease;
                 text-overflow: ellipsis;
                 font-size: fonts.$size-sm;
                 color: colours.$white;
+            }
+
+            .timestamp {
+                white-space: nowrap;
+                color: colours.$grey-xlight;
+                font-size: fonts.$size-xs;
+                transition: color transition.$duration-medium ease;
             }
         }
 
