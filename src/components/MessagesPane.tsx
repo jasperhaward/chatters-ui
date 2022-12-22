@@ -5,7 +5,7 @@ import styles from "./MessagesPane.module.scss";
 import colours from "@styling/_colours.module.scss";
 import { useCurrentUser } from "@hooks";
 import { Conversation, Message as IMessage } from "@types";
-import { Message } from ".";
+import { Message, Datestamp } from ".";
 
 export interface MessagesPaneProps {
     selectedConversation: Conversation;
@@ -41,7 +41,7 @@ export function MessagesPane({ selectedConversation }: MessagesPaneProps) {
      * Determines whether a message's author should be displayed.
      * @param prevMessage
      * @param message
-     * @returns the author if:
+     * @returns true if:
      *  - `message` was not created by the current user
      *
      *  and
@@ -98,31 +98,6 @@ export function MessagesPane({ selectedConversation }: MessagesPaneProps) {
         );
     }
 
-    function formatDatestamp(createdAt: string) {
-        const date = new Date(createdAt);
-
-        if (date.isToday()) {
-            return "Today";
-        } else if (date.isYesterday()) {
-            return "Yesterday";
-        } else if (date.isThisWeek()) {
-            return date.toLocaleString("en-GB", {
-                weekday: "long",
-            });
-        } else if (date.isThisYear()) {
-            return date.toLocaleString("en-GB", {
-                day: "numeric",
-                month: "long",
-            });
-        }
-
-        return date.toLocaleString("en-GB", {
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-        });
-    }
-
     function backgroundColour(message: IMessage) {
         if (message.createdBy.id === user.id) {
             return colours.green;
@@ -166,9 +141,10 @@ export function MessagesPane({ selectedConversation }: MessagesPaneProps) {
                 .map(({ prev, next, ...message }) => (
                     <Fragment key={message.id}>
                         {displayDatestamp(prev, message) && (
-                            <time className={styles.datestamp}>
-                                {formatDatestamp(message.createdAt)}
-                            </time>
+                            <Datestamp
+                                className={styles.datestamp}
+                                timestamp={message.createdAt}
+                            />
                         )}
                         <Message
                             message={message}
