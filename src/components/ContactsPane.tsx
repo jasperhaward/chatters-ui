@@ -30,6 +30,12 @@ export function ContactsPane({
         };
     }
 
+    /**
+     * Show the divider if there is no previous contact,
+     * as the current contact must be the first contact in the array,
+     * or when the first letters of the previous contact's
+     * username and current contact's username are different.
+     */
     function showDivider(prevContact: IUser | undefined, contact: IUser) {
         if (!prevContact) {
             return true;
