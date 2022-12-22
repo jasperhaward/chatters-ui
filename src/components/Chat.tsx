@@ -56,9 +56,9 @@ export function Chat({ params }: ChatProps) {
 
     const selectedConversation = useMemo(() => {
         if (conversations.length > 0 && params.id) {
-            return conversations.find(
-                (conversation) => conversation.id === params.id
-            );
+            return conversations.find((conversation) => {
+                return conversation.id === params.id;
+            });
         }
     }, [conversations, params.id]);
 
@@ -67,6 +67,10 @@ export function Chat({ params }: ChatProps) {
             setLocation(`/conversations/${conversations[0].id}`);
         }
     }, [conversations, selectedConversation]);
+
+    const isLoading = useMemo(() => {
+        return !selectedConversation || !session || contacts.length === 0;
+    }, [selectedConversation, session, contacts]);
 
     const getViewOptions = useCallback(() => {
         const options: View[] = [View.Conversations, View.Contacts];
@@ -108,22 +112,24 @@ export function Chat({ params }: ChatProps) {
     }
 
     function onConversationClick(conversation: Conversation) {
-        // when the currently selected conversation is a draft and the newly
-        // selected conversation is not a draft, remove the draft conversation
-        if (
-            selectedConversation!.id === DRAFT_CONVERSATION_ID &&
-            conversation.id !== DRAFT_CONVERSATION_ID
-        ) {
-            dispatch({
-                type: "conversations/remove",
-                payload: {
-                    conversationId: DRAFT_CONVERSATION_ID,
-                },
-            });
-        }
+        if (conversation.id !== selectedConversation!.id) {
+            // when the currently selected conversation is a draft and the newly
+            // selected conversation is not a draft, remove the draft conversation
+            if (
+                selectedConversation!.id === DRAFT_CONVERSATION_ID &&
+                conversation.id !== DRAFT_CONVERSATION_ID
+            ) {
+                dispatch({
+                    type: "conversations/remove",
+                    payload: {
+                        conversationId: DRAFT_CONVERSATION_ID,
+                    },
+                });
+            }
 
-        setLocation(`/conversations/${conversation.id}`);
-        setInputs({ message: "" });
+            setLocation(`/conversations/${conversation.id}`);
+            setInputs({ message: "" });
+        }
     }
 
     async function onContactClick(contact: User) {
@@ -283,11 +289,11 @@ export function Chat({ params }: ChatProps) {
                     <SearchBox
                         name="search"
                         value={inputs.search}
-                        disabled={conversations.length === 0}
+                        disabled={isLoading}
                         onInput={onInput}
                         onClearClick={onSearchClear}
                     />
-                    {!selectedConversation || !session ? (
+                    {isLoading ? (
                         <SpinnerContainer>
                             <Spinner />
                         </SpinnerContainer>
@@ -303,26 +309,24 @@ export function Chat({ params }: ChatProps) {
                     )}
                 </section>
                 <section className={styles.messages}>
-                    {!selectedConversation ||
-                    !session ||
-                    contacts.length === 0 ? (
+                    {isLoading ? (
                         <SpinnerContainer>
                             <Spinner />
                         </SpinnerContainer>
                     ) : (
                         <>
                             <MessagesPaneHeader
-                                selectedConversation={selectedConversation}
+                                selectedConversation={selectedConversation!}
                             />
                             <MessagesPane
-                                selectedConversation={selectedConversation}
+                                selectedConversation={selectedConversation!}
                             />
                         </>
                     )}
                     <MessageBox
                         name="message"
                         value={inputs.message}
-                        disabled={!selectedConversation}
+                        disabled={isLoading}
                         maxHeight={80}
                         onInput={onInput}
                         onMessageSubmit={onMessageSubmit}
