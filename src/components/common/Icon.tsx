@@ -11,9 +11,7 @@ export interface IconProps {
     icon: IconTuple;
 }
 
-export function Icon(props: IconProps) {
-    const [prefix, iconName] = props.icon;
-
+export function Icon({ icon: [prefix, iconName] }: IconProps) {
     const icon = factory({ prefix, iconName });
 
     if (icon) {
@@ -25,6 +23,6 @@ export function Icon(props: IconProps) {
 
         return createElement(element.tag, element.attributes, children);
     } else {
-        throw new Error(`Icon '${iconName}' not in library.`);
+        throw new Error(`Icon '${iconName}' not in library '${prefix}'.`);
     }
 }
