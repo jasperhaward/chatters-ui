@@ -4,7 +4,7 @@ export * from "./common/Icon";
 export * from "./common/IconButton";
 export * from "./common/MultiSelect";
 export * from "./common/Pill";
-export * from "./common/ScrollableList";
+export * from "./common/ScrollableContainer";
 export * from "./common/Spinner";
 export * from "./common/TabbedMenu";
 export * from "./Chat";

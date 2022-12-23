@@ -3,7 +3,7 @@ import { useMemo } from "preact/hooks";
 
 import { sortAlphabeticallyBy } from "@utils";
 import { User as IUser } from "@types";
-import { Contact, NoResultsText, ScrollableList, Divider } from ".";
+import { Contact, NoResultsText, Divider } from ".";
 
 export interface ContactsPaneProps {
     contacts: IUser[];
@@ -52,7 +52,7 @@ export function ContactsPane({
     }
 
     return (
-        <ScrollableList>
+        <>
             {filteredContacts.map((contact, index) => (
                 <Fragment key={contact.id}>
                     {showDivider(filteredContacts[index - 1], contact) && (
@@ -65,6 +65,6 @@ export function ContactsPane({
                     />
                 </Fragment>
             ))}
-        </ScrollableList>
+        </>
     );
 }

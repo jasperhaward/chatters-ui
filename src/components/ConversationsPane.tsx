@@ -1,6 +1,6 @@
 import { useMemo } from "preact/hooks";
 import { Conversation as IConversation } from "@types";
-import { Conversation, ScrollableList, NoResultsText } from ".";
+import { Conversation, NoResultsText } from ".";
 
 export interface ConversationsPaneProps {
     conversations: IConversation[];
@@ -37,7 +37,7 @@ export function ConversationsPane({
     }
 
     return (
-        <ScrollableList>
+        <>
             {filteredConversations.map((conversation) => (
                 <Conversation
                     key={conversation.id}
@@ -47,6 +47,6 @@ export function ConversationsPane({
                     onClick={onConversationClick}
                 />
             ))}
-        </ScrollableList>
+        </>
     );
 }

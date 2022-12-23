@@ -1,9 +1,0 @@
-@use "@styling/padding";
-
-.scrollableList {
-    overflow-y: auto;
-
-    & > *:not(:last-child) {
-        margin-bottom: padding.$md;
-    }
-}

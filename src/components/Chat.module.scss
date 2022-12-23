@@ -20,8 +20,6 @@
 
         .conversations,
         .messages {
-            display: flex;
-            flex-direction: column;
             padding: padding.$lg;
             box-sizing: border-box;
         }

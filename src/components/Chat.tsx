@@ -23,6 +23,8 @@ import {
     Spinner,
     SpinnerContainer,
     TabbedMenu,
+    ScrollableContainer,
+    ScrollableContainerParent,
 } from ".";
 
 export interface ChatProps {
@@ -285,7 +287,7 @@ export function Chat({ params }: ChatProps) {
         <div className={styles.chat}>
             <h1>Chat</h1>
             <main>
-                <section className={styles.conversations}>
+                <ScrollableContainerParent className={styles.conversations}>
                     <SearchBox
                         name="search"
                         value={inputs.search}
@@ -304,11 +306,13 @@ export function Chat({ params }: ChatProps) {
                                 options={getViewOptions()}
                                 onSelect={setView}
                             />
-                            {renderView(view)}
+                            <ScrollableContainer>
+                                {renderView(view)}
+                            </ScrollableContainer>
                         </>
                     )}
-                </section>
-                <section className={styles.messages}>
+                </ScrollableContainerParent>
+                <ScrollableContainerParent className={styles.messages}>
                     {isLoading ? (
                         <SpinnerContainer>
                             <Spinner />
@@ -318,9 +322,11 @@ export function Chat({ params }: ChatProps) {
                             <MessagesPaneHeader
                                 selectedConversation={selectedConversation!}
                             />
-                            <MessagesPane
-                                selectedConversation={selectedConversation!}
-                            />
+                            <ScrollableContainer>
+                                <MessagesPane
+                                    selectedConversation={selectedConversation!}
+                                />
+                            </ScrollableContainer>
                         </>
                     )}
                     <MessageBox
@@ -331,7 +337,7 @@ export function Chat({ params }: ChatProps) {
                         onInput={onInput}
                         onMessageSubmit={onMessageSubmit}
                     />
-                </section>
+                </ScrollableContainerParent>
             </main>
         </div>
     );

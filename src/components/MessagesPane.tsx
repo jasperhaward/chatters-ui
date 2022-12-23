@@ -129,7 +129,7 @@ export function MessagesPane({ selectedConversation }: MessagesPaneProps) {
     }
 
     return (
-        <div className={styles.messagesPane}>
+        <>
             {selectedConversation.messages
                 .slice()
                 .reverse() // needed as messages are ordered most recent first
@@ -161,6 +161,6 @@ export function MessagesPane({ selectedConversation }: MessagesPaneProps) {
                     </Fragment>
                 ))}
             <div ref={ref} />
-        </div>
+        </>
     );
 }

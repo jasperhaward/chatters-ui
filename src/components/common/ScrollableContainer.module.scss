@@ -1,0 +1,15 @@
+@use "@styling/padding";
+
+.scrollableParent {
+    display: flex;
+    flex-direction: column;
+}
+
+.scrollableContainer {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 0;
+    gap: padding.$md;
+    overflow-y: auto;
+}

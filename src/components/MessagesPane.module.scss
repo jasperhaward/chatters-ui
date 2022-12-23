@@ -1,17 +1,8 @@
 @use "@styling/fonts";
 @use "@styling/colours";
-@use "@styling/padding";
 
-.messagesPane {
-    display: flex;
-    flex-direction: column;
-    gap: padding.$sm;
-    overflow-y: auto;
-
-    .datestamp {
-        margin-bottom: padding.$md;
-        text-align: center;
-        color: colours.$white;
-        font-size: fonts.$size-xs;
-    }
+.datestamp {
+    text-align: center;
+    color: colours.$white;
+    font-size: fonts.$size-xs;
 }
