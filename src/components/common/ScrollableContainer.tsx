@@ -19,15 +19,21 @@ export function ScrollableContainerParent({
 
 export interface ScrollableContainerProps {
     className?: string;
+    spacing?: "lg" | "md" | "sm";
     children: ComponentChildren;
 }
 
 export function ScrollableContainer({
     className,
+    spacing = "md",
     children,
 }: ScrollableContainerProps) {
     return (
-        <div className={`${styles.scrollableContainer} ${className || ""}`}>
+        <div
+            className={`${styles.scrollableContainer} ${styles[spacing]} ${
+                className || ""
+            }`}
+        >
             {children}
         </div>
     );

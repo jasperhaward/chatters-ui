@@ -75,7 +75,7 @@ export function Chat({ params }: ChatProps) {
     }, [selectedConversation, session, contacts]);
 
     const getViewOptions = useCallback(() => {
-        const options: View[] = [View.Conversations, View.Contacts];
+        const options = [View.Conversations, View.Contacts];
 
         // ensure user cannot add/remove recipients for a draft conversation
         if (selectedConversation!.id !== DRAFT_CONVERSATION_ID) {
@@ -322,7 +322,7 @@ export function Chat({ params }: ChatProps) {
                             <MessagesPaneHeader
                                 selectedConversation={selectedConversation!}
                             />
-                            <ScrollableContainer>
+                            <ScrollableContainer spacing="sm">
                                 <MessagesPane
                                     selectedConversation={selectedConversation!}
                                 />

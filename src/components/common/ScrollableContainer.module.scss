@@ -10,6 +10,17 @@
     flex-direction: column;
     flex-grow: 1;
     flex-basis: 0;
-    gap: padding.$md;
     overflow-y: auto;
+
+    &.sm {
+        gap: padding.$sm;
+    }
+
+    &.md {
+        gap: padding.$md;
+    }
+
+    &.lg {
+        gap: padding.$lg;
+    }
 }
