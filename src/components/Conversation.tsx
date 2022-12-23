@@ -1,4 +1,4 @@
-import { useMemo } from "preact/hooks";
+import { useEffect, useMemo, useRef } from "preact/hooks";
 import styles from "./Conversation.module.scss";
 
 import { DRAFT_CONVERSATION_ID } from "@constants";
@@ -18,6 +18,14 @@ export function Conversation({
     isSelected,
     onClick,
 }: ConversationsProps) {
+    const button = useRef<HTMLButtonElement>(null);
+
+    useEffect(() => {
+        if (isSelected && button.current) {
+            button.current.scrollIntoView();
+        }
+    }, [isSelected]);
+
     const isDraftConversation = useMemo(() => {
         return conversation.id === DRAFT_CONVERSATION_ID;
     }, [conversation]);
@@ -33,6 +41,7 @@ export function Conversation({
             className={`${styles.conversation} ${
                 isSelected ? styles.selected : ""
             }`}
+            ref={button}
             onClick={() => onClick(conversation)}
         >
             <Icon icon={["fas", isGroupConversation ? "users" : "user"]} />
