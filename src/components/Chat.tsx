@@ -15,8 +15,8 @@ import { useForm } from "@hooks";
 import { Conversation, User } from "@types";
 import {
     SearchBox,
-    ContactsPane,
-    ConversationsPane,
+    ContactsView,
+    ConversationsView,
     MessagesPane,
     MessagesPaneHeader,
     MessageBox,
@@ -25,6 +25,7 @@ import {
     TabbedMenu,
     ScrollableContainer,
     ScrollableContainerParent,
+    RecipientsView,
 } from ".";
 
 export interface ChatProps {
@@ -257,7 +258,7 @@ export function Chat({ params }: ChatProps) {
         switch (view) {
             case "Conversations":
                 return (
-                    <ConversationsPane
+                    <ConversationsView
                         search={search}
                         conversations={conversations}
                         selectedConversation={selectedConversation!}
@@ -266,7 +267,7 @@ export function Chat({ params }: ChatProps) {
                 );
             case "Contacts":
                 return (
-                    <ContactsPane
+                    <ContactsView
                         search={search}
                         contacts={contacts}
                         onContactClick={onContactClick}
@@ -274,10 +275,12 @@ export function Chat({ params }: ChatProps) {
                 );
             case "Recipients":
                 return (
-                    <ContactsPane
+                    <RecipientsView
+                        selectedConversation={selectedConversation!}
                         search={search}
                         contacts={contacts}
-                        onContactClick={onContactClick}
+                        onRecipientAdd={onRecipientAdd}
+                        onRecipientRemove={onRecipientRemove}
                     />
                 );
         }

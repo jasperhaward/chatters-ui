@@ -1,76 +1,83 @@
-import { useMemo } from "preact/hooks";
-import styles from "./ConversationHeader.module.scss";
+import { useMemo, useState } from "preact/hooks";
 
 import { sortAlphabeticallyBy } from "@utils";
 import { Conversation, User } from "@types";
-import { useToggle } from "@hooks";
-import { MultiSelect, MultiSelectOption } from ".";
+import { MultiSelect, MultiSelectOption, ContactsView } from ".";
 
-export interface ConversationHeaderProps {
-    contacts: User[];
+export interface RecipientsViewProps {
     selectedConversation: Conversation;
-    onRecipientAdd: (recipient: User) => void;
-    onRecipientRemove: (recipient: User) => void;
+    search: string;
+    contacts: User[];
+    onRecipientAdd: (recipient: User) => Promise<void>;
+    onRecipientRemove: (recipient: User) => Promise<void>;
 }
 
 export function RecipientsView({
-    contacts,
     selectedConversation,
-    onRecipientAdd,
-    onRecipientRemove,
-}: ConversationHeaderProps) {
-    const [showRecipients, toggleShowRecipients] = useToggle(false);
+    search,
+    contacts,
+    ...props
+}: RecipientsViewProps) {
+    const [disabled, setDisabled] = useState(false);
 
-    /** Conversation recipients sorted alphabetically */
-    const sortedRecipients = useMemo(() => {
-        return selectedConversation.recipients.sort(
-            sortAlphabeticallyBy("username")
-        );
+    /**
+     * Conversation recipients sorted alphabetically
+     * and mapped to MultiSelect options.
+     */
+    const sortedRecipients: MultiSelectOption[] = useMemo(() => {
+        return selectedConversation.recipients
+            .sort(sortAlphabeticallyBy("username"))
+            .map((recipient) => ({
+                value: recipient.id,
+                text: recipient.username,
+            }));
     }, [selectedConversation]);
 
-    /** Contacts which are not conversation recipients */
+    /**
+     * Contacts which are not conversation recipients.
+     */
     const nonRecipientContacts = useMemo(() => {
+        const recipientIds = selectedConversation.recipients.map(
+            (recipient) => recipient.id
+        );
+
         return contacts
-            .filter((contact) => {
-                return !selectedConversation.recipients.find((recipient) => {
-                    return recipient.id === contact.id;
-                });
-            })
+            .filter((contact) => !recipientIds.includes(contact.id))
             .sort(sortAlphabeticallyBy("username"));
     }, [contacts, selectedConversation]);
 
-    function toMultiSelectOption(recipient: User): MultiSelectOption {
-        return {
-            value: recipient.id,
-            text: recipient.username,
-        };
+    async function onRecipientAdd(recipient: User) {
+        setDisabled(true);
+
+        await props.onRecipientAdd(recipient);
+
+        setDisabled(false);
     }
 
-    function onOptionAdd(option: MultiSelectOption) {
-        const recipient = nonRecipientContacts.find((contact) => {
+    async function onRecipientRemove(option: MultiSelectOption) {
+        const recipient = contacts.find((contact) => {
             return contact.id === option.value;
         });
 
-        onRecipientAdd(recipient!);
-    }
+        setDisabled(true);
 
-    function onOptionRemove(option: MultiSelectOption) {
-        const recipient = sortedRecipients.find((contact) => {
-            return contact.id === option.value;
-        });
+        await props.onRecipientRemove(recipient!);
 
-        onRecipientRemove(recipient!);
+        setDisabled(false);
     }
 
     return (
-        <div className={styles.conversationHeader}>
+        <>
             <MultiSelect
-                value={sortedRecipients.map(toMultiSelectOption)}
-                options={nonRecipientContacts.map(toMultiSelectOption)}
-                placeholder="Search contacts..."
-                onOptionAdd={onOptionAdd}
-                onOptionRemove={onOptionRemove}
+                value={sortedRecipients}
+                disabled={disabled}
+                onRemove={onRecipientRemove}
             />
-        </div>
+            <ContactsView
+                search={search}
+                contacts={nonRecipientContacts}
+                onContactClick={onRecipientAdd}
+            />
+        </>
     );
 }

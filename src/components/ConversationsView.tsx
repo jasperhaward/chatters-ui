@@ -2,19 +2,19 @@ import { useMemo } from "preact/hooks";
 import { Conversation as IConversation } from "@types";
 import { Conversation, NoResultsText } from ".";
 
-export interface ConversationsPaneProps {
+export interface ConversationsViewProps {
     conversations: IConversation[];
     search: string;
     selectedConversation: IConversation;
     onConversationClick: (conversation: IConversation) => void;
 }
 
-export function ConversationsPane({
+export function ConversationsView({
     conversations,
     search,
     selectedConversation,
     onConversationClick,
-}: ConversationsPaneProps) {
+}: ConversationsViewProps) {
     const filteredConversations = useMemo(() => {
         if (search === "") {
             return conversations;

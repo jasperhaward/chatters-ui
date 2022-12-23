@@ -5,17 +5,17 @@ import { sortAlphabeticallyBy } from "@utils";
 import { User as IUser } from "@types";
 import { Contact, NoResultsText, Divider } from ".";
 
-export interface ContactsPaneProps {
+export interface ContactsViewProps {
     contacts: IUser[];
     search: string;
     onContactClick: (conversation: IUser) => void;
 }
 
-export function ContactsPane({
+export function ContactsView({
     contacts,
     search,
     onContactClick,
-}: ContactsPaneProps) {
+}: ContactsViewProps) {
     const filteredContacts = useMemo(() => {
         return contacts
             .filter(filterByUsername(search))
