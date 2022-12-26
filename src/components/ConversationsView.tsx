@@ -1,6 +1,6 @@
 import { useMemo } from "preact/hooks";
 import { Conversation as IConversation } from "@types";
-import { Conversation, NoResultsText } from ".";
+import { Conversation, NoResultsText, ScrollableContainer } from ".";
 
 export interface ConversationsViewProps {
     conversations: IConversation[];
@@ -37,7 +37,7 @@ export function ConversationsView({
     }
 
     return (
-        <>
+        <ScrollableContainer>
             {filteredConversations.map((conversation) => (
                 <Conversation
                     key={conversation.id}
@@ -47,6 +47,6 @@ export function ConversationsView({
                     onClick={onConversationClick}
                 />
             ))}
-        </>
+        </ScrollableContainer>
     );
 }

@@ -309,9 +309,7 @@ export function Chat({ params }: ChatProps) {
                                 options={getViewOptions()}
                                 onSelect={setView}
                             />
-                            <ScrollableContainer>
-                                {renderView(view)}
-                            </ScrollableContainer>
+                            {renderView(view)}
                         </>
                     )}
                 </ScrollableContainerParent>
