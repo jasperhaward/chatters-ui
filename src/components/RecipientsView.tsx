@@ -1,8 +1,14 @@
 import { useMemo, useState } from "preact/hooks";
+import styles from "./RecipientsView.module.scss";
 
 import { sortAlphabeticallyBy } from "@utils";
 import { Conversation, User } from "@types";
-import { MultiSelect, MultiSelectOption, ContactsView } from ".";
+import {
+    MultiSelect,
+    ScrollableContainer,
+    MultiSelectOption,
+    ContactsView,
+} from ".";
 
 export interface RecipientsViewProps {
     selectedConversation: Conversation;
@@ -55,29 +61,34 @@ export function RecipientsView({
     }
 
     async function onRecipientRemove(option: MultiSelectOption) {
-        const recipient = contacts.find((contact) => {
-            return contact.id === option.value;
-        });
+        if (selectedConversation.recipients.length > 1) {
+            const recipient = contacts.find((contact) => {
+                return contact.id === option.value;
+            });
 
-        setDisabled(true);
+            setDisabled(true);
 
-        await props.onRecipientRemove(recipient!);
+            await props.onRecipientRemove(recipient!);
 
-        setDisabled(false);
+            setDisabled(false);
+        }
     }
 
     return (
         <>
             <MultiSelect
+                className={styles.recipients}
                 value={sortedRecipients}
                 disabled={disabled}
                 onRemove={onRecipientRemove}
             />
-            <ContactsView
-                search={search}
-                contacts={nonRecipientContacts}
-                onContactClick={onRecipientAdd}
-            />
+            <ScrollableContainer>
+                <ContactsView
+                    search={search}
+                    contacts={nonRecipientContacts}
+                    onContactClick={onRecipientAdd}
+                />
+            </ScrollableContainer>
         </>
     );
 }

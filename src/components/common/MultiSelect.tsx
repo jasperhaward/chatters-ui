@@ -7,14 +7,20 @@ export interface MultiSelectOption {
 }
 
 export interface MultiSelectProps {
+    className?: string;
     value: MultiSelectOption[];
     disabled?: boolean;
     onRemove: (option: MultiSelectOption) => void;
 }
 
-export function MultiSelect({ value, disabled, onRemove }: MultiSelectProps) {
+export function MultiSelect({
+    className,
+    value,
+    disabled,
+    onRemove,
+}: MultiSelectProps) {
     return (
-        <div className={styles.multiSelect}>
+        <div className={`${styles.multiSelect} ${className || ""}`}>
             {value.map((option) => (
                 <Pill
                     key={option.value}

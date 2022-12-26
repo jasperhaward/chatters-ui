@@ -12,12 +12,9 @@
     background-color: colours.$green;
 
     button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 18px;
-        height: 18px;
         margin-left: padding.$xs;
-        border-radius: 50%;
+        padding: padding.$sm;
+        width: fonts.$size-lg;
+        height: fonts.$size-lg;
     }
 }
