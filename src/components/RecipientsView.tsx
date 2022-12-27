@@ -24,10 +24,7 @@ export function RecipientsView({
     contacts,
     ...props
 }: RecipientsViewProps) {
-    const [addingRecipient, setAddingRecipient] = useState<User | null>(null);
-    const [deletingRecipient, setDeletingRecipient] = useState<User | null>(
-        null
-    );
+    const [disabled, setDisabled] = useState(false);
 
     /**
      * Conversation recipients filtered by the search term,
@@ -40,9 +37,8 @@ export function RecipientsView({
             .map((recipient) => ({
                 value: recipient.id,
                 text: recipient.username,
-                spinner: recipient.id === deletingRecipient?.id,
             }));
-    }, [selectedConversation, search, deletingRecipient]);
+    }, [selectedConversation, search]);
 
     /**
      * Contacts which are not conversation recipients.
@@ -58,11 +54,11 @@ export function RecipientsView({
     }, [contacts, selectedConversation]);
 
     async function onRecipientAdd(recipient: User) {
-        setAddingRecipient(recipient);
+        setDisabled(true);
 
         await props.onRecipientAdd(recipient);
 
-        setAddingRecipient(null);
+        setDisabled(false);
     }
 
     async function onRecipientRemove(option: MultiSelectOption) {
@@ -73,11 +69,11 @@ export function RecipientsView({
                 return contact.id === option.value;
             })!;
 
-            setDeletingRecipient(recipient);
+            setDisabled(true);
 
             await props.onRecipientRemove(recipient);
 
-            setDeletingRecipient(null);
+            setDisabled(false);
         }
     }
 
@@ -88,7 +84,7 @@ export function RecipientsView({
                     className={styles.recipients}
                     value={recipientMultiSelectOptions}
                     query={search}
-                    disabled={deletingRecipient !== null}
+                    disabled={disabled}
                     onRemove={onRecipientRemove}
                 />
             )}
@@ -97,7 +93,7 @@ export function RecipientsView({
                     <ContactsView
                         search={search}
                         contacts={nonRecipientContacts}
-                        disabled={addingRecipient !== null}
+                        disabled={disabled}
                         onContactClick={onRecipientAdd}
                     />
                 </ScrollableContainer>
