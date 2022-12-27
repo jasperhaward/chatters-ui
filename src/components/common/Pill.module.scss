@@ -5,16 +5,24 @@
 
 .pill {
     display: flex;
+    align-items: center;
     padding: padding.$sm padding.$sm padding.$sm padding.$md;
     border-radius: border.$radius-md;
-    font-size: fonts.$size-sm;
     color: colours.$grey-xxdark;
     background-color: colours.$green;
 
+    span {
+        font-size: fonts.$size-sm;
+        margin-right: padding.$sm;
+    }
+
+    div,
     button {
-        margin-left: padding.$xs;
-        padding: padding.$sm;
         width: fonts.$size-lg;
         height: fonts.$size-lg;
+
+        svg {
+            margin-top: 2px;
+        }
     }
 }
