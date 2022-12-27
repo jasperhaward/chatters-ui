@@ -45,6 +45,7 @@ button {
     outline: none;
     background-color: transparent;
     transition: opacity transition.$duration-short;
+    font-family: inherit;
 
     &:hover {
         cursor: pointer;
