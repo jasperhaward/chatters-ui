@@ -62,6 +62,8 @@ export function RecipientsView({
     }
 
     async function onRecipientRemove(option: MultiSelectOption) {
+        // should not be able to remove a recipient if that
+        // recipient is the only conversation recipient
         if (selectedConversation.recipients.length > 1) {
             const recipient = contacts.find((contact) => {
                 return contact.id === option.value;
