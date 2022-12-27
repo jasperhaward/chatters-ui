@@ -79,13 +79,15 @@ export function RecipientsView({
 
     return (
         <>
-            <MultiSelect
-                className={styles.recipients}
-                value={sortedRecipients}
-                query={search}
-                disabled={disabled}
-                onRemove={onRecipientRemove}
-            />
+            {sortedRecipients.length > 0 && (
+                <MultiSelect
+                    className={styles.recipients}
+                    value={sortedRecipients}
+                    query={search}
+                    disabled={disabled}
+                    onRemove={onRecipientRemove}
+                />
+            )}
             <ScrollableContainer>
                 <ContactsView
                     search={search}
