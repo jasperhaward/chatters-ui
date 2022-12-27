@@ -1,18 +1,19 @@
+import { ComponentChildren } from "preact";
 import styles from "./Pill.module.scss";
 import { IconButton, IconTuple } from "..";
 
 export interface PillProps {
     icon?: IconTuple;
     disabled?: boolean;
-    children: string;
     onClick: () => void;
+    children: ComponentChildren;
 }
 
 export function Pill({
     icon = ["fas", "times"],
     disabled,
-    children,
     onClick,
+    children,
 }: PillProps) {
     return (
         <div className={styles.pill}>

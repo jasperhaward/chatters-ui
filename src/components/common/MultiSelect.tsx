@@ -1,5 +1,5 @@
 import styles from "./MultiSelect.module.scss";
-import { Pill } from "..";
+import { Pill, HighlightedText } from "..";
 
 export interface MultiSelectOption {
     text: string;
@@ -9,6 +9,7 @@ export interface MultiSelectOption {
 export interface MultiSelectProps {
     className?: string;
     value: MultiSelectOption[];
+    query?: string;
     disabled?: boolean;
     onRemove: (option: MultiSelectOption) => void;
 }
@@ -16,6 +17,7 @@ export interface MultiSelectProps {
 export function MultiSelect({
     className,
     value,
+    query,
     disabled,
     onRemove,
 }: MultiSelectProps) {
@@ -27,7 +29,11 @@ export function MultiSelect({
                     disabled={disabled}
                     onClick={() => onRemove(option)}
                 >
-                    {option.text}
+                    {query ? (
+                        <HighlightedText query={query} value={option.text} />
+                    ) : (
+                        option.text
+                    )}
                 </Pill>
             ))}
         </div>
