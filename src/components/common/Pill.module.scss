@@ -7,7 +7,8 @@
 
 .pill {
     display: flex;
-    padding: padding.$sm padding.$sm padding.$sm padding.$md;
+    align-items: center;
+    padding: padding.$sm padding.$md;
     border-radius: border.$radius-md;
     color: colours.$grey-xxdark;
     background-color: colours.$green;
@@ -18,19 +19,11 @@
     }
 
     span {
-        font-size: fonts.$size-sm;
         margin-right: padding.$sm;
+        font-size: fonts.$size-sm;
     }
 
-    .icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: fonts.$size-lg;
-        height: fonts.$size-lg;
-
-        svg {
-            margin-top: 2px;
-        }
+    svg {
+        margin-top: 2px;
     }
 }
