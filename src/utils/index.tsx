@@ -2,28 +2,36 @@ export function generateId() {
     return crypto.randomUUID();
 }
 
-export function filterBy<T, K extends keyof T>(
-    key: K,
-    query: string,
-    ...args: T[K] extends string ? [] : [(value: T[K]) => string]
-) {
-    const [valueFormatter] = args;
+/** Get keys of `T` where the property `T[K]` is a string. */
+type StringPropertyKeys<T> = keyof T extends infer K
+    ? K extends keyof T
+        ? T[K] extends string
+            ? K
+            : never
+        : never
+    : never;
 
+/**
+ * Creates a filter predicate to filter an array of objects where the value of
+ * property `key` must contain the substring `query`.
+ * @param key key of property to check for substring
+ * @param query substring to check for
+ * @returns predicate function
+ */
+export function queryBy<T>(key: StringPropertyKeys<T>, query: string) {
     return (item: T) => {
-        let value = item[key];
-        let formattedValue: string;
+        const value = item[key] as string;
 
-        if (valueFormatter) {
-            formattedValue = valueFormatter(value);
-        } else {
-            formattedValue = value;
-        }
-
-        return formattedValue.toUpperCase().includes(query.toUpperCase());
+        return value.toUpperCase().includes(query.toUpperCase());
     };
 }
 
-export function sortAlphabeticallyBy<T>(key: keyof T) {
+/**
+ * Creates a compare function to sort an array of objects alphabetically on property `key`.
+ * @param key key to compare alphabetically
+ * @returns compare function
+ */
+export function sortAlphabeticallyBy<T>(key: StringPropertyKeys<T>) {
     return (a: T, b: T) => {
         if (a[key] > b[key]) {
             return 1;

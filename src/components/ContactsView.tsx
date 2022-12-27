@@ -1,7 +1,7 @@
 import { Fragment } from "preact";
 import { useMemo } from "preact/hooks";
 
-import { sortAlphabeticallyBy } from "@utils";
+import { sortAlphabeticallyBy, queryBy } from "@utils";
 import { User as IUser } from "@types";
 import { Contact, NoResultsText, Divider, ScrollableContainer } from ".";
 
@@ -16,19 +16,12 @@ export function ContactsView({
     search,
     onContactClick,
 }: ContactsViewProps) {
+    /** Contacts filtered by the search term & sorted alphabetically */
     const filteredContacts = useMemo(() => {
         return contacts
-            .filter(filterByUsername(search))
+            .filter(queryBy("username", search))
             .sort(sortAlphabeticallyBy("username"));
     }, [search, contacts]);
-
-    function filterByUsername(searchTerm: string) {
-        return (contact: IUser) => {
-            return contact.username
-                .toUpperCase()
-                .includes(searchTerm.toUpperCase());
-        };
-    }
 
     /**
      * Show the divider if there is no previous contact,
