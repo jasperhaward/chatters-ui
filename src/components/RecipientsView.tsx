@@ -1,7 +1,7 @@
 import { useMemo, useState } from "preact/hooks";
 import styles from "./RecipientsView.module.scss";
 
-import { sortAlphabeticallyBy } from "@utils";
+import { sortAlphabeticallyBy, queryBy } from "@utils";
 import { Conversation, User } from "@types";
 import {
     MultiSelect,
@@ -27,17 +27,18 @@ export function RecipientsView({
     const [disabled, setDisabled] = useState(false);
 
     /**
-     * Conversation recipients sorted alphabetically
-     * and mapped to MultiSelect options.
+     * Conversation recipients filtered by the search term,
+     * sorted alphabetically, and mapped to MultiSelect options.
      */
-    const sortedRecipients: MultiSelectOption[] = useMemo(() => {
+    const sortedRecipients = useMemo<MultiSelectOption[]>(() => {
         return selectedConversation.recipients
+            .filter(queryBy("username", search))
             .sort(sortAlphabeticallyBy("username"))
             .map((recipient) => ({
                 value: recipient.id,
                 text: recipient.username,
             }));
-    }, [selectedConversation]);
+    }, [search, selectedConversation]);
 
     /**
      * Contacts which are not conversation recipients.
@@ -79,6 +80,7 @@ export function RecipientsView({
             <MultiSelect
                 className={styles.recipients}
                 value={sortedRecipients}
+                query={search}
                 disabled={disabled}
                 onRemove={onRecipientRemove}
             />
