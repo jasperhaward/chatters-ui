@@ -56,7 +56,6 @@ export function ContactsView({
                     <Contact
                         contact={contact}
                         search={search}
-                        spinner={true}
                         disabled={disabled}
                         onClick={onContactClick}
                     />
