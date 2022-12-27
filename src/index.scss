@@ -63,7 +63,12 @@ textarea {
     border: none;
     outline: none;
     background-color: transparent;
+    transition: opacity transition.$duration-short;
     font-family: inherit;
+
+    &:disabled {
+        opacity: opacity.$disabled-button-opacity;
+    }
 }
 
 b {
