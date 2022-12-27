@@ -1,5 +1,3 @@
-import styles from "./HighlightedText.module.scss";
-
 export interface HighlightedTextProps {
     query: string;
     value: string;
@@ -14,11 +12,7 @@ export function HighlightedText({ query, value }: HighlightedTextProps) {
         <>
             {substrings.map((substring, index) => {
                 if (substring.toUpperCase() === query.toUpperCase()) {
-                    return (
-                        <mark key={index} className={styles.highlighted}>
-                            {substring}
-                        </mark>
-                    );
+                    return <mark key={index}>{substring}</mark>;
                 }
 
                 return substring;
