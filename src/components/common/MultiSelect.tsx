@@ -4,6 +4,7 @@ import { Pill, HighlightedText } from "..";
 export interface MultiSelectOption {
     text: string;
     value: string;
+    spinner?: boolean;
 }
 
 export interface MultiSelectProps {
@@ -27,6 +28,7 @@ export function MultiSelect({
                 <Pill
                     key={option.value}
                     disabled={disabled}
+                    spinner={option.spinner}
                     onClick={() => onRemove(option)}
                 >
                     {query ? (
