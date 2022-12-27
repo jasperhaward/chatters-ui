@@ -1,6 +1,6 @@
 import { ComponentChildren } from "preact";
 import styles from "./Pill.module.scss";
-import { IconButton, Spinner, SpinnerContainer } from "..";
+import { IconButton, Spinner } from "..";
 
 export interface PillProps {
     disabled?: boolean;
@@ -13,19 +13,19 @@ export function Pill({ disabled, spinner, onClick, children }: PillProps) {
     return (
         <div className={styles.pill}>
             <span>{children}</span>
-            {spinner ? (
-                <SpinnerContainer>
+            <div className={styles.icon}>
+                {spinner ? (
                     <Spinner size="xs" color="grey-xdark" />
-                </SpinnerContainer>
-            ) : (
-                <IconButton
-                    icon={["fas", "times"]}
-                    disabled={disabled}
-                    size="sm"
-                    color="grey-xdark"
-                    onClick={onClick}
-                />
-            )}
+                ) : (
+                    <IconButton
+                        icon={["fas", "times"]}
+                        disabled={disabled}
+                        size="sm"
+                        color="grey-xdark"
+                        onClick={onClick}
+                    />
+                )}
+            </div>
         </div>
     );
 }
