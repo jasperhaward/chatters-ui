@@ -3,11 +3,17 @@
 .spinner {
     width: 25px;
     height: 25px;
-    border: 2px solid colours.$green;
-    border-bottom-color: transparent;
+    border-width: 2px;
+    border-style: solid;
+    border-bottom-color: transparent !important;
     border-radius: 50%;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
+
+    &.xs {
+        width: 16px;
+        height: 16px;
+    }
 
     &.sm {
         width: 20px;
@@ -22,6 +28,14 @@
     &.lg {
         width: 30px;
         height: 30px;
+    }
+
+    &.green {
+        border-color: colours.$green;
+    }
+
+    &.grey-xdark {
+        border-color: colours.$grey-xdark;
     }
 }
 

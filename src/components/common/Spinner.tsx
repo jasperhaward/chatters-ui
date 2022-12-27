@@ -2,12 +2,13 @@ import { ComponentChildren } from "preact";
 import styles from "./Spinner.module.scss";
 
 export interface SpinnerProps {
-    size?: "sm" | "md" | "lg";
+    size?: "xs" | "sm" | "md" | "lg";
+    color?: "green" | "grey-xdark";
 }
 
-export function Spinner({ size = "md" }: SpinnerProps) {
+export function Spinner({ size = "md", color = "green" }: SpinnerProps) {
     return (
-        <div class={`${styles.spinner} ${styles[size]}`}>
+        <div class={`${styles.spinner} ${styles[size]} ${styles[color]}`}>
             <div></div>
             <div></div>
             <div></div>
