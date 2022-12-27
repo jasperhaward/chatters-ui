@@ -8,12 +8,14 @@ import { Contact, NoResultsText, Divider, ScrollableContainer } from ".";
 export interface ContactsViewProps {
     contacts: IUser[];
     search: string;
+    disabled?: boolean;
     onContactClick: (conversation: IUser) => void;
 }
 
 export function ContactsView({
     contacts,
     search,
+    disabled,
     onContactClick,
 }: ContactsViewProps) {
     /** Contacts filtered by the search term & sorted alphabetically */
@@ -54,6 +56,8 @@ export function ContactsView({
                     <Contact
                         contact={contact}
                         search={search}
+                        spinner={true}
+                        disabled={disabled}
                         onClick={onContactClick}
                     />
                 </Fragment>

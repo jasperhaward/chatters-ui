@@ -11,7 +11,7 @@ export interface PillProps {
 
 export function Pill({ disabled, spinner, onClick, children }: PillProps) {
     return (
-        <div className={styles.pill}>
+        <div className={`${styles.pill} ${disabled ? styles.disabled : ""}`}>
             <span>{children}</span>
             <div className={styles.icon}>
                 {spinner ? (
@@ -19,8 +19,8 @@ export function Pill({ disabled, spinner, onClick, children }: PillProps) {
                 ) : (
                     <IconButton
                         icon={["fas", "times"]}
-                        disabled={disabled}
                         size="sm"
+                        disabled={disabled}
                         color="grey-xdark"
                         onClick={onClick}
                     />

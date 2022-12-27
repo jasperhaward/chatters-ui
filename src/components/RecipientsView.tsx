@@ -24,10 +24,10 @@ export function RecipientsView({
     contacts,
     ...props
 }: RecipientsViewProps) {
+    const [addingRecipient, setAddingRecipient] = useState<User | null>(null);
     const [deletingRecipient, setDeletingRecipient] = useState<User | null>(
         null
     );
-    const [disabled, setDisabled] = useState(false);
 
     /**
      * Conversation recipients filtered by the search term,
@@ -58,11 +58,11 @@ export function RecipientsView({
     }, [contacts, selectedConversation]);
 
     async function onRecipientAdd(recipient: User) {
-        setDisabled(true);
+        setAddingRecipient(recipient);
 
         await props.onRecipientAdd(recipient);
 
-        setDisabled(false);
+        setAddingRecipient(null);
     }
 
     async function onRecipientRemove(option: MultiSelectOption) {
@@ -97,6 +97,7 @@ export function RecipientsView({
                     <ContactsView
                         search={search}
                         contacts={nonRecipientContacts}
+                        disabled={addingRecipient !== null}
                         onContactClick={onRecipientAdd}
                     />
                 </ScrollableContainer>

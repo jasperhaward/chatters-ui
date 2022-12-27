@@ -10,7 +10,6 @@ $transition: all transition.$duration-medium ease;
 .contact {
     display: flex;
     align-items: center;
-    width: 100%;
     padding: padding.$lg;
     transition: $transition;
     border-radius: border.$radius-md;
@@ -34,6 +33,8 @@ $transition: all transition.$duration-medium ease;
     }
 
     .username {
+        flex-grow: 1;
+        text-align: left;
         font-size: fonts.$size-sm;
         color: colours.$white;
     }

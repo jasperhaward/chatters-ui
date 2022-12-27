@@ -2,6 +2,8 @@
 @use "@styling/colours";
 @use "@styling/padding";
 @use "@styling/border";
+@use "@styling/opacity";
+@use "@styling/transition";
 
 .pill {
     display: flex;
@@ -9,6 +11,11 @@
     border-radius: border.$radius-md;
     color: colours.$grey-xxdark;
     background-color: colours.$green;
+    transition: opacity transition.$duration-short;
+
+    &.disabled {
+        opacity: opacity.$disabled-button-opacity;
+    }
 
     span {
         font-size: fonts.$size-sm;

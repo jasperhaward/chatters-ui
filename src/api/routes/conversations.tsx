@@ -82,7 +82,7 @@ async function addRecipient(params: AddRecipientParams): Promise<Conversation> {
         recipients: [...conversation.recipients, recipient],
     };
 
-    return response(updatedConversation, 750);
+    return response(updatedConversation, 1500);
 }
 
 interface RemoveRecipientParams {
@@ -106,7 +106,7 @@ async function removeRecipient(
         recipients: updatedRecipients,
     };
 
-    return response(updatedConversation, 500);
+    return response(updatedConversation, 1500);
 }
 
 export default {
