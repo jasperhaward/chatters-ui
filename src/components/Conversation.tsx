@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef } from "preact/hooks";
 import styles from "./Conversation.module.scss";
 
 import { DRAFT_CONVERSATION_ID } from "@constants";
+import { useCurrentUser } from "@hooks";
 import { Conversation as IConversation } from "@types";
 import { Icon, HighlightedText, ConversationMessageAuthor, Timestamp } from ".";
 
@@ -18,13 +19,20 @@ export function Conversation({
     isSelected,
     onClick,
 }: ConversationsProps) {
+    const user = useCurrentUser();
     const button = useRef<HTMLButtonElement>(null);
+
+    const [message] = conversation.messages;
 
     useEffect(() => {
         if (isSelected && button.current) {
             button.current.scrollIntoView();
         }
     }, [isSelected]);
+
+    const isCreatedByCurrentUser = useMemo(() => {
+        return message.createdBy.id === user.id;
+    }, [conversation, user]);
 
     const isDraftConversation = useMemo(() => {
         return conversation.id === DRAFT_CONVERSATION_ID;
@@ -33,8 +41,6 @@ export function Conversation({
     const isGroupConversation = useMemo(() => {
         return conversation.recipients.length > 1;
     }, [conversation]);
-
-    const [message] = conversation.messages;
 
     return (
         <button
@@ -57,9 +63,7 @@ export function Conversation({
                     </span>
                     {!isDraftConversation && (
                         <Timestamp
-                            className={`${styles.timestamp} ${
-                                isSelected ? styles.selected : ""
-                            }`}
+                            className={styles.timestamp}
                             timestamp={message.createdAt}
                             short={true}
                         />
@@ -74,6 +78,7 @@ export function Conversation({
                                 message={message}
                                 isSelectedConversation={isSelected}
                                 isGroupConversation={isGroupConversation}
+                                isCreatedByCurrentUser={isCreatedByCurrentUser}
                             />
                             {message.content}
                         </>
