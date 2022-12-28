@@ -62,19 +62,15 @@ export function RecipientsView({
     }
 
     async function onRecipientRemove(option: MultiSelectOption) {
-        // should not be able to remove a recipient if that
-        // recipient is the only conversation recipient
-        if (selectedConversation.recipients.length > 1) {
-            const recipient = contacts.find((contact) => {
-                return contact.id === option.value;
-            })!;
+        const recipient = contacts.find((contact) => {
+            return contact.id === option.value;
+        })!;
 
-            setDisabled(true);
+        setDisabled(true);
 
-            await props.onRecipientRemove(recipient);
+        await props.onRecipientRemove(recipient);
 
-            setDisabled(false);
-        }
+        setDisabled(false);
     }
 
     return (
@@ -84,7 +80,10 @@ export function RecipientsView({
                     className={styles.recipients}
                     value={recipientMultiSelectOptions}
                     query={search}
-                    disabled={disabled}
+                    disabled={
+                        // should not be able to remove the only recipient of a conversation
+                        disabled || selectedConversation.recipients.length === 1
+                    }
                     onRemove={onRecipientRemove}
                 />
             )}
