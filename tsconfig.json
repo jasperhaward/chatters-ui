@@ -19,7 +19,8 @@
             "@context": ["./src/context/index"],
             "@hooks": ["./src/hooks/index"],
             "@types": ["./types/index"],
-            "@utils": ["./src/utils/index"]
+            "@utils": ["./src/utils/index"],
+            "@styling/*": ["./src/styling/*"]
         },
         "noEmit": true
     },

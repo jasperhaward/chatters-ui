@@ -1,23 +1,23 @@
 import { AliasOptions, defineConfig } from "vite";
 import preact from "@preact/preset-vite";
 import { resolve } from "path";
-import { compilerOptions } from "./tsconfig.json";
+import tsconfig from "./tsconfig.json";
 
 function tsconfigPathsToAlias() {
     let alias: AliasOptions = {};
 
-    for (const key in compilerOptions.paths) {
-        const [path] = compilerOptions.paths[key];
+    for (const key in tsconfig.compilerOptions.paths) {
+        const [path] = tsconfig.compilerOptions.paths[key];
 
-        // remove vite aliasing invalid characters
+        // remove glob characters as they are invalid in vite's aliasing
         const formattedKey = key.replace("*", "");
         const formattedPath = path.replace("*", "");
 
         alias[formattedKey] = resolve(__dirname, formattedPath);
 
-        // if it includes a "*", the path is a directory,
-        // and resolving a path will remove the trailing "/"
-        // which needs to be re-added for vite's aliasing
+        // if the unformatted path includes a trailing "*", the path is a directory,
+        // and resolving a path will remove the trailing "/" which needs to be
+        // re-added for vite's aliasing
         if (path.includes("*")) {
             alias[formattedKey] += "/";
         }
@@ -34,9 +34,6 @@ export default defineConfig({
         },
     },
     resolve: {
-        alias: {
-            ...tsconfigPathsToAlias(),
-            "@styling/": `${resolve(__dirname, "./src/styling/")}/`,
-        },
+        alias: tsconfigPathsToAlias(),
     },
 });
