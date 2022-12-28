@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef } from "preact/hooks";
 import styles from "./Conversation.module.scss";
 
 import { DRAFT_CONVERSATION_ID } from "@constants";
-import { useCurrentUser } from "@hooks";
 import { Conversation as IConversation } from "@types";
 import { Icon, HighlightedText, ConversationMessageAuthor, Timestamp } from ".";
 
@@ -19,7 +18,6 @@ export function Conversation({
     isSelected,
     onClick,
 }: ConversationsProps) {
-    const user = useCurrentUser();
     const button = useRef<HTMLButtonElement>(null);
 
     const [message] = conversation.messages;
