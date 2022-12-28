@@ -1,50 +1,69 @@
+import { ComponentChildren } from "preact";
+import { useMemo } from "preact/hooks";
 import styles from "./TabbedMenu.module.scss";
 
 export interface TabbedMenuItemProps<T> {
     value: T;
-    isSelected: boolean;
+    disabled?: boolean;
+    selected: boolean;
     onClick: (view: T) => void;
 }
 
 export function TabbedMenuItem<T extends string>({
     value,
-    isSelected,
+    disabled,
+    selected,
     onClick,
 }: TabbedMenuItemProps<T>) {
     return (
         <button
-            className={`${styles.menuItem} ${
-                isSelected ? styles.selected : ""
-            }`}
+            className={`${styles.menuItem} ${selected ? styles.selected : ""}`}
+            disabled={disabled}
             onClick={() => onClick(value)}
         >
             <div>{value}</div>
-            {isSelected && <div className={styles.indicator} />}
+            {selected && <div className={styles.indicator} />}
         </button>
     );
 }
 
-export interface TabbedMenuProps<T> {
-    selected: T;
-    options: T[];
+export interface TabbedViewOption<T> {
+    title: T;
+    component: ComponentChildren;
+    disabled?: boolean;
+}
+
+export interface TabbedViewProps<T> {
+    view: T;
+    options: TabbedViewOption<T>[];
     onSelect: (view: T) => void;
 }
 
-export function TabbedMenu<T extends string>({
-    selected,
+export function TabbedView<T extends string>({
+    view,
     options,
     onSelect,
-}: TabbedMenuProps<T>) {
+}: TabbedViewProps<T>) {
+    const selectedOption = useMemo(() => {
+        return options.find((option) => {
+            return option.title === view;
+        })!;
+    }, [view, options]);
+
     return (
-        <div className={styles.menu}>
-            {options.map((option) => (
-                <TabbedMenuItem
-                    key={option}
-                    value={option}
-                    isSelected={option === selected}
-                    onClick={onSelect}
-                />
-            ))}
-        </div>
+        <>
+            <div className={styles.menu}>
+                {options.map((option) => (
+                    <TabbedMenuItem
+                        key={option.title}
+                        value={option.title}
+                        disabled={option.disabled}
+                        selected={option === selectedOption}
+                        onClick={onSelect}
+                    />
+                ))}
+            </div>
+            {selectedOption.component}
+        </>
     );
 }

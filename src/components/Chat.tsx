@@ -22,7 +22,8 @@ import {
     MessageBox,
     Spinner,
     SpinnerContainer,
-    TabbedMenu,
+    TabbedView,
+    TabbedViewOption,
     ScrollableContainer,
     ScrollableContainerParent,
     RecipientsView,
@@ -74,17 +75,6 @@ export function Chat({ params }: ChatProps) {
     const isLoading = useMemo(() => {
         return !selectedConversation || !session || contacts.length === 0;
     }, [selectedConversation, session, contacts]);
-
-    const getViewOptions = useCallback(() => {
-        const options = [View.Conversations, View.Contacts];
-
-        // ensure user cannot add/remove recipients for a draft conversation
-        if (selectedConversation!.id !== DRAFT_CONVERSATION_ID) {
-            options.push(View.Recipients);
-        }
-
-        return options;
-    }, [selectedConversation?.id]);
 
     async function loadSession() {
         const session = await api.session.get();
@@ -252,39 +242,46 @@ export function Chat({ params }: ChatProps) {
         }
     }
 
-    function renderView(view: View) {
-        const search = inputs.search.trim();
-
-        switch (view) {
-            case "Conversations":
-                return (
+    const viewOptions = useCallback(() => {
+        const options: TabbedViewOption<View>[] = [
+            {
+                title: View.Conversations,
+                component: (
                     <ConversationsView
-                        search={search}
+                        search={inputs.search}
                         conversations={conversations}
                         selectedConversation={selectedConversation!}
                         onConversationClick={onConversationClick}
                     />
-                );
-            case "Contacts":
-                return (
+                ),
+            },
+            {
+                title: View.Contacts,
+                component: (
                     <ContactsView
-                        search={search}
+                        search={inputs.search}
                         contacts={contacts}
                         onContactClick={onContactClick}
                     />
-                );
-            case "Recipients":
-                return (
+                ),
+            },
+            {
+                title: View.Recipients,
+                disabled: selectedConversation!.id === DRAFT_CONVERSATION_ID,
+                component: (
                     <RecipientsView
                         selectedConversation={selectedConversation!}
-                        search={search}
+                        search={inputs.search}
                         contacts={contacts}
                         onRecipientAdd={onRecipientAdd}
                         onRecipientRemove={onRecipientRemove}
                     />
-                );
-        }
-    }
+                ),
+            },
+        ];
+
+        return options;
+    }, [inputs.search, conversations, contacts, selectedConversation]);
 
     return (
         <div className={styles.chat}>
@@ -303,14 +300,11 @@ export function Chat({ params }: ChatProps) {
                             <Spinner />
                         </SpinnerContainer>
                     ) : (
-                        <>
-                            <TabbedMenu
-                                selected={view}
-                                options={getViewOptions()}
-                                onSelect={setView}
-                            />
-                            {renderView(view)}
-                        </>
+                        <TabbedView
+                            view={view}
+                            options={viewOptions()}
+                            onSelect={setView}
+                        />
                     )}
                 </ScrollableContainerParent>
                 <ScrollableContainerParent className={styles.messages}>
