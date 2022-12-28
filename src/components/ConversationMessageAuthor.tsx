@@ -1,20 +1,26 @@
 import styles from "./ConversationMessageAuthor.module.scss";
 
+import { useCurrentUser } from "@hooks";
 import { Message } from "@types";
+import { useMemo } from "preact/hooks";
 
 export interface ConversationMessageAuthorProps {
     message: Message;
     isSelectedConversation: boolean;
     isGroupConversation: boolean;
-    isCreatedByCurrentUser: boolean;
 }
 
 export function ConversationMessageAuthor({
     message,
     isSelectedConversation,
     isGroupConversation,
-    isCreatedByCurrentUser,
 }: ConversationMessageAuthorProps) {
+    const user = useCurrentUser();
+
+    const isCreatedByCurrentUser = useMemo(() => {
+        return message.createdBy.id === user.id;
+    }, [message, user]);
+
     // don't show an author when the last message
     // came from the conversation's only other recipient (a dm)
     if (!isCreatedByCurrentUser && !isGroupConversation) {

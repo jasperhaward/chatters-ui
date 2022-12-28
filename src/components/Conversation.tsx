@@ -30,10 +30,6 @@ export function Conversation({
         }
     }, [isSelected]);
 
-    const isCreatedByCurrentUser = useMemo(() => {
-        return message.createdBy.id === user.id;
-    }, [conversation, user]);
-
     const isDraftConversation = useMemo(() => {
         return conversation.id === DRAFT_CONVERSATION_ID;
     }, [conversation]);
@@ -53,14 +49,13 @@ export function Conversation({
             <Icon icon={["fas", isGroupConversation ? "users" : "user"]} />
             <div className={styles.details}>
                 <div>
-                    <span className={styles.recipients}>
-                        <HighlightedText
-                            query={search}
-                            value={conversation.recipients
-                                .map((recipient) => recipient.username)
-                                .join(", ")}
-                        />
-                    </span>
+                    <HighlightedText
+                        className={styles.recipients}
+                        query={search}
+                        value={conversation.recipients
+                            .map((recipient) => recipient.username)
+                            .join(", ")}
+                    />
                     {!isDraftConversation && (
                         <Timestamp
                             className={styles.timestamp}
@@ -78,7 +73,6 @@ export function Conversation({
                                 message={message}
                                 isSelectedConversation={isSelected}
                                 isGroupConversation={isGroupConversation}
-                                isCreatedByCurrentUser={isCreatedByCurrentUser}
                             />
                             {message.content}
                         </>

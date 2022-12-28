@@ -18,9 +18,11 @@ export function Contact({ contact, search, disabled, onClick }: ContactProps) {
             onClick={() => onClick(contact)}
         >
             <Icon icon={["fas", "user"]} />
-            <span className={styles.username}>
-                <HighlightedText query={search} value={contact.username} />
-            </span>
+            <HighlightedText
+                className={styles.username}
+                query={search}
+                value={contact.username}
+            />
         </button>
     );
 }
