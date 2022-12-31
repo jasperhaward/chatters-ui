@@ -12,7 +12,7 @@ import * as api from "@api";
 import { AppContext, SessionContext } from "@context";
 import { DRAFT_CONVERSATION_ID } from "@constants";
 import { useForm } from "@hooks";
-import { Conversation, User } from "@types";
+import { Conversation, Message, User } from "@types";
 import {
     SearchBox,
     ContactsView,
@@ -56,6 +56,31 @@ export function Chat({ params }: ChatProps) {
         loadSession().catch(console.error);
         loadContacts().catch(console.error);
         loadConversations().catch(console.error);
+
+        api.websocket.onopen = () => {
+            api.websocket.send(
+                JSON.stringify({
+                    type: "handshake",
+                    payload: {
+                        userId: "R-3",
+                    },
+                })
+            );
+        };
+
+        api.websocket.onmessage = (message) => {
+            const data = JSON.parse(message.data);
+
+            console.log(data);
+
+            dispatch({
+                type: "conversations/messages/prepend",
+                payload: {
+                    conversationId: data.conversationId as string,
+                    messages: [data as Message],
+                },
+            });
+        };
     }, []);
 
     const selectedConversation = useMemo(() => {
