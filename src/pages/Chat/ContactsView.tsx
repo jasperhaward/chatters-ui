@@ -1,9 +1,12 @@
 import { Fragment } from "preact";
 import { useMemo } from "preact/hooks";
 
+import { Divider, ScrollableContainer } from "@components";
 import { sortAlphabeticallyBy, queryBy } from "@utils";
 import { User as IUser } from "@types";
-import { Contact, NoResultsText, Divider, ScrollableContainer } from ".";
+
+import Contact from "./Contact";
+import NoResultsText from "./NoResultsText";
 
 export interface ContactsViewProps {
     contacts: IUser[];
@@ -12,7 +15,7 @@ export interface ContactsViewProps {
     onContactClick: (conversation: IUser) => void;
 }
 
-export function ContactsView({
+export default function ContactsView({
     contacts,
     search,
     disabled,

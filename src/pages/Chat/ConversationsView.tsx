@@ -1,6 +1,10 @@
 import { useMemo } from "preact/hooks";
+
+import { ScrollableContainer } from "@components";
 import { Conversation as IConversation } from "@types";
-import { Conversation, NoResultsText, ScrollableContainer } from ".";
+
+import Conversation from "./Conversation";
+import NoResultsText from "./NoResultsText";
 
 export interface ConversationsViewProps {
     conversations: IConversation[];
@@ -9,7 +13,7 @@ export interface ConversationsViewProps {
     onConversationClick: (conversation: IConversation) => void;
 }
 
-export function ConversationsView({
+export default function ConversationsView({
     conversations,
     search,
     selectedConversation,

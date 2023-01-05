@@ -1,6 +1,7 @@
 import { Redirect, Route, Switch } from "wouter";
-import { Chat } from "@components";
+
 import { SessionContextProvider, AppContextProvider } from "@context";
+import Chat from "@pages/Chat";
 
 function App() {
     return (

@@ -1,6 +1,7 @@
 import { useState, useRef, useMemo } from "preact/hooks";
 import styles from "./MessageBox.module.scss";
-import { IconButton, Spinner } from ".";
+
+import { IconButton, Spinner } from "@components";
 
 export interface MessageBoxProps {
     name: string;
@@ -11,7 +12,7 @@ export interface MessageBoxProps {
     onMessageSubmit: () => Promise<void>;
 }
 
-export function MessageBox({
+export default function MessageBox({
     name,
     value,
     disabled,

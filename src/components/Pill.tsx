@@ -1,6 +1,6 @@
 import { ComponentChildren } from "preact";
 import styles from "./Pill.module.scss";
-import { IconButton } from "..";
+import { IconButton } from ".";
 
 export interface PillProps {
     disabled?: boolean;

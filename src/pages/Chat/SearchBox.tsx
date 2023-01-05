@@ -1,5 +1,6 @@
 import styles from "./SearchBox.module.scss";
-import { IconButton } from ".";
+
+import { IconButton } from "@components";
 
 export interface SearchBoxProps {
     name: string;
@@ -9,7 +10,7 @@ export interface SearchBoxProps {
     onClearClick: () => void;
 }
 
-export function SearchBox({
+export default function SearchBox({
     name,
     value,
     disabled,

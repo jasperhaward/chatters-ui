@@ -1,8 +1,8 @@
+import { useMemo } from "preact/hooks";
 import styles from "./ConversationMessageAuthor.module.scss";
 
 import { useCurrentUser } from "@hooks";
 import { Message } from "@types";
-import { useMemo } from "preact/hooks";
 
 export interface ConversationMessageAuthorProps {
     message: Message;
@@ -10,7 +10,7 @@ export interface ConversationMessageAuthorProps {
     isGroupConversation: boolean;
 }
 
-export function ConversationMessageAuthor({
+export default function ConversationMessageAuthor({
     message,
     isSelectedConversation,
     isGroupConversation,

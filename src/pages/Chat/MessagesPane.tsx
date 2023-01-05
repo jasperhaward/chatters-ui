@@ -2,16 +2,20 @@ import { useEffect, useRef } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
 import styles from "./MessagesPane.module.scss";
 
+import { Timestamp } from "@components";
 import colours from "@styling/_colours.module.scss";
 import { useCurrentUser } from "@hooks";
 import { Conversation, Message as IMessage } from "@types";
-import { Message, Timestamp } from ".";
+
+import Message from "./Message";
 
 export interface MessagesPaneProps {
     selectedConversation: Conversation;
 }
 
-export function MessagesPane({ selectedConversation }: MessagesPaneProps) {
+export default function MessagesPane({
+    selectedConversation,
+}: MessagesPaneProps) {
     const user = useCurrentUser();
 
     const ref = useRef<HTMLDivElement>(null);

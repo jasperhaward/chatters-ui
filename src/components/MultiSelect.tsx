@@ -1,5 +1,5 @@
 import styles from "./MultiSelect.module.scss";
-import { Pill, HighlightedText } from "..";
+import { Pill, HighlightedText } from ".";
 
 export interface MultiSelectOption {
     text: string;

@@ -1,14 +1,15 @@
 import { useMemo, useState } from "preact/hooks";
 import styles from "./RecipientsView.module.scss";
 
-import { sortAlphabeticallyBy, queryBy } from "@utils";
-import { Conversation, User } from "@types";
 import {
     MultiSelect,
     ScrollableContainer,
     MultiSelectOption,
-    ContactsView,
-} from ".";
+} from "@components";
+import { sortAlphabeticallyBy, queryBy } from "@utils";
+import { Conversation, User } from "@types";
+
+import ContactsView from "./ContactsView";
 
 export interface RecipientsViewProps {
     selectedConversation: Conversation;
@@ -18,7 +19,7 @@ export interface RecipientsViewProps {
     onRecipientRemove: (recipient: User) => Promise<void>;
 }
 
-export function RecipientsView({
+export default function RecipientsView({
     selectedConversation,
     search,
     contacts,

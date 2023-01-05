@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useRef } from "preact/hooks";
 import styles from "./Conversation.module.scss";
 
+import { Icon, HighlightedText, Timestamp } from "@components";
 import { DRAFT_CONVERSATION_ID } from "@constants";
 import { Conversation as IConversation } from "@types";
-import { Icon, HighlightedText, ConversationMessageAuthor, Timestamp } from ".";
+
+import ConversationMessageAuthor from "./ConversationMessageAuthor";
 
 export interface ConversationsProps {
     conversation: IConversation;
@@ -12,7 +14,7 @@ export interface ConversationsProps {
     onClick: (conversation: IConversation) => void;
 }
 
-export function Conversation({
+export default function Conversation({
     conversation,
     search,
     isSelected,

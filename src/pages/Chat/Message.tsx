@@ -1,9 +1,9 @@
 import styles from "./Message.module.scss";
 
 import colours from "@styling/_colours.module.scss";
+import { Icon } from "@components";
 import { Message as IMessage } from "@types";
 import { contrast } from "@utils";
-import { Icon } from ".";
 
 export interface MessageProps {
     message: IMessage;
@@ -19,7 +19,7 @@ export interface MessageMeta {
     pointedBottom: boolean;
 }
 
-export function Message({
+export default function Message({
     message,
     meta: {
         alignRight,

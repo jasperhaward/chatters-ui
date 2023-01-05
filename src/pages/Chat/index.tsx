@@ -6,34 +6,29 @@ import {
     useState,
 } from "preact/hooks";
 import { useLocation } from "wouter";
-import styles from "./Chat.module.scss";
+import styles from "./index.module.scss";
 
 import * as api from "@api";
 import { AppContext, SessionContext } from "@context";
-import { DRAFT_CONVERSATION_ID } from "@constants";
-import { useForm } from "@hooks";
-import { Conversation, User } from "@types";
 import {
-    SearchBox,
-    ContactsView,
-    ConversationsView,
-    MessagesPane,
-    MessagesPaneHeader,
-    MessageBox,
     Spinner,
     SpinnerContainer,
     TabbedView,
     TabbedViewOption,
     ScrollableContainer,
     ScrollableContainerParent,
-    RecipientsView,
-} from ".";
+} from "@components";
+import { DRAFT_CONVERSATION_ID } from "@constants";
+import { useForm } from "@hooks";
+import { Conversation, User } from "@types";
 
-export interface ChatProps {
-    params: {
-        id?: string;
-    };
-}
+import ContactsView from "./ContactsView";
+import ConversationsView from "./ConversationsView";
+import RecipientsView from "./RecipientsView";
+import MessagesPane from "./MessagesPane";
+import MessagesPaneHeader from "./MessagesPaneHeader";
+import SearchBox from "./SearchBox";
+import MessageBox from "./MessageBox";
 
 export enum View {
     Contacts = "Contacts",
@@ -41,7 +36,13 @@ export enum View {
     Recipients = "Recipients",
 }
 
-export function Chat({ params }: ChatProps) {
+export interface ChatProps {
+    params: {
+        id?: string;
+    };
+}
+
+export default function Chat({ params }: ChatProps) {
     const [{ contacts, conversations }, dispatch] = useContext(AppContext);
     const [session, setSession] = useContext(SessionContext);
 

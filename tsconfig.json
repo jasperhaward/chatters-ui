@@ -18,6 +18,7 @@
             "@constants": ["./src/constants"],
             "@context": ["./src/context/index"],
             "@hooks": ["./src/hooks/index"],
+            "@pages/*": ["./src/pages/*"],
             "@types": ["./types/index"],
             "@utils": ["./src/utils/index"],
             "@styling/*": ["./src/styling/*"]

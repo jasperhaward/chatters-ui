@@ -5,7 +5,7 @@ export interface MessagesPaneHeaderProps {
     selectedConversation: Conversation;
 }
 
-export function MessagesPaneHeader({
+export default function MessagesPaneHeader({
     selectedConversation,
 }: MessagesPaneHeaderProps) {
     return (
