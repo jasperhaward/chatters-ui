@@ -38,12 +38,19 @@ export default function Conversation({
         return conversation.recipients.length > 1;
     }, [conversation]);
 
+    const formattedRecipients = useMemo(() => {
+        return conversation.recipients
+            .map((recipient) => recipient.username)
+            .join(", ");
+    }, [conversation]);
+
     return (
         <button
             className={`${styles.conversation} ${
                 isSelected ? styles.selected : ""
             }`}
             ref={button}
+            title={formattedRecipients}
             onClick={() => onClick(conversation)}
         >
             <Icon icon={["fas", isGroupConversation ? "users" : "user"]} />
@@ -52,9 +59,7 @@ export default function Conversation({
                     <HighlightedText
                         className={styles.recipients}
                         query={search}
-                        value={conversation.recipients
-                            .map((recipient) => recipient.username)
-                            .join(", ")}
+                        value={formattedRecipients}
                     />
                     {!isDraftConversation && (
                         <Timestamp
