@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./index.scss";
 import App from "./App";
-import "./extensions/date";
+import "./extensions/Date";
 
 if (import.meta.env.MODE === "development") {
     import("preact/debug");

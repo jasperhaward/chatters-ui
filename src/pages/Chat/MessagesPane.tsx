@@ -1,9 +1,10 @@
 import { useEffect, useRef } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
 import styles from "./MessagesPane.module.scss";
+import colours from "@styling/_colours.module.scss";
 
 import { Timestamp } from "@components";
-import colours from "@styling/_colours.module.scss";
+import { INTERVAL } from "@constants";
 import { useCurrentUser } from "@hooks";
 import { Conversation, Message as IMessage } from "@types";
 
@@ -111,25 +112,14 @@ export default function MessagesPane({
     }
 
     function isWithinFiveMins(a: IMessage, b: IMessage) {
-        const createdAt = {
-            a: new Date(a.createdAt).getTime(),
-            b: new Date(b.createdAt).getTime(),
-        };
+        const aCreatedAt = new Date(a.createdAt).getTime();
+        const bCreatedAt = new Date(b.createdAt).getTime();
 
-        return Math.abs(createdAt.a - createdAt.b) <= 5 * 60 * 1000;
+        return Math.abs(aCreatedAt - bCreatedAt) <= 5 * INTERVAL.MINUTE;
     }
 
     function isSameDay(a: IMessage, b: IMessage) {
-        const createdAt = {
-            a: new Date(a.createdAt),
-            b: new Date(b.createdAt),
-        };
-
-        return (
-            createdAt.a.getFullYear() === createdAt.b.getFullYear() &&
-            createdAt.a.getMonth() === createdAt.b.getMonth() &&
-            createdAt.a.getDate() === createdAt.b.getDate()
-        );
+        return new Date(a.createdAt).isSameDate(new Date(b.createdAt));
     }
 
     return (

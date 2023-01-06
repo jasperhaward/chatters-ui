@@ -1,30 +1,30 @@
-const DAY = 24 * 60 * 60 * 1000;
-const WEEK = DAY * 7;
-const YEAR = DAY * 365;
+import { INTERVAL } from "@constants";
 
-declare global {
-    interface Date {
-        isToday(): boolean;
-        isYesterday(): boolean;
-        isThisWeek(): boolean;
-        isThisYear(): boolean;
-    }
-}
+Date.prototype.isSameDate = function (date) {
+    return (
+        this.getUTCFullYear() === date.getUTCFullYear() &&
+        this.getUTCMonth() === date.getUTCMonth() &&
+        this.getUTCDate() === date.getUTCDate()
+    );
+};
 
 Date.prototype.isToday = function () {
-    return this.getTime() > new Date().setHours(0, 0, 0, 0);
+    const today = new Date();
+
+    return this.isSameDate(today);
 };
 
 Date.prototype.isYesterday = function () {
-    return this.getTime() > new Date().setHours(0, 0, 0, 0) - DAY;
+    return (
+        this.getTime() > new Date().setHours(0, 0, 0, 0) - INTERVAL.DAY &&
+        !this.isToday()
+    );
 };
 
 Date.prototype.isThisWeek = function () {
-    return this.getTime() > new Date().setHours(0, 0, 0, 0) - WEEK;
+    return this.getTime() > new Date().setHours(0, 0, 0, 0) - INTERVAL.WEEK;
 };
 
 Date.prototype.isThisYear = function () {
-    return this.getTime() > new Date().setHours(0, 0, 0, 0) - YEAR;
+    return this.getTime() > new Date().setHours(0, 0, 0, 0) - INTERVAL.YEAR;
 };
-
-export {};
