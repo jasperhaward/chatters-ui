@@ -1,0 +1,10 @@
+@use "@styling/colours";
+@use "@styling/fonts";
+@use "@styling/padding";
+
+.subHeading {
+    margin: padding.$sm;
+    color: colours.$white;
+    font-size: fonts.$size-lg;
+    font-weight: normal;
+}

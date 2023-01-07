@@ -17,6 +17,7 @@ import {
     TabbedViewOption,
     ScrollableContainer,
     ScrollableContainerParent,
+    Heading,
 } from "@components";
 import { DRAFT_CONVERSATION_ID } from "@constants";
 import { useForm } from "@hooks";
@@ -286,7 +287,7 @@ export default function Chat({ params }: ChatProps) {
 
     return (
         <div className={styles.chat}>
-            <h1>Chat</h1>
+            <Heading>Chat</Heading>
             <main>
                 <ScrollableContainerParent className={styles.conversations}>
                     <SearchBox

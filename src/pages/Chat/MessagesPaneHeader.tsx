@@ -1,4 +1,5 @@
 import styles from "./MessagesPaneHeader.module.scss";
+import { SubHeading } from "@components";
 import { Conversation } from "@types";
 
 export interface MessagesPaneHeaderProps {
@@ -10,11 +11,11 @@ export default function MessagesPaneHeader({
 }: MessagesPaneHeaderProps) {
     return (
         <div>
-            <h2 className={styles.messagesHeader}>
+            <SubHeading className={styles.messagesHeader}>
                 {selectedConversation.recipients
                     .map((recpient) => recpient.username)
                     .join(", ")}
-            </h2>
+            </SubHeading>
         </div>
     );
 }

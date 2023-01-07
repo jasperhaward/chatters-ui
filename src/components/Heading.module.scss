@@ -1,0 +1,10 @@
+@use "@styling/colours";
+@use "@styling/fonts";
+@use "@styling/padding";
+
+.heading {
+    margin: padding.$lg;
+    color: colours.$white;
+    font-size: fonts.$size-xl;
+    font-weight: normal;
+}

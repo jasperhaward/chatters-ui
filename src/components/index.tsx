@@ -1,4 +1,5 @@
 export * from "./Divider";
+export * from "./Heading";
 export * from "./HighlightedText";
 export * from "./Icon";
 export * from "./IconButton";
@@ -6,5 +7,6 @@ export * from "./MultiSelect";
 export * from "./Pill";
 export * from "./ScrollableContainer";
 export * from "./Spinner";
+export * from "./SubHeading";
 export * from "./TabbedMenu";
 export * from "./Timestamp";
