@@ -30,8 +30,10 @@ $transition: all transition.$duration-medium ease;
         }
 
         .details {
-            .timestamp {
-                color: colours.$grey-xdark !important;
+            .conversationDetails {
+                .timestamp {
+                    color: colours.$grey-xdark;
+                }
             }
 
             .messageDetails {
@@ -52,7 +54,7 @@ $transition: all transition.$duration-medium ease;
         width: 100%;
         min-width: 0;
 
-        div:first-child {
+        .conversationDetails {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -71,7 +73,7 @@ $transition: all transition.$duration-medium ease;
                 white-space: nowrap;
                 color: colours.$grey-xlight;
                 font-size: fonts.$size-xs;
-                transition: color transition.$duration-medium ease;
+                transition: $transition;
             }
         }
 

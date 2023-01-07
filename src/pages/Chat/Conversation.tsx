@@ -55,7 +55,7 @@ export default function Conversation({
         >
             <Icon icon={["fas", isGroupConversation ? "users" : "user"]} />
             <div className={styles.details}>
-                <div>
+                <div className={styles.conversationDetails}>
                     <HighlightedText
                         className={styles.recipients}
                         query={search}
