@@ -10,23 +10,23 @@ import NoResultsText from "./NoResultsText";
 
 export interface ContactsViewProps {
     contacts: IUser[];
-    search: string;
+    query: string;
     disabled?: boolean;
     onContactClick: (conversation: IUser) => void;
 }
 
 export default function ContactsView({
     contacts,
-    search,
+    query,
     disabled,
     onContactClick,
 }: ContactsViewProps) {
     /** Contacts filtered by the search term & sorted alphabetically */
     const filteredContacts = useMemo(() => {
         return contacts
-            .filter(queryBy("username", search))
+            .filter(queryBy("username", query))
             .sort(sortAlphabeticallyBy("username"));
-    }, [search, contacts]);
+    }, [query, contacts]);
 
     /**
      * Show the divider if there is no previous contact,
@@ -58,7 +58,7 @@ export default function ContactsView({
                     )}
                     <Contact
                         contact={contact}
-                        search={search}
+                        query={query}
                         disabled={disabled}
                         onClick={onContactClick}
                     />

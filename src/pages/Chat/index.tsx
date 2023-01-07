@@ -249,9 +249,9 @@ export default function Chat({ params }: ChatProps) {
                 title: View.Conversations,
                 component: (
                     <ConversationsView
-                        search={inputs.search}
                         conversations={conversations}
                         selectedConversation={selectedConversation!}
+                        query={inputs.search}
                         onConversationClick={onConversationClick}
                     />
                 ),
@@ -260,8 +260,8 @@ export default function Chat({ params }: ChatProps) {
                 title: View.Contacts,
                 component: (
                     <ContactsView
-                        search={inputs.search}
                         contacts={contacts}
+                        query={inputs.search}
                         onContactClick={onContactClick}
                     />
                 ),
@@ -272,8 +272,8 @@ export default function Chat({ params }: ChatProps) {
                 component: (
                     <RecipientsView
                         selectedConversation={selectedConversation!}
-                        search={inputs.search}
                         contacts={contacts}
+                        query={inputs.search}
                         onRecipientAdd={onRecipientAdd}
                         onRecipientRemove={onRecipientRemove}
                     />

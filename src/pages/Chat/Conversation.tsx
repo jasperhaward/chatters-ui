@@ -9,14 +9,14 @@ import ConversationMessageAuthor from "./ConversationMessageAuthor";
 
 export interface ConversationsProps {
     conversation: IConversation;
-    search: string;
+    query: string;
     isSelected: boolean;
     onClick: (conversation: IConversation) => void;
 }
 
 export default function Conversation({
     conversation,
-    search,
+    query,
     isSelected,
     onClick,
 }: ConversationsProps) {
@@ -58,7 +58,7 @@ export default function Conversation({
                 <div className={styles.conversationDetails}>
                     <HighlightedText
                         className={styles.recipients}
-                        query={search}
+                        query={query}
                         value={formattedRecipients}
                     />
                     {!isDraftConversation && (

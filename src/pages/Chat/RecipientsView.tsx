@@ -13,7 +13,7 @@ import ContactsView from "./ContactsView";
 
 export interface RecipientsViewProps {
     selectedConversation: Conversation;
-    search: string;
+    query: string;
     contacts: User[];
     onRecipientAdd: (recipient: User) => Promise<void>;
     onRecipientRemove: (recipient: User) => Promise<void>;
@@ -21,7 +21,7 @@ export interface RecipientsViewProps {
 
 export default function RecipientsView({
     selectedConversation,
-    search,
+    query,
     contacts,
     ...props
 }: RecipientsViewProps) {
@@ -33,13 +33,13 @@ export default function RecipientsView({
      */
     const recipientMultiSelectOptions = useMemo<MultiSelectOption[]>(() => {
         return selectedConversation.recipients
-            .filter(queryBy("username", search))
+            .filter(queryBy("username", query))
             .sort(sortAlphabeticallyBy("username"))
             .map((recipient) => ({
                 value: recipient.id,
                 text: recipient.username,
             }));
-    }, [selectedConversation, search]);
+    }, [selectedConversation, query]);
 
     /**
      * Contacts which are not conversation recipients.
@@ -80,7 +80,7 @@ export default function RecipientsView({
                 <MultiSelect
                     className={styles.recipients}
                     value={recipientMultiSelectOptions}
-                    query={search}
+                    query={query}
                     disabled={
                         // should not be able to remove the only recipient of a conversation
                         disabled || selectedConversation.recipients.length === 1
@@ -91,8 +91,8 @@ export default function RecipientsView({
             {nonRecipientContacts.length > 0 && (
                 <ScrollableContainer>
                     <ContactsView
-                        search={search}
                         contacts={nonRecipientContacts}
+                        query={query}
                         disabled={disabled}
                         onContactClick={onRecipientAdd}
                     />

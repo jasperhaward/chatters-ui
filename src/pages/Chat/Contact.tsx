@@ -5,14 +5,14 @@ import { Icon, HighlightedText } from "@components";
 
 export interface ContactProps {
     contact: User;
-    search: string;
+    query: string;
     disabled?: boolean;
     onClick: (contact: User) => void;
 }
 
 export default function Contact({
     contact,
-    search,
+    query,
     disabled,
     onClick,
 }: ContactProps) {
@@ -25,7 +25,7 @@ export default function Contact({
             <Icon icon={["fas", "user"]} />
             <HighlightedText
                 className={styles.username}
-                query={search}
+                query={query}
                 value={contact.username}
             />
         </button>

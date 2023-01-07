@@ -8,24 +8,24 @@ import NoResultsText from "./NoResultsText";
 
 export interface ConversationsViewProps {
     conversations: IConversation[];
-    search: string;
+    query: string;
     selectedConversation: IConversation;
     onConversationClick: (conversation: IConversation) => void;
 }
 
 export default function ConversationsView({
     conversations,
-    search,
+    query,
     selectedConversation,
     onConversationClick,
 }: ConversationsViewProps) {
     const filteredConversations = useMemo(() => {
-        if (search === "") {
+        if (query === "") {
             return conversations;
         }
 
-        return conversations.filter(filterByRecipients(search));
-    }, [search, conversations]);
+        return conversations.filter(filterByRecipients(query));
+    }, [query, conversations]);
 
     function filterByRecipients(searchTerm: string) {
         return (conversation: IConversation) => {
@@ -46,7 +46,7 @@ export default function ConversationsView({
                 <Conversation
                     key={conversation.id}
                     conversation={conversation}
-                    search={search}
+                    query={query}
                     isSelected={conversation.id === selectedConversation?.id}
                     onClick={onConversationClick}
                 />
