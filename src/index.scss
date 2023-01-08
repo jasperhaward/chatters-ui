@@ -39,24 +39,6 @@ button {
     }
 }
 
-input,
-textarea {
-    width: 100%;
-    border: none;
-    outline: none;
-    background-color: transparent;
-    transition: opacity transition.$duration-short;
-    font-family: inherit;
-
-    &:disabled {
-        opacity: opacity.$disabled-button-opacity;
-    }
-}
-
-b {
-    letter-spacing: 0.1px;
-}
-
 ::-webkit-scrollbar {
     width: 18px;
 }

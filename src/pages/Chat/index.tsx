@@ -330,7 +330,6 @@ export default function Chat({ params }: ChatProps) {
                         name="message"
                         value={inputs.message}
                         disabled={isLoading}
-                        maxHeight={80}
                         onInput={onInput}
                         onMessageSubmit={onMessageSubmit}
                     />

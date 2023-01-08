@@ -11,4 +11,5 @@ export * from "./ScrollableContainer";
 export * from "./Spinner";
 export * from "./SubHeading";
 export * from "./TabbedMenu";
+export * from "./Textarea";
 export * from "./Timestamp";
