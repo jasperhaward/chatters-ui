@@ -1,0 +1,26 @@
+@use "@styling/opacity";
+@use "@styling/transition";
+@use "@styling/padding";
+@use "@styling/colours";
+@use "@styling/fonts";
+
+.input {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    color: colours.$white;
+    background-color: transparent;
+    font-size: fonts.$size-sm;
+    font-family: inherit;
+    transition: opacity transition.$duration-short;
+
+    &:disabled {
+        opacity: opacity.$disabled-button-opacity;
+    }
+
+    &::placeholder {
+        color: colours.$grey;
+    }
+}

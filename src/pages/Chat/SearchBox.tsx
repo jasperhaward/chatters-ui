@@ -1,6 +1,4 @@
-import styles from "./SearchBox.module.scss";
-
-import { IconButton } from "@components";
+import { Input, InputGroup, IconButton, Icon } from "@components";
 
 export interface SearchBoxProps {
     name: string;
@@ -18,8 +16,8 @@ export default function SearchBox({
     onClearClick,
 }: SearchBoxProps) {
     return (
-        <div className={styles.searchBox}>
-            <input
+        <InputGroup>
+            <Input
                 placeholder="Search"
                 autoComplete="off"
                 name={name}
@@ -27,11 +25,11 @@ export default function SearchBox({
                 disabled={disabled}
                 onInput={onInput}
             />
-            <IconButton
-                icon={["fas", value ? "times" : "search"]}
-                disabled={!value}
-                onClick={onClearClick}
-            />
-        </div>
+            {value === "" ? (
+                <Icon icon={["fas", "search"]} />
+            ) : (
+                <IconButton icon={["fas", "times"]} onClick={onClearClick} />
+            )}
+        </InputGroup>
     );
 }

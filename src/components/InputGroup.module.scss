@@ -1,0 +1,12 @@
+@use "@styling/padding";
+@use "@styling/brightness";
+@use "@styling/border";
+
+.inputGroup {
+    display: flex;
+    align-items: center;
+    gap: padding.$md;
+    padding: padding.$md padding.$lg;
+    border-radius: border.$radius-lg;
+    backdrop-filter: brightness.$light;
+}
