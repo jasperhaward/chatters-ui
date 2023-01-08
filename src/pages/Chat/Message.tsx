@@ -52,7 +52,9 @@ export default function Message({
             )}
             <article>
                 <div className={styles.avatar}>
-                    {showAuthor && <Icon icon={["fas", "user"]} />}
+                    {showAuthor && (
+                        <Icon size="lg" color="white" icon={["fas", "user"]} />
+                    )}
                 </div>
                 <div
                     className={styles.content}

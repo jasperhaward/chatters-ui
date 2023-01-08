@@ -53,7 +53,10 @@ export default function Conversation({
             title={formattedRecipients}
             onClick={() => onClick(conversation)}
         >
-            <Icon icon={["fas", isGroupConversation ? "users" : "user"]} />
+            <Icon
+                size="xl"
+                icon={["fas", isGroupConversation ? "users" : "user"]}
+            />
             <div className={styles.details}>
                 <div className={styles.conversationDetails}>
                     <HighlightedText

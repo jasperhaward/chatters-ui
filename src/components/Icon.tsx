@@ -4,14 +4,25 @@ import {
     IconName,
     icon as factory,
 } from "@fortawesome/fontawesome-svg-core";
+import styles from "./Icon.module.scss";
+
+export type IconColor = "green" | "white" | "grey" | "grey-dark" | "grey-xdark";
+
+export type IconSize = "sm" | "md" | "lg" | "xl";
 
 export type IconTuple = [IconPrefix, IconName];
 
 export interface IconProps {
+    size?: IconSize;
+    color?: IconColor;
     icon: IconTuple;
 }
 
-export function Icon({ icon: [prefix, iconName] }: IconProps) {
+export function Icon({
+    size = "md",
+    color = "green",
+    icon: [prefix, iconName],
+}: IconProps) {
     const icon = factory({ prefix, iconName });
 
     if (icon) {
@@ -21,7 +32,12 @@ export function Icon({ icon: [prefix, iconName] }: IconProps) {
             createElement(child.tag, child.attributes)
         );
 
-        return createElement(element.tag, element.attributes, children);
+        const elementProps = {
+            ...element.attributes,
+            class: `${element.attributes.class} ${styles[color]} ${styles[size]}`,
+        };
+
+        return createElement(element.tag, elementProps, children);
     } else {
         throw new Error(`Icon '${iconName}' not in library '${prefix}'.`);
     }

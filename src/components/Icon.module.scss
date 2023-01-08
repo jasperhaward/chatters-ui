@@ -1,0 +1,38 @@
+@use "@styling/colours";
+@use "@styling/fonts";
+
+.sm {
+    font-size: fonts.$size-sm;
+}
+
+.md {
+    font-size: fonts.$size-md;
+}
+
+.lg {
+    font-size: fonts.$size-lg;
+}
+
+.xl {
+    font-size: fonts.$size-xl;
+}
+
+.green {
+    color: colours.$green;
+}
+
+.white {
+    color: colours.$white;
+}
+
+.grey {
+    color: colours.$grey;
+}
+
+.grey-dark {
+    color: colours.$grey-dark;
+}
+
+.grey-xdark {
+    color: colours.$grey-xdark;
+}

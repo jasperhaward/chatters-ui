@@ -1,6 +1,3 @@
-@use "@styling/padding";
-@use "@styling/colours";
-@use "@styling/fonts";
 @use "@styling/opacity";
 @use "@styling/transition";
 
@@ -15,41 +12,5 @@
 
     &:hover svg {
         opacity: opacity.$disabled-button-opacity;
-    }
-
-    // Sizes
-
-    &.sm {
-        font-size: fonts.$size-sm;
-    }
-
-    &.md {
-        font-size: fonts.$size-md;
-    }
-
-    &.lg {
-        font-size: fonts.$size-lg;
-    }
-
-    // Colours
-
-    &.green {
-        color: colours.$green;
-    }
-
-    &.white {
-        color: colours.$white;
-    }
-
-    &.grey {
-        color: colours.$grey;
-    }
-
-    &.grey-dark {
-        color: colours.$grey-dark;
-    }
-
-    &.grey-xdark {
-        color: colours.$grey-xdark;
     }
 }
