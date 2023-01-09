@@ -1,0 +1,22 @@
+@use "@styling/colours";
+@use "@styling/fonts";
+@use "@styling/opacity";
+@use "@styling/transition";
+
+.link {
+    text-decoration: none;
+    font-size: fonts.$size-xs;
+    transition: opacity transition.$duration-short;
+
+    &:hover {
+        opacity: opacity.$disabled-button-opacity;
+    }
+
+    &.green {
+        color: colours.$green;
+    }
+
+    &.white {
+        color: colours.$white;
+    }
+}
