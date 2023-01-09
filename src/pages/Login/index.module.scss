@@ -1,0 +1,25 @@
+@use "@styling/padding";
+@use "@styling/colours";
+@use "@styling/fonts";
+
+.login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+
+    form {
+        width: 300px;
+
+        > * {
+            margin-bottom: padding.$md;
+        }
+
+        .links {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 padding.$lg;
+        }
+    }
+}
