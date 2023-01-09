@@ -8,7 +8,7 @@ export interface SpinnerProps {
 
 export function Spinner({ size = "md", color = "green" }: SpinnerProps) {
     return (
-        <div class={`${styles.spinner} ${styles[size]} ${styles[color]}`}>
+        <div className={`${styles.spinner} ${styles[size]} ${styles[color]}`}>
             <div></div>
             <div></div>
             <div></div>
@@ -22,5 +22,5 @@ export interface SpinnerContainerProps {
 }
 
 export function SpinnerContainer({ children }: SpinnerContainerProps) {
-    return <div class={styles.spinnerContainer}>{children}</div>;
+    return <div className={styles.spinnerContainer}>{children}</div>;
 }

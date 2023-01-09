@@ -7,6 +7,8 @@ export interface SubHeadingProps {
 
 export function SubHeading({ className, children }: SubHeadingProps) {
     return (
-        <h2 class={`${styles.subHeading} ${className || ""} `}>{children}</h2>
+        <h2 className={`${styles.subHeading} ${className || ""} `}>
+            {children}
+        </h2>
     );
 }

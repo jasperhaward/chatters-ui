@@ -6,7 +6,7 @@ export interface DividerProps {
 
 export function Divider({ children }: DividerProps) {
     return (
-        <div class={styles.divider}>
+        <div className={styles.divider}>
             <span>{children}</span>
             <div className={styles.line} />
         </div>

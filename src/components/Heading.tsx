@@ -6,5 +6,7 @@ export interface HeadingProps {
 }
 
 export function Heading({ className, children }: HeadingProps) {
-    return <h1 class={`${styles.heading} ${className || ""} `}>{children}</h1>;
+    return (
+        <h1 className={`${styles.heading} ${className || ""} `}>{children}</h1>
+    );
 }
