@@ -1,4 +1,4 @@
-import { useRef } from "preact/hooks";
+import { createRef } from "preact";
 import styles from "./Textarea.module.scss";
 
 type TextareaElementProps = Omit<
@@ -21,7 +21,7 @@ export function Textarea({
     onInput,
     ...props
 }: TextareaProps) {
-    const textarea = useRef<HTMLTextAreaElement>(null);
+    const textarea = createRef<HTMLTextAreaElement>();
 
     function onInputWithResize(event: JSX.TargetedEvent<HTMLTextAreaElement>) {
         const textareaElement = textarea.current!;

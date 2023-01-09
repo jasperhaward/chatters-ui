@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "preact/hooks";
-import { Fragment } from "preact/jsx-runtime";
+import { Fragment, createRef } from "preact";
+import { useEffect } from "preact/hooks";
 import styles from "./MessagesPane.module.scss";
 import colours from "@styling/_colours.module.scss";
 
@@ -19,7 +19,7 @@ export default function MessagesPane({
 }: MessagesPaneProps) {
     const user = useCurrentUser();
 
-    const ref = useRef<HTMLDivElement>(null);
+    const ref = createRef<HTMLDivElement>();
 
     useEffect(() => {
         if (ref && ref.current) {
