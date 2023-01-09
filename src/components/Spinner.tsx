@@ -3,7 +3,7 @@ import styles from "./Spinner.module.scss";
 
 export interface SpinnerProps {
     size?: "xs" | "sm" | "md" | "lg";
-    color?: "green" | "grey-xdark";
+    color?: "green" | "white" | "grey-xdark";
 }
 
 export function Spinner({ size = "md", color = "green" }: SpinnerProps) {
