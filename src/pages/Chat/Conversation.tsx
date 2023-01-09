@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useRef } from "preact/hooks";
+import { createRef } from "preact";
+import { useEffect, useMemo } from "preact/hooks";
 import styles from "./Conversation.module.scss";
 
-import { Icon, HighlightedText, Timestamp } from "@components";
+import { Button, Icon, HighlightedText, Timestamp } from "@components";
 import { DRAFT_CONVERSATION_ID } from "@constants";
 import { Conversation as IConversation } from "@types";
 
@@ -20,7 +21,7 @@ export default function Conversation({
     isSelected,
     onClick,
 }: ConversationsProps) {
-    const button = useRef<HTMLButtonElement>(null);
+    const button = createRef<HTMLButtonElement>();
 
     const [message] = conversation.messages;
 
@@ -45,7 +46,7 @@ export default function Conversation({
     }, [conversation]);
 
     return (
-        <button
+        <Button
             className={`${styles.conversation} ${
                 isSelected ? styles.selected : ""
             }`}
@@ -87,6 +88,6 @@ export default function Conversation({
                     )}
                 </div>
             </div>
-        </button>
+        </Button>
     );
 }

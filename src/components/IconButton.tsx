@@ -1,5 +1,5 @@
 import styles from "./IconButton.module.scss";
-import { Icon, IconProps } from ".";
+import { Button, Icon, IconProps } from ".";
 
 type ButtonElementProps = Omit<
     JSX.HTMLAttributes<HTMLButtonElement>,
@@ -16,11 +16,11 @@ export function IconButton({
     ...props
 }: IconButtonProps) {
     return (
-        <button
+        <Button
             className={`${styles.iconButton} ${className || ""}`}
             {...props}
         >
             <Icon size={size} color={color} icon={icon} />
-        </button>
+        </Button>
     );
 }

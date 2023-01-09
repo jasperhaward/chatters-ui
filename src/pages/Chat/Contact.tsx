@@ -1,7 +1,7 @@
 import styles from "./Contact.module.scss";
 
 import { User } from "@types";
-import { Icon, HighlightedText } from "@components";
+import { Button, Icon, HighlightedText } from "@components";
 
 export interface ContactProps {
     contact: User;
@@ -17,7 +17,7 @@ export default function Contact({
     onClick,
 }: ContactProps) {
     return (
-        <button
+        <Button
             className={styles.contact}
             disabled={disabled}
             onClick={() => onClick(contact)}
@@ -28,6 +28,6 @@ export default function Contact({
                 query={query}
                 value={contact.username}
             />
-        </button>
+        </Button>
     );
 }

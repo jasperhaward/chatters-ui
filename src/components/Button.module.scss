@@ -1,0 +1,37 @@
+@use "@styling/fonts";
+@use "@styling/colours";
+@use "@styling/opacity";
+@use "@styling/transition";
+@use "@styling/padding";
+@use "@styling/border";
+
+.button {
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    transition: opacity transition.$duration-short;
+    font-family: inherit;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:disabled {
+        pointer-events: none;
+        opacity: opacity.$disabled-button-opacity;
+    }
+
+    &.green {
+        width: 100%;
+        padding: padding.$md;
+        border-radius: border.$radius-lg;
+        color: colours.$white;
+        background-color: colours.$green;
+        font-size: fonts.$size-sm;
+
+        &:hover {
+            opacity: opacity.$disabled-button-opacity;
+        }
+    }
+}

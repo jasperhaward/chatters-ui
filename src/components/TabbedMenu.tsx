@@ -2,6 +2,8 @@ import { ComponentChildren } from "preact";
 import { useMemo } from "preact/hooks";
 import styles from "./TabbedMenu.module.scss";
 
+import { Button } from "@components";
+
 export interface TabbedMenuItemProps<T> {
     value: T;
     disabled?: boolean;
@@ -16,14 +18,14 @@ export function TabbedMenuItem<T extends string>({
     onClick,
 }: TabbedMenuItemProps<T>) {
     return (
-        <button
+        <Button
             className={`${styles.menuItem} ${selected ? styles.selected : ""}`}
             disabled={disabled}
             onClick={() => onClick(value)}
         >
             <div>{value}</div>
             {selected && <div className={styles.indicator} />}
-        </button>
+        </Button>
     );
 }
 
