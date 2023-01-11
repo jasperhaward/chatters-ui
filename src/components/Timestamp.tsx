@@ -1,6 +1,6 @@
 import { useMemo } from "preact/hooks";
 
-export interface ConversationMessageTimestampProps {
+export interface TimestampProps {
     className?: string;
     /** ISO 8061 formatted date string. */
     timestamp: string;
@@ -18,7 +18,7 @@ export function Timestamp({
     timestamp,
     time = true,
     short,
-}: ConversationMessageTimestampProps) {
+}: TimestampProps) {
     const formattedTimestamp = useMemo(() => {
         const date = new Date(timestamp);
 
