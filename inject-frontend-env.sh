@@ -22,6 +22,11 @@ done
 # create SHELL_FORMAT string for all placeholders eg: $VARIABLE_1$VARIABLE_2
 specified_placeholders=$(IFS='$'; echo "\$${variables[*]}")
 
+# create temp config file for envsubst output
+tmp_config="${config}.tmp"
+
 # substitutes ONLY the specified_placeholders' placeholders with environment variables, reducing the 
 # risk of replacing other non-placeholder but similiarly formatted strings with environment variables
-envsubst "$specified_placeholders" < $config | tee $config > /dev/null
+envsubst "$specified_placeholders" < $config > $tmp_config
+
+mv $tmp_config $config
